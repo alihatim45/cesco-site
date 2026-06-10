@@ -16,6 +16,7 @@ import {
   ExtrasIcon,
   CalculatorIcon,
 } from '../components/SolarIcons'
+import FAQ from '../components/FAQ'
 
 const Counter = ({ end, suffix = '' }) => {
   const count = useMotionValue(0)
@@ -52,6 +53,7 @@ const Home = () => {
   const { ref: contactRef, isInView: contactInView } = useScrollAnimation()
   const { ref: galleryRef, isInView: galleryInView } = useScrollAnimation()
   const { ref: ctaRef, isInView: ctaInView } = useScrollAnimation()
+  const { ref: faqRef, isInView: faqInView } = useScrollAnimation()
 
   // Solar project images
   const galleryImages = [
@@ -362,6 +364,27 @@ const Home = () => {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <motion.div
+            ref={faqRef}
+            initial={{ opacity: 0, y: 50 }}
+            animate={faqInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {t('faq.title')}
+            </h2>
+            <p className="text-xl text-gray-600">{t('faq.subtitle')}</p>
+          </motion.div>
+          <div className="max-w-3xl mx-auto">
+            <FAQ />
           </div>
         </div>
       </section>

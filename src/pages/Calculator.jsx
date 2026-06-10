@@ -66,6 +66,9 @@ const COST_PER_KW = {
 const BATTERY_DOD = 0.8 // Depth of Discharge for LFP
 const BATTERY_COST_PER_KWH = 1800 // SAR/kWh (LFP, installed)
 
+// WhatsApp business number — same value as the floating WhatsAppButton component
+const WHATSAPP_PHONE = '966552277824'
+
 /* ── Formulas ─────────────────────────────────────────────────────────── */
 
 const billToKwh = (billSAR, type) => {
@@ -272,6 +275,20 @@ const Calculator = () => {
     setError('')
     setResults(computeResults({ ...form, value: num }))
     setCalcId((id) => id + 1)
+  }
+
+  const handleWhatsAppShare = () => {
+    if (!results) return
+    const establishmentLabel = t(`calculator.inputs.establishmentOptions.${form.establishment}`)
+    const cityLabel = i18n.language === 'ar' ? CITY_PSH[form.city].ar : CITY_PSH[form.city].en
+    const message = t('calculator.results.whatsappMessage')
+      .replace('{establishment}', establishmentLabel)
+      .replace('{city}', cityLabel)
+      .replace('{size}', results.actualKw.toFixed(1))
+      .replace('{panels}', String(results.numPanels))
+      .replace('{savings}', Math.round(results.annualSavings).toLocaleString(locale))
+      .replace('{payback}', results.paybackYears.toFixed(1))
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const fmt = (n, decimals = 0) =>
@@ -636,6 +653,18 @@ const Calculator = () => {
                 <p className="text-sm text-gray-500 text-center leading-relaxed mb-10 max-w-3xl mx-auto">
                   {t('calculator.results.disclaimer')}
                 </p>
+
+                {/* WhatsApp share */}
+                <button
+                  type="button"
+                  onClick={handleWhatsAppShare}
+                  className="w-full flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold text-lg py-4 rounded-2xl shadow-lg transition-colors duration-200 mb-6"
+                >
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52c.149-.174.198-.298.298-.497c.099-.198.05-.371-.025-.52c-.075-.149-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51c-.173-.008-.371-.01-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413c.248-.694.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347zM11.999 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.878-1.42A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.522 2 11.999 2z" />
+                  </svg>
+                  {t('calculator.results.whatsappShare')}
+                </button>
 
                 {/* CTA banner */}
                 <div className="bg-gradient-to-br from-green-primary to-yellow-primary rounded-2xl p-8 md:p-10 text-center">

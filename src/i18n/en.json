@@ -222,6 +222,8 @@
     },
     "results": {
       "title": "Design Results",
+      "whatsappShare": "Share Your Results via WhatsApp",
+      "whatsappMessage": "Hello, I calculated my solar system on CESCO's website:\n• Establishment: {establishment}\n• City: {city}\n• System Size: {size} kW\n• Panels: {panels}\n• Annual Savings: SAR {savings}\n• Payback Period: {payback} years\nPlease contact me for a detailed quote",
       "systemSize": "System Size",
       "panels": "Number of Panels",
       "annualSavings": "Estimated Annual Savings",
@@ -247,6 +249,62 @@
       "m2": "m²",
       "panel": "panels",
       "tonYear": "tons/year"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to the most common questions about solar energy in Saudi Arabia",
+    "items": [
+      {
+        "q": "What is the warranty period for solar panels?",
+        "a": "Solar panels come with a performance warranty of up to 25 years and a 10-12 year product warranty. Inverters carry a 5-10 year warranty depending on the manufacturer."
+      },
+      {
+        "q": "Is solar energy effective in the hot Saudi summer?",
+        "a": "Yes. The panels we supply are designed to withstand the Kingdom's high temperatures. While heat above 25°C slightly reduces efficiency, the long sunshine hours across Saudi Arabia more than compensate, making it an ideal environment for power generation."
+      },
+      {
+        "q": "What is the difference between a grid-tied and a hybrid system?",
+        "a": "A grid-tied system generates power for direct use or sells the surplus to the utility, with no batteries. A hybrid system adds storage batteries to ensure continuity during outages, making it ideal for farms and industrial facilities."
+      },
+      {
+        "q": "How long does system installation take?",
+        "a": "Small residential systems (5-15 kW) take one to two days. Medium commercial and agricultural systems (20-100 kW) take 3 to 7 days. Large projects require a detailed schedule."
+      },
+      {
+        "q": "Does a solar system need official permits?",
+        "a": "Yes. Grid-connected systems require approval from the Saudi Electricity Company (SEC) and the Electricity & Cogeneration Regulatory Authority (ECRA). Our team handles the full licensing process on your behalf."
+      },
+      {
+        "q": "What is Net Metering?",
+        "a": "A scheme through which the Saudi Electricity Company lets consumers sell the surplus power their solar system produces back to the grid, noticeably reducing the monthly electricity bill."
+      },
+      {
+        "q": "Can the system be expanded later?",
+        "a": "Yes. We design systems with future expansion in mind. Panels or batteries can be added later at a lower cost than a full redesign."
+      },
+      {
+        "q": "What is a realistic payback period for a system in Saudi Arabia?",
+        "a": "Agricultural and industrial: 6-10 years. Commercial: 7-12 years. Residential: 12-18 years. These are estimates based on current electricity tariffs and installation costs in the Saudi market."
+      }
+    ]
+  },
+  "siteAssessment": {
+    "trigger": "Free Site Assessment",
+    "title": "Request a Free Site Assessment",
+    "subtitle": "Our engineer will contact you within 24 hours to schedule your visit",
+    "name": "Full Name",
+    "phone": "Phone Number",
+    "city": "City",
+    "sector": "Establishment Type",
+    "submit": "Send Request via WhatsApp",
+    "close": "Close",
+    "whatsappMessage": "Hello, I'd like to request a free site assessment:\n• Name: {name}\n• Establishment: {sector}\n• City: {city}\n• Phone: {phone}",
+    "sectorOptions": {
+      "agricultural": "Agricultural",
+      "industrial": "Industrial",
+      "commercial": "Commercial",
+      "residential": "Residential"
     }
   },
   "common": {
