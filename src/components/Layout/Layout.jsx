@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import WhatsAppButton from '../WhatsAppButton'
+import ScrollNav from '../ScrollNav'
 import Breadcrumbs from '../Breadcrumbs'
 
 const Layout = () => {
@@ -29,6 +30,7 @@ const Layout = () => {
       
       <Footer />
       <WhatsAppButton />
+      <ScrollNav />
     </div>
   )
 }
