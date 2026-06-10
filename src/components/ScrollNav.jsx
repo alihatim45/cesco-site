@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 const ScrollNav = () => {
+  const { i18n } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
+  const positionClass = i18n.language === 'ar' ? 'right-5' : 'left-5'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY >= 300)
@@ -30,11 +33,11 @@ const ScrollNav = () => {
     <motion.button
       onClick={handleClick}
       // bottom-24 (96px) clears the WhatsApp button (bottom-6 + h-16 → top edge at 88px) with an 8px gap
-      className="fixed right-5 bottom-24 z-40 w-11 h-11 rounded-full
+      className={`fixed ${positionClass} bottom-24 z-40 w-11 h-11 rounded-full
                  bg-white border-2 border-green-primary shadow-lg
                  flex items-center justify-center
                  text-green-primary hover:bg-green-primary hover:text-white
-                 transition-colors duration-200 cursor-pointer"
+                 transition-colors duration-200 cursor-pointer`}
       initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
