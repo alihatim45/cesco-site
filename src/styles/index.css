@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Cairo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --navbar-height: 80px;
+}
+
+html {
+  font-family: 'Cairo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Cairo', sans-serif;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+}
+
+/* ============================================
+   NAVBAR DIRECTION RULES
+   ============================================ */
+
+/* Nav links spacing using logical properties */
+html[dir="rtl"] nav .nav-link {
+  margin-inline-start: 2rem;
+  text-align: start;
+}
+
+html[dir="ltr"] nav .nav-link {
+  margin-inline-start: 2rem;
+  text-align: start;
+}
+
+/* Navbar indicator gradient - respects direction */
+html[dir="rtl"] nav .navbar-indicator {
+  background: linear-gradient(to left, rgb(48, 168, 75), rgba(48, 168, 75, 0.8));
+}
+
+html[dir="ltr"] nav .navbar-indicator {
+  background: linear-gradient(to right, rgb(48, 168, 75), rgba(48, 168, 75, 0.8));
+}
+
+/* Mobile menu alignment */
+html[dir="rtl"] nav .mobile-menu {
+  text-align: start;
+}
+
+html[dir="ltr"] nav .mobile-menu {
+  text-align: start;
+}
+
+html[dir="rtl"] nav .mobile-menu-item {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+html[dir="ltr"] nav .mobile-menu-item {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+/* ============================================
+   HERO SECTION DIRECTION RULES
+   ============================================ */
+
+/* Hero section - centered layout */
+html[dir="rtl"] .hero-section {
+  direction: rtl;
+}
+
+html[dir="ltr"] .hero-section {
+  direction: ltr;
+}
+
+html[dir="rtl"] .hero-content,
+html[dir="rtl"] .hero-text {
+  text-align: center;
+}
+
+html[dir="ltr"] .hero-content,
+html[dir="ltr"] .hero-text {
+  text-align: center;
+}
+
+/* Hero buttons container - centered, using logical properties for spacing */
+html[dir="rtl"] .hero-buttons {
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+html[dir="ltr"] .hero-buttons {
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+html[dir="rtl"] .hero-buttons > * {
+  text-align: center;
+}
+
+html[dir="ltr"] .hero-buttons > * {
+  text-align: center;
+}
+
+/* ============================================
+   BUTTONS AND CTAs DIRECTION RULES
+   ============================================ */
+
+html[dir="rtl"] .button-group,
+html[dir="rtl"] .cta-buttons {
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .button-group,
+html[dir="ltr"] .cta-buttons {
+  flex-direction: row;
+}
+
+/* Button text alignment */
+html[dir="rtl"] button,
+html[dir="rtl"] .btn {
+  text-align: center;
+}
+
+html[dir="ltr"] button,
+html[dir="ltr"] .btn {
+  text-align: center;
+}
+
+/* ============================================
+   FORM ELEMENTS DIRECTION RULES
+   ============================================ */
+
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+html[dir="ltr"] input,
+html[dir="ltr"] textarea,
+html[dir="ltr"] select {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+/* Form input direction - respects document direction */
+html[dir="rtl"] .form-input {
+  direction: rtl;
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+html[dir="ltr"] .form-input {
+  direction: ltr;
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+/* Email input always LTR */
+html[dir="rtl"] .form-input-email,
+html[dir="ltr"] .form-input-email {
+  direction: ltr;
+  text-align: left;
+}
+
+html[dir="rtl"] label,
+html[dir="rtl"] .form-label {
+  text-align: start;
+}
+
+html[dir="ltr"] label,
+html[dir="ltr"] .form-label {
+  text-align: start;
+}
+
+/* Form groups */
+html[dir="rtl"] .form-group {
+  text-align: start;
+}
+
+html[dir="ltr"] .form-group {
+  text-align: start;
+}
+
+/* Form error messages */
+html[dir="rtl"] .form-error {
+  text-align: start;
+}
+
+html[dir="ltr"] .form-error {
+  text-align: start;
+}
+
+/* ============================================
+   DROPDOWN/SELECT DIRECTION RULES
+   ============================================ */
+
+html[dir="rtl"] .select-container,
+html[dir="rtl"] .dropdown {
+  text-align: start;
+  direction: rtl;
+}
+
+html[dir="ltr"] .select-container,
+html[dir="ltr"] .dropdown {
+  text-align: start;
+  direction: ltr;
+}
+
+html[dir="rtl"] .select-button {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+html[dir="ltr"] .select-button {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+}
+
+html[dir="rtl"] .select-option-content {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+html[dir="ltr"] .select-option-content {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .select-arrow {
+  order: -1;
+  margin-inline-start: 0;
+  margin-inline-end: auto;
+}
+
+html[dir="ltr"] .select-arrow {
+  order: 1;
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+}
+
+html[dir="rtl"] .select-label {
+  inset-inline-start: 16px;
+  text-align: start;
+}
+
+html[dir="ltr"] .select-label {
+  inset-inline-start: 16px;
+  text-align: start;
+}
+
+html[dir="rtl"] .select-option {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+html[dir="ltr"] .select-option {
+  text-align: start;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+html[dir="rtl"] .select-checkmark {
+  order: -1;
+}
+
+html[dir="ltr"] .select-checkmark {
+  order: 1;
+}
+
+/* ============================================
+   FOOTER DIRECTION RULES
+   ============================================ */
+
+html[dir="rtl"] footer {
+  text-align: start;
+}
+
+html[dir="ltr"] footer {
+  text-align: start;
+}
+
+html[dir="rtl"] footer ul {
+  text-align: start;
+}
+
+html[dir="ltr"] footer ul {
+  text-align: start;
+}
+
+/* Footer grid layout using logical properties */
+html[dir="rtl"] footer .footer-grid {
+  direction: rtl;
+}
+
+html[dir="ltr"] footer .footer-grid {
+  direction: ltr;
+}
+
+html[dir="rtl"] footer .footer-section {
+  text-align: start;
+}
+
+html[dir="ltr"] footer .footer-section {
+  text-align: start;
+}
+
+/* ============================================
+   GENERAL TEXT ALIGNMENT
+   ============================================ */
+
+html[dir="rtl"] .text-start {
+  text-align: start;
+}
+
+html[dir="ltr"] .text-start {
+  text-align: start;
+}
+
+html[dir="rtl"] .text-end {
+  text-align: end;
+}
+
+html[dir="ltr"] .text-end {
+  text-align: end;
+}
+
+/* ============================================
+   FLEX DIRECTION HELPERS
+   ============================================ */
+
+html[dir="rtl"] .flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+html[dir="ltr"] .flex-row {
+  flex-direction: row;
+}
+

@@ -1,0 +1,267 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "vision": "Vision",
+    "services": "Services",
+    "products": "Products",
+    "contact": "Contact",
+    "calculator": "Calculator"
+  },
+  "home": {
+    "hero": {
+      "title": "Clean Solar Energy for Homes & Businesses",
+      "subtitle": "We provide innovative and effective renewable energy solutions for clean and sustainable power",
+      "ctaPrimary": "Get a Quote",
+      "ctaSecondary": "Contact Us"
+    },
+    "counters": {
+      "projects": "Projects Completed",
+      "clients": "Clients",
+      "years": "Years of Experience"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "We offer a comprehensive range of specialized services"
+    },
+    "products": {
+      "title": "Our Products",
+      "subtitle": "Best solutions and equipment for solar energy"
+    },
+    "projects": {
+      "title": "Featured Projects",
+      "subtitle": "We are proud of our achievements in renewable energy",
+      "imageCaption": "Solar Power Station Project – Riyadh"
+    },
+    "calculatorCta": {
+      "badge": "100% Free",
+      "title": "Calculate Your Solar System Size Now",
+      "subtitle": "Enter your electricity consumption and get an instant system design with cost and savings estimates",
+      "button": "Calculate for Free",
+      "stat": "Homes & Businesses Calculated",
+      "statSub": "Solar systems designed with our calculator"
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "story": {
+      "title": "Company Overview",
+      "p1": "Pure Environment for Renewable Energy is a leading company in the renewable energy sector, specializing in providing innovative and effective solutions in solar energy. The company was founded with the aim of providing clean and sustainable energy solutions that contribute to environmental protection and cost reduction for its clients.",
+      "p2": "Pure Environment for Renewable Energy is one of the subsidiaries of Tal Holding Group, which has great diversity in its sectors, such as agriculture, commerce, and industry. Through this affiliation with the group, the company is committed to providing high-quality solar energy solutions, benefiting from diverse expertise across various sectors to provide innovative solutions that meet the needs of local, regional, and international markets.",
+      "p3": "Pure Environment for Renewable Energy seeks to facilitate the transition to renewable energy and provide effective solutions for clients across various sectors, including homes and large companies. Thanks to our advanced technologies and specialized team, we ensure the delivery of solar energy systems that achieve high efficiency and economic savings in the long term.",
+      "vision": "Vision: To be pioneers in renewable energy in the region and contribute to the global transition towards the use of clean and sustainable energy.",
+      "mission": "Mission: To provide innovative and effective solutions in renewable energy, focusing on environmental sustainability and energy efficiency with the lowest costs.",
+      "values": "Values",
+      "valuesDesc": "Commitment to quality, sustainability, and innovation in everything we offer"
+    },
+    "info": {
+      "title": "Company Information",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address"
+    }
+  },
+  "vision": {
+    "title": "Our Vision",
+    "subtitle": "Towards a Sustainable Future",
+    "text": "To be pioneers in renewable energy in the region and contribute to the global transition towards the use of clean and sustainable energy. We strive to achieve a better future for future generations by providing innovative energy solutions that contribute to environmental protection and reduce dependence on traditional energy sources."
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "We offer a comprehensive range of specialized services in solar energy",
+    "list": {
+      "1": {
+        "title": "Complete Design & Load Study",
+        "description": "Comprehensive study of loads and how to reduce electricity bills"
+      },
+      "2": {
+        "title": "Solar System Installation",
+        "description": "Installation of solar systems for homes, companies, and major projects"
+      },
+      "3": {
+        "title": "Maintenance & Technical Support",
+        "description": "Maintenance and technical support to ensure optimal performance"
+      },
+      "4": {
+        "title": "Custom Consultations",
+        "description": "Custom consultations and innovative solutions according to client needs"
+      },
+      "5": {
+        "title": "Advanced Storage Systems",
+        "description": "Advanced storage systems to provide energy when needed"
+      },
+      "6": {
+        "title": "Equipment Supply",
+        "description": "Supply of the best equipment and devices to ensure highest efficiency"
+      },
+      "7": {
+        "title": "Feasibility Studies",
+        "description": "Feasibility studies and economic analysis to achieve maximum benefit"
+      }
+    }
+  },
+  "products": {
+    "title": "Our Products",
+    "subtitle": "Best solutions and equipment for solar energy",
+    "featuresTitle": "Key Features",
+    "galleryTitle": "Image Gallery",
+    "solar": {
+      "title": "Solar Panels",
+      "subtitle": "Latest high-efficiency solar panel technologies",
+      "description": "We provide the best types of solar panels from major global companies, which are characterized by high efficiency in converting solar energy into electrical energy. Our solar panels feature a long lifespan and high resistance to various weather conditions.",
+      "features": [
+        "High energy conversion efficiency",
+        "Long lifespan up to 25 years",
+        "Resistance to harsh weather conditions",
+        "Comprehensive warranty from manufacturer",
+        "Compliant with international standards"
+      ]
+    },
+    "inverters": {
+      "title": "Inverters",
+      "subtitle": "High-quality inverters to convert DC to AC",
+      "description": "We provide a wide range of solar inverters that convert DC current from solar panels to AC current for residential and commercial use. Our inverters feature high efficiency and excellent reliability.",
+      "features": [
+        "High conversion efficiency up to 98%",
+        "Advanced overcurrent protection",
+        "Smart performance monitoring",
+        "Easy installation and maintenance",
+        "Compatible with all types of solar panels"
+      ]
+    },
+    "cables": {
+      "title": "Solar Cables",
+      "subtitle": "Specialized cables for solar systems",
+      "description": "High-quality cables specifically designed for solar systems, featuring high resistance to UV rays and high temperatures. Our cables ensure safe and efficient energy transmission.",
+      "features": [
+        "High resistance to UV rays",
+        "Withstand high temperatures",
+        "Excellent moisture insulation",
+        "Compliant with international standards",
+        "Long lifespan"
+      ]
+    },
+    "structures": {
+      "title": "Steel Structures",
+      "subtitle": "Strong and durable structures for solar panel installation",
+      "description": "Engineered metal structures designed to withstand all weather conditions and securely mount solar panels. We use the best types of galvanized iron resistant to rust.",
+      "features": [
+        "Robust engineering design",
+        "Rust and corrosion resistant",
+        "Easy installation",
+        "Compatible with all panel types",
+        "High quality guarantee"
+      ]
+    },
+    "extras": {
+      "title": "Extra Components",
+      "subtitle": "All additional components needed for solar systems",
+      "description": "We provide all additional components needed to complete the solar energy system, including breakers, fuses, meters, and smart monitoring devices.",
+      "features": [
+        "Advanced protection breakers",
+        "Smart meters for consumption monitoring",
+        "Remote monitoring devices",
+        "Overcurrent protection fuses",
+        "High-quality accessories"
+      ]
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We are here to help you achieve your renewable energy goals",
+    "form": {
+      "name": "Full Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "establishment": "Establishment Type",
+      "establishmentOptions": {
+        "agricultural": "Agricultural",
+        "commercial": "Commercial",
+        "industrial": "Industrial"
+      },
+      "message": "Message / Project Details",
+      "submit": "Send",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully!",
+      "error": "An error occurred. Please try again.",
+      "recaptchaError": "Please verify that you are not a robot",
+      "recaptchaRequired": "Please complete the reCAPTCHA verification"
+    },
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address"
+    }
+  },
+  "calculator": {
+    "title": "Solar System Calculator",
+    "subtitle": "Size your solar system using international standards and Saudi electricity tariffs",
+    "inputs": {
+      "title": "Project Details",
+      "establishment": "Establishment Type",
+      "establishmentOptions": {
+        "residential": "Residential",
+        "commercial": "Commercial",
+        "industrial": "Industrial",
+        "agricultural": "Agricultural"
+      },
+      "city": "Region",
+      "inputMode": "Input Method",
+      "byBill": "Monthly Electricity Bill",
+      "byKwh": "Monthly Consumption (kWh)",
+      "billPlaceholder": "Bill amount in SAR",
+      "kwhPlaceholder": "Consumption in kWh",
+      "systemType": "System Type",
+      "gridTied": "Grid-Tied",
+      "hybrid": "Hybrid",
+      "offGrid": "Off-Grid",
+      "backupHours": "Required Backup Hours",
+      "calculate": "Calculate Now",
+      "required": "This field is required"
+    },
+    "results": {
+      "title": "Design Results",
+      "systemSize": "System Size",
+      "panels": "Number of Panels",
+      "annualSavings": "Estimated Annual Savings",
+      "payback": "Payback Period",
+      "co2": "CO₂ Emissions Reduction",
+      "treesEquiv": "Equivalent to planting",
+      "treesUnit": "trees per year",
+      "area": "Required Area",
+      "roi25": "Return on Investment (25 years)",
+      "systemCost": "Estimated System Cost",
+      "batteryCost": "Storage System Cost",
+      "monthlyConsumption": "Monthly Consumption",
+      "annualProduction": "Estimated Annual Production",
+      "inverterSize": "Inverter Size",
+      "breakdown": "Cost Breakdown",
+      "disclaimer": "Estimates based on IEC 62548 · IEC 60364-7-712 · Saudi Electricity Company requirements. Contact our team for a precise technical study.",
+      "ctaTitle": "Ready to install your system?",
+      "ctaButton": "Request an Accurate Quote",
+      "years": "years",
+      "kw": "kW",
+      "kwh": "kWh",
+      "sar": "SAR",
+      "m2": "m²",
+      "panel": "panels",
+      "tonYear": "tons/year"
+    }
+  },
+  "common": {
+    "readMore": "Read More",
+    "getQuote": "Get a Quote",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "viewDetails": "View Details",
+    "quickLinks": "Quick Links",
+    "back": "Back",
+    "loading": "Loading...",
+    "allRightsReserved": "All Rights Reserved",
+    "companyName": "Pure Environment for Renewable Energy",
+    "required": "Required",
+    "invalid": "Invalid"
+  }
+}
+
