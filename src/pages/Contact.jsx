@@ -37,11 +37,11 @@ const Contact = () => {
     recaptchaSiteKey.trim() !== ''
 
   // Establishment type options with icons
-  // Order: Commercial, Industrial, Agricultural (for both Arabic and English)
+  // Order: Agricultural, Industrial, Commercial (CESCO sector priority)
   const establishmentOptions = [
-    { value: 'commercial', label: t('contact.form.establishmentOptions.commercial'), icon: '🏪' },
-    { value: 'industrial', label: t('contact.form.establishmentOptions.industrial'), icon: '🏭' },
     { value: 'agricultural', label: t('contact.form.establishmentOptions.agricultural'), icon: '🌱' },
+    { value: 'industrial', label: t('contact.form.establishmentOptions.industrial'), icon: '🏭' },
+    { value: 'commercial', label: t('contact.form.establishmentOptions.commercial'), icon: '🏪' },
   ]
 
   const handleChange = (e) => {

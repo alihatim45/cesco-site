@@ -10,8 +10,8 @@
   },
   "home": {
     "hero": {
-      "title": "Clean Solar Energy for Homes & Businesses",
-      "subtitle": "We provide innovative and effective renewable energy solutions for clean and sustainable power",
+      "title": "Solar Energy Solutions for Agricultural, Industrial & Commercial Sectors",
+      "subtitle": "We serve farms, factories, businesses and homes with reliable solar systems that cut costs and deliver lasting sustainability",
       "ctaPrimary": "Get a Quote",
       "ctaSecondary": "Contact Us"
     },
@@ -76,7 +76,7 @@
       },
       "2": {
         "title": "Solar System Installation",
-        "description": "Installation of solar systems for homes, companies, and major projects"
+        "description": "Installation of solar systems for farms, factories, businesses and homes"
       },
       "3": {
         "title": "Maintenance & Technical Support",
@@ -176,8 +176,8 @@
       "establishment": "Establishment Type",
       "establishmentOptions": {
         "agricultural": "Agricultural",
-        "commercial": "Commercial",
-        "industrial": "Industrial"
+        "industrial": "Industrial",
+        "commercial": "Commercial"
       },
       "message": "Message / Project Details",
       "submit": "Send",
@@ -201,10 +201,10 @@
       "title": "Project Details",
       "establishment": "Establishment Type",
       "establishmentOptions": {
-        "residential": "Residential",
-        "commercial": "Commercial",
+        "agricultural": "Agricultural",
         "industrial": "Industrial",
-        "agricultural": "Agricultural"
+        "commercial": "Commercial",
+        "residential": "Residential"
       },
       "city": "Region",
       "inputMode": "Input Method",

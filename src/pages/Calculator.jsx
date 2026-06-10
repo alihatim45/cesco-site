@@ -226,7 +226,7 @@ const Calculator = () => {
   const { ref: formRef, isInView: formInView } = useScrollAnimation()
 
   const [form, setForm] = useState({
-    establishment: 'residential',
+    establishment: 'agricultural',
     city: 'riyadh',
     inputMode: 'bill',
     bill: '',
@@ -247,10 +247,10 @@ const Calculator = () => {
   }
 
   const establishmentOptions = [
-    { value: 'residential', label: t('calculator.inputs.establishmentOptions.residential'), icon: '🏠' },
-    { value: 'commercial', label: t('calculator.inputs.establishmentOptions.commercial'), icon: '🏪' },
-    { value: 'industrial', label: t('calculator.inputs.establishmentOptions.industrial'), icon: '🏭' },
     { value: 'agricultural', label: t('calculator.inputs.establishmentOptions.agricultural'), icon: '🌱' },
+    { value: 'industrial', label: t('calculator.inputs.establishmentOptions.industrial'), icon: '🏭' },
+    { value: 'commercial', label: t('calculator.inputs.establishmentOptions.commercial'), icon: '🏪' },
+    { value: 'residential', label: t('calculator.inputs.establishmentOptions.residential'), icon: '🏠' },
   ]
 
   const cityOptions = Object.entries(CITY_PSH).map(([key, c]) => ({
