@@ -1,0 +1,139 @@
+{
+  "note": "Reversible asset mapping. Originals RETAINED in new-edit/. Reverse = delete the 'to' files.",
+  "copied": [
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.11.jpeg",
+      "to": "public/images/ja-solar-720w.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.12 (1).jpeg",
+      "to": "public/images/ja-solar-635w.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.13.jpeg",
+      "to": "public/images/aiko-comet-620w.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.15.jpeg",
+      "to": "public/images/jinko-bifacial-720w.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.16.jpeg",
+      "to": "public/images/jinko-monofacial-635w.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.26.jpeg",
+      "to": "public/images/veichi-vfd.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.27.jpeg",
+      "to": "public/images/invt-vfd-pump.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.28.jpeg",
+      "to": "public/images/frecon-vfd.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.29.jpeg",
+      "to": "public/images/huawei-inverter.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.31.jpeg",
+      "to": "public/images/goodwe-inverter.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.32.jpeg",
+      "to": "public/images/growatt-hybrid.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.33.jpeg",
+      "to": "public/images/deye-hybrid.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.35.jpeg",
+      "to": "public/images/suntree-dc-fuse.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.36.jpeg",
+      "to": "public/images/dc-isolator-range.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.37.jpeg",
+      "to": "public/images/dc-isolator-switch.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.38.jpeg",
+      "to": "public/images/mc4-connectors.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.41.jpeg",
+      "to": "public/images/dc-cable-red-black.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.42.jpeg",
+      "to": "public/images/suntree-dc-breaker.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.44.jpeg",
+      "to": "public/images/suntree-dc-spd.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.47.jpeg",
+      "to": "public/images/suntree-dc-mccb.jpeg"
+    },
+    {
+      "from": "new-edit/WhatsApp Image 2026-06-30 at 12.45.48.jpeg",
+      "to": "public/images/dc-isolator-2p.jpeg"
+    },
+    {
+      "from": "new-edit/JKM710-735N-66HL5-BDV-Z3-EU (3).pdf",
+      "to": "public/datasheets/jinko-tiger-neo-66hl5-bdv-720w.pdf"
+    },
+    {
+      "from": "new-edit/207290642265d1b4da9e838.pdf",
+      "to": "public/datasheets/jinko-tiger-neo-78hl4-635w.pdf"
+    },
+    {
+      "from": "new-edit/3cda8de1d557aad.pdf",
+      "to": "public/datasheets/ja-solar-jam66d46-720w.pdf"
+    }
+  ],
+  "excluded": [
+    {
+      "file": "new-edit/WhatsApp Image 2026-06-30 at 12.45.49.jpeg",
+      "reason": "handwritten formula note (excluded per spec)"
+    },
+    {
+      "file": "new-edit/WhatsApp Image 2026-06-30 at 12.45.12.jpeg",
+      "reason": "duplicate of JA Solar 720W (12.45.11)"
+    },
+    {
+      "file": "new-edit/WhatsApp Image 2026-06-30 at 12.45.39.jpeg",
+      "reason": "duplicate Suntree fuse holder (12.45.35)"
+    },
+    {
+      "file": "new-edit/WhatsApp Image 2026-06-30 at 12.45.43.jpeg",
+      "reason": "duplicate DC SPD (12.45.44)"
+    },
+    {
+      "file": "new-edit/WhatsApp Image 2026-06-30 at 12.45.45.jpeg",
+      "reason": "duplicate DC breaker (12.45.42)"
+    },
+    {
+      "file": "new-edit/WhatsApp Image 2026-06-30 at 12.45.46.jpeg",
+      "reason": "duplicate Suntree fuse holder (12.45.35)"
+    },
+    {
+      "file": "new-edit/download (10).jfif.jpeg",
+      "reason": "duplicate of Veichi VFD (12.45.26)"
+    },
+    {
+      "file": "new-edit/download (11).jfif.jpeg",
+      "reason": "duplicate of Frecon VFD (12.45.28)"
+    },
+    {
+      "file": "new-edit/images (12).jfif.jpeg",
+      "reason": "alternate INVT VFD shot (kept 12.45.27)"
+    }
+  ]
+}

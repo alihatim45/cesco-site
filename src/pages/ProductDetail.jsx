@@ -1,8 +1,99 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { ROUTES } from '../utils/constants'
+
+/* Brand logo with text-badge fallback (legible AR/EN, brand colors) */
+const BrandLogo = ({ name, logo }) => {
+  const [broken, setBroken] = useState(false)
+  if (logo && !broken) {
+    return (
+      <img
+        src={logo}
+        alt={name}
+        onError={() => setBroken(true)}
+        className="h-9 w-auto object-contain"
+      />
+    )
+  }
+  return (
+    <span
+      dir="auto"
+      className="inline-flex items-center px-3 py-1.5 rounded-lg bg-green-primary text-white font-bold text-sm border-2 border-yellow-primary"
+    >
+      {name}
+    </span>
+  )
+}
+
+/* Branded product card: photo (optional) + logo/badge + blurb + datasheet links */
+const BrandCard = ({ brand, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4, delay: index * 0.08 }}
+    className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 p-6 flex flex-col"
+  >
+    {brand.image && (
+      <div className="h-44 mb-5 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center">
+        <img src={brand.image} alt={brand.name} className="w-full h-full object-contain" />
+      </div>
+    )}
+    <div className="mb-3">
+      <BrandLogo name={brand.name} logo={brand.logo} />
+    </div>
+    <p className="text-gray-700 leading-relaxed mb-5 flex-1 rtl:text-right ltr:text-left">
+      {brand.blurb}
+    </p>
+    {Array.isArray(brand.datasheets) && brand.datasheets.length > 0 && (
+      <div className="space-y-2 mt-auto">
+        {brand.datasheets.map((ds) => (
+          <a
+            key={ds.file}
+            href={ds.file}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 bg-green-primary text-white rounded-lg font-semibold hover:bg-green-primary/90 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            {ds.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </motion.div>
+)
+
+/* Unbranded item card: photo (or text placeholder when none) + name + desc */
+const ItemCard = ({ item, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4, delay: index * 0.08 }}
+    className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 p-6 text-center flex flex-col"
+  >
+    {item.image ? (
+      <div className="h-40 mb-4 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center">
+        <img src={item.image} alt={item.name} className="w-full h-full object-contain" />
+      </div>
+    ) : (
+      <div className="h-40 mb-4 rounded-xl bg-green-primary/5 flex items-center justify-center px-4">
+        <span className="text-green-primary font-bold text-lg">{item.name}</span>
+      </div>
+    )}
+    <h4 className="text-lg font-bold text-gray-900 mb-2">{item.name}</h4>
+    {item.desc && (
+      <p className="text-gray-600 text-sm leading-relaxed rtl:text-right ltr:text-left">{item.desc}</p>
+    )}
+  </motion.div>
+)
 
 const ProductDetail = ({ productKey }) => {
   const { t } = useTranslation()
@@ -21,6 +112,15 @@ const ProductDetail = ({ productKey }) => {
   }
 
   const transKey = productMap[productKey] || 'solar'
+
+  const { ref: brandsRef, isInView: brandsInView } = useScrollAnimation()
+
+  // Optional brands / subsections (backward-compatible: absent -> not rendered)
+  const rawBrands = t(`products.${transKey}.brands`, { returnObjects: true })
+  const rawSubsections = t(`products.${transKey}.subsections`, { returnObjects: true })
+  const brandList = Array.isArray(rawBrands) ? rawBrands : []
+  const subsectionList = Array.isArray(rawSubsections) ? rawSubsections : []
+  const hasBrandsOrSubsections = brandList.length > 0 || subsectionList.length > 0
 
   // Get product images for gallery
   const galleryImages = [
@@ -112,7 +212,56 @@ const ProductDetail = ({ productKey }) => {
         </div>
       </section>
 
-      {/* Image Gallery */}
+      {/* Brands & Subsections (rendered only when present) */}
+      {hasBrandsOrSubsections && (
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4 md:px-6 lg:px-8">
+            <motion.div
+              ref={brandsRef}
+              initial={{ opacity: 0, y: 30 }}
+              animate={brandsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="max-w-6xl mx-auto"
+            >
+              {brandList.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-4">
+                  {brandList.map((brand, i) => (
+                    <BrandCard key={brand.name} brand={brand} index={i} />
+                  ))}
+                </div>
+              )}
+
+              {subsectionList.map((sub) => (
+                <div key={sub.title} className="mb-16">
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center">
+                    {sub.title}
+                  </h2>
+                  {sub.blurb && (
+                    <p className="text-gray-600 text-center max-w-3xl mx-auto mb-8">{sub.blurb}</p>
+                  )}
+                  {Array.isArray(sub.brands) && sub.brands.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {sub.brands.map((brand, i) => (
+                        <BrandCard key={brand.name} brand={brand} index={i} />
+                      ))}
+                    </div>
+                  )}
+                  {Array.isArray(sub.items) && sub.items.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {sub.items.map((item, i) => (
+                        <ItemCard key={item.name} item={item} index={i} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Image Gallery (generic; hidden for branded categories) */}
+      {!hasBrandsOrSubsections && (
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
@@ -146,6 +295,7 @@ const ProductDetail = ({ productKey }) => {
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-green-primary to-yellow-primary">
