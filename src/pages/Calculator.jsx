@@ -14,55 +14,43 @@ import ModernSelect from '../components/ModernSelect'
 import { CalculatorIcon } from '../components/SolarIcons'
 
 /* ──────────────────────────────────────────────────────────────────────
-   SOLAR DATA CONSTANTS — calibrated for Saudi Arabia
-   Sources: NASA POWER / PVGIS (PSH), SEC tariffs & net-metering,
-   IEC 62548 / IEC 60364-7-712 / IEC 62446 (system design), IEC 62619 (LFP)
+   SOLAR DATA CONSTANTS — client official simplified sizing model
+   Core sizing/savings use the client formula (implemented literally).
+   Secondary constants (cost, CO2, area, battery) drive the downstream
+   metrics, recomputed from the resulting system size.
    ────────────────────────────────────────────────────────────────────── */
 
-// Peak Sun Hours (PSH) per Saudi city
-const CITY_PSH = {
-  riyadh: { ar: 'الرياض', en: 'Riyadh', psh: 6.0 },
-  jeddah: { ar: 'جدة', en: 'Jeddah', psh: 5.5 },
-  mecca: { ar: 'مكة المكرمة', en: 'Mecca', psh: 5.8 },
-  medina: { ar: 'المدينة المنورة', en: 'Medina', psh: 5.7 },
-  dammam: { ar: 'الدمام', en: 'Dammam', psh: 5.3 },
-  abha: { ar: 'أبها', en: 'Abha', psh: 6.2 },
-  tabuk: { ar: 'تبوك', en: 'Tabuk', psh: 6.5 },
-  hail: { ar: 'حائل', en: 'Hail', psh: 6.3 },
-  najran: { ar: 'نجران', en: 'Najran', psh: 6.4 },
-  jizan: { ar: 'جازان', en: 'Jizan', psh: 5.4 },
+// Saudi cities — labels only (UX / lead capture; no effect on the result)
+const CITIES = {
+  riyadh: { ar: 'الرياض', en: 'Riyadh' },
+  jeddah: { ar: 'جدة', en: 'Jeddah' },
+  mecca: { ar: 'مكة المكرمة', en: 'Mecca' },
+  medina: { ar: 'المدينة المنورة', en: 'Medina' },
+  dammam: { ar: 'الدمام', en: 'Dammam' },
+  abha: { ar: 'أبها', en: 'Abha' },
+  tabuk: { ar: 'تبوك', en: 'Tabuk' },
+  hail: { ar: 'حائل', en: 'Hail' },
+  najran: { ar: 'نجران', en: 'Najran' },
+  jizan: { ar: 'جازان', en: 'Jizan' },
 }
 
-// SEC electricity tariffs (SAR/kWh)
-const TARIFF = {
-  residential: {
-    tier1Rate: 0.18, // <= 6000 kWh/month — effective rate (nominal 0.05 + VAT 15% + distribution/network fees)
-    tier2Rate: 0.3, // > 6000 kWh/month
-    threshold: 6000,
-  },
-  commercial: 0.32,
-  industrial: 0.28,
-  agricultural: 0.08,
-}
+// Core formula constants — official engineering sizing model (implement literally)
+const TARIFF_SAR_PER_KWH = 0.22 // flat electricity price for bill↔kWh and savings
+const DAYS_PER_MONTH = 30
+const LOSS_MARGIN = 1.15 // loss margin applied to daily consumption
+const PEAK_SUN_HOURS = 6 // KSA design peak sun hours (sizing ÷ and production ×)
+const INVERTER_MARGIN = 1.15 // inverter oversized over station kW
+const PANEL_WATTAGE_W = 550
 
-// System constants (IEC 62548 / field data for Saudi conditions)
-const SYSTEM_EFFICIENCY = 0.8 // inverter + wiring losses
-const TEMP_DERATING = 0.85 // Saudi high-temp correction (~15% loss)
-const PERFORMANCE_RATIO = 0.75 // PR (IEC 62446 recommended minimum)
-const PANEL_WATTAGE_W = 550 // Standard modern monocrystalline panel
+// Production constants — annual yield only, NOT part of the sizing formula
+const SYSTEM_EFFICIENCY = 0.8
+const DAYS_PER_YEAR = 365
+
+// Secondary constants for downstream metrics
+const COST_PER_KW_FLAT = 4500 // flat installed cost, SAR/kW
 const PANEL_AREA_M2 = 2.2 // m2 per 550W panel
 const CO2_KG_PER_KWH = 0.72 // Saudi national grid emission factor
 const TREES_PER_TON_CO2 = 45 // ~45 trees absorb 1 ton CO2/year
-
-// Installed cost per kW (SAR)
-const COST_PER_KW = {
-  residential: 4500,
-  commercial: 4000,
-  industrial: 3500,
-  agricultural: 5000,
-}
-
-// Battery sizing for hybrid/off-grid (LFP — IEC 62619)
 const BATTERY_DOD = 0.8 // Depth of Discharge for LFP
 const BATTERY_COST_PER_KWH = 1800 // SAR/kWh (LFP, installed)
 
@@ -71,43 +59,21 @@ const WHATSAPP_PHONE = '966552277824'
 
 /* ── Formulas ─────────────────────────────────────────────────────────── */
 
-const billToKwh = (billSAR, type) => {
-  if (type === 'residential') {
-    const { tier1Rate, tier2Rate, threshold } = TARIFF.residential
-    const tier1MaxBill = threshold * tier1Rate // bill (SAR) that fully consumes the tier-1 band
-    if (billSAR <= tier1MaxBill) return billSAR / tier1Rate
-    return threshold + (billSAR - tier1MaxBill) / tier2Rate
-  }
-  return billSAR / TARIFF[type]
-}
+const computeResults = ({ systemType, backupHours, inputMode, value }) => {
+  const monthlyBillSAR = inputMode === 'bill' ? value : value * TARIFF_SAR_PER_KWH
 
-const calcAnnualSavings = (annualKwh, type) => {
-  if (type === 'residential') {
-    const monthlyProd = annualKwh / 12
-    if (monthlyProd <= TARIFF.residential.threshold) return annualKwh * TARIFF.residential.tier1Rate
-    const tier1Annual = TARIFF.residential.threshold * 12 * TARIFF.residential.tier1Rate
-    const tier2Annual =
-      (annualKwh - TARIFF.residential.threshold * 12) * TARIFF.residential.tier2Rate
-    return tier1Annual + tier2Annual
-  }
-  return annualKwh * TARIFF[type]
-}
+  // Official engineering sizing (on-grid, bill-based) — implemented literally.
+  // Verified: bill 574 → 16.67 kW station, 19.17 kW inverter.
+  const monthlyKwh = monthlyBillSAR / TARIFF_SAR_PER_KWH
+  const dailyKwh = monthlyKwh / DAYS_PER_MONTH
+  const stationKw = (dailyKwh * LOSS_MARGIN) / PEAK_SUN_HOURS
+  const inverterKw = stationKw * INVERTER_MARGIN
+  const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
 
-const computeResults = ({ establishment, city, systemType, backupHours, inputMode, value }) => {
-  const psh = CITY_PSH[city].psh
-  const monthlyKwh = inputMode === 'bill' ? billToKwh(value, establishment) : value
-  const dailyKwh = monthlyKwh / 30
-
-  const systemKw = dailyKwh / (psh * SYSTEM_EFFICIENCY * TEMP_DERATING)
-  const numPanels = Math.max(1, Math.ceil((systemKw * 1000) / PANEL_WATTAGE_W))
-  const actualKw = (numPanels * PANEL_WATTAGE_W) / 1000
-  const inverterKw = Math.ceil(actualKw * 1.1 * 2) / 2
-
-  const annualKwh = actualKw * psh * 365 * PERFORMANCE_RATIO
-  const annualSavings = calcAnnualSavings(annualKwh, establishment)
-  const systemCostSAR = actualKw * COST_PER_KW[establishment]
-  const paybackYears = annualSavings > 0 ? systemCostSAR / annualSavings : 0
-  const roi25 = systemCostSAR > 0 ? ((annualSavings * 25 - systemCostSAR) / systemCostSAR) * 100 : 0
+  // Downstream marketing metrics — recomputed from the official station size
+  const annualKwh = stationKw * SYSTEM_EFFICIENCY * PEAK_SUN_HOURS * DAYS_PER_YEAR
+  const annualSavings = annualKwh * TARIFF_SAR_PER_KWH
+  const systemCostSAR = stationKw * COST_PER_KW_FLAT
 
   const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
   const treesEquiv = Math.round(co2TonYear * TREES_PER_TON_CO2)
@@ -119,14 +85,12 @@ const computeResults = ({ establishment, city, systemType, backupHours, inputMod
 
   return {
     monthlyKwh,
-    actualKw,
+    actualKw: stationKw,
     numPanels,
     inverterKw,
     annualKwh,
     annualSavings,
     systemCostSAR,
-    paybackYears,
-    roi25,
     co2TonYear,
     treesEquiv,
     areaM2,
@@ -229,7 +193,6 @@ const Calculator = () => {
   const { ref: formRef, isInView: formInView } = useScrollAnimation()
 
   const [form, setForm] = useState({
-    establishment: 'agricultural',
     city: 'riyadh',
     inputMode: 'bill',
     bill: '',
@@ -249,14 +212,7 @@ const Calculator = () => {
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  const establishmentOptions = [
-    { value: 'agricultural', label: t('calculator.inputs.establishmentOptions.agricultural'), icon: '🌱' },
-    { value: 'industrial', label: t('calculator.inputs.establishmentOptions.industrial'), icon: '🏭' },
-    { value: 'commercial', label: t('calculator.inputs.establishmentOptions.commercial'), icon: '🏪' },
-    { value: 'residential', label: t('calculator.inputs.establishmentOptions.residential'), icon: '🏠' },
-  ]
-
-  const cityOptions = Object.entries(CITY_PSH).map(([key, c]) => ({
+  const cityOptions = Object.entries(CITIES).map(([key, c]) => ({
     value: key,
     label: i18n.language === 'ar' ? c.ar : c.en,
     icon: '📍',
@@ -279,15 +235,12 @@ const Calculator = () => {
 
   const handleWhatsAppShare = () => {
     if (!results) return
-    const establishmentLabel = t(`calculator.inputs.establishmentOptions.${form.establishment}`)
-    const cityLabel = i18n.language === 'ar' ? CITY_PSH[form.city].ar : CITY_PSH[form.city].en
+    const cityLabel = i18n.language === 'ar' ? CITIES[form.city].ar : CITIES[form.city].en
     const message = t('calculator.results.whatsappMessage')
-      .replace('{establishment}', establishmentLabel)
       .replace('{city}', cityLabel)
       .replace('{size}', results.actualKw.toFixed(1))
       .replace('{panels}', String(results.numPanels))
       .replace('{savings}', Math.round(results.annualSavings).toLocaleString(locale))
-      .replace('{payback}', results.paybackYears.toFixed(1))
     window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
@@ -344,20 +297,6 @@ const Calculator = () => {
             </h2>
 
             <div className="space-y-6">
-              {/* Establishment type */}
-              <div className="form-group">
-                <label className="form-label block text-gray-700 font-semibold mb-2">
-                  {t('calculator.inputs.establishment')}
-                </label>
-                <ModernSelect
-                  name="establishment"
-                  label={t('calculator.inputs.establishment')}
-                  value={form.establishment}
-                  onChange={handleSelect}
-                  options={establishmentOptions}
-                />
-              </div>
-
               {/* Region */}
               <div className="form-group">
                 <label className="form-label block text-gray-700 font-semibold mb-2">
@@ -494,7 +433,7 @@ const Calculator = () => {
                 </h2>
 
                 {/* Primary metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                   <PrimaryCard
                     icon="bolt"
                     label={t('calculator.results.systemSize')}
@@ -522,19 +461,10 @@ const Calculator = () => {
                     locale={locale}
                     delay={0.15}
                   />
-                  <PrimaryCard
-                    icon="payback"
-                    label={t('calculator.results.payback')}
-                    value={results.paybackYears}
-                    decimals={1}
-                    unit={t('calculator.results.years')}
-                    locale={locale}
-                    delay={0.2}
-                  />
                 </div>
 
                 {/* Secondary metrics */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <SecondaryCard
                     icon="eco"
                     label={t('calculator.results.co2')}
@@ -555,15 +485,6 @@ const Calculator = () => {
                     unit={t('calculator.results.m2')}
                     locale={locale}
                     delay={0.3}
-                  />
-                  <SecondaryCard
-                    icon="chart"
-                    label={t('calculator.results.roi25')}
-                    value={results.roi25}
-                    decimals={0}
-                    unit="%"
-                    locale={locale}
-                    delay={0.35}
                   />
                 </div>
 
@@ -667,13 +588,13 @@ const Calculator = () => {
                 </button>
 
                 {/* CTA banner */}
-                <div className="bg-gradient-to-br from-green-primary to-yellow-primary rounded-2xl p-8 md:p-10 text-center">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                <div className="bg-white border-t-4 border-green-primary rounded-2xl shadow-lg p-8 md:p-10 text-center">
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
                     {t('calculator.results.ctaTitle')}
                   </h3>
                   <Link
                     to={ROUTES.contact}
-                    className="inline-block px-8 py-4 bg-white text-green-primary rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="inline-block px-8 py-4 bg-green-primary text-white rounded-lg font-semibold text-lg hover:bg-green-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     {t('calculator.results.ctaButton')}
                   </Link>

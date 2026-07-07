@@ -18,7 +18,7 @@ import {
 } from '../components/SolarIcons'
 import FAQ from '../components/FAQ'
 
-const Counter = ({ end, suffix = '' }) => {
+const Counter = ({ end, suffix = '', className = 'text-white' }) => {
   const count = useMotionValue(0)
   const rounded = useSpring(count, { damping: 50, stiffness: 100 })
   const [displayValue, setDisplayValue] = useState(0)
@@ -37,7 +37,7 @@ const Counter = ({ end, suffix = '' }) => {
 
   return (
     <motion.div ref={ref} className="text-center">
-      <motion.div className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2">
+      <motion.div className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-2 ${className}`}>
         {displayValue}
         {suffix}
       </motion.div>
@@ -124,20 +124,20 @@ const Home = () => {
       </section>
 
       {/* Counters Section */}
-      <section className="py-16 bg-gradient-to-r from-green-primary to-yellow-primary">
+      <section className="py-16 bg-gray-50 border-t-4 border-green-primary">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <Counter end={50} suffix="+" />
-              <p className="text-xl text-white mt-2 text-center">{t('home.counters.projects')}</p>
+              <Counter end={50} suffix="+" className="text-gray-900" />
+              <p className="text-xl text-gray-700 mt-2 text-center">{t('home.counters.projects')}</p>
             </div>
             <div>
-              <Counter end={200} suffix="+" />
-              <p className="text-xl text-white mt-2 text-center">{t('home.counters.clients')}</p>
+              <Counter end={200} suffix="+" className="text-gray-900" />
+              <p className="text-xl text-gray-700 mt-2 text-center">{t('home.counters.clients')}</p>
             </div>
             <div>
-              <Counter end={10} suffix="+" />
-              <p className="text-xl text-white mt-2 text-center">{t('home.counters.years')}</p>
+              <Counter end={10} suffix="+" className="text-gray-900" />
+              <p className="text-xl text-gray-700 mt-2 text-center">{t('home.counters.years')}</p>
             </div>
           </div>
         </div>
@@ -390,24 +390,24 @@ const Home = () => {
       </section>
 
       {/* Contact Preview */}
-      <section className="py-20 bg-gradient-to-br from-green-primary to-yellow-primary">
+      <section className="py-20 bg-gray-50 border-t-4 border-green-primary">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             ref={contactRef}
             initial={{ opacity: 0, y: 50 }}
             animate={contactInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center text-white"
+            className="text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('contact.title')}
             </h2>
-            <p className="text-xl mb-8 opacity-90">
+            <p className="text-xl text-gray-600 mb-8">
               {t('contact.subtitle')}
             </p>
             <Link
               to={ROUTES.contact}
-              className="inline-block px-8 py-4 bg-white text-green-primary rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="inline-block px-8 py-4 bg-green-primary text-white rounded-lg font-semibold text-lg hover:bg-green-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               {t('common.contactUs')}
             </Link>

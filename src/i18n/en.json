@@ -115,6 +115,33 @@
         "Resistance to harsh weather conditions",
         "Comprehensive warranty from manufacturer",
         "Compliant with international standards"
+      ],
+      "brands": [
+        {
+          "name": "Jinko Solar",
+          "blurb": "Jinko Solar — one of the world's largest module makers. N-type Tiger Neo bifacial & monofacial panels with high efficiency and up to a 30-year performance warranty.",
+          "logo": "/images/brands/jinko.png",
+          "image": "/images/jinko-bifacial-720w.jpeg",
+          "datasheets": [
+            { "label": "Datasheet — Bifacial 720W", "file": "/datasheets/jinko-tiger-neo-66hl5-bdv-720w.pdf" },
+            { "label": "Datasheet — Monofacial 635W", "file": "/datasheets/jinko-tiger-neo-78hl4-635w.pdf" }
+          ]
+        },
+        {
+          "name": "JA Solar",
+          "blurb": "JA Solar — DeepBlue 4.0 N-type modules with Bycium cells, high efficiency and strong performance in low light and high heat.",
+          "logo": "/images/brands/ja-solar.png",
+          "image": "/images/ja-solar-720w.jpeg",
+          "datasheets": [
+            { "label": "Download datasheet", "file": "/datasheets/ja-solar-jam66d46-720w.pdf" }
+          ]
+        },
+        {
+          "name": "AIKO",
+          "blurb": "AIKO — All-Back-Contact (ABC) Comet series up to 24% efficiency with a sleek, grid-line-free front.",
+          "logo": "/images/brands/aiko.png",
+          "image": "/images/aiko-comet-620w.jpeg"
+        }
       ]
     },
     "inverters": {
@@ -127,6 +154,34 @@
         "Smart performance monitoring",
         "Easy installation and maintenance",
         "Compatible with all types of solar panels"
+      ],
+      "subsections": [
+        {
+          "title": "Water-Pump VFDs — Agricultural Applications",
+          "blurb": "Variable-frequency drives that run solar water pumps directly from PV with no batteries — ideal for wells and irrigation.",
+          "brands": [
+            { "name": "Frecon", "blurb": "Frecon — solar water-pump VFDs with reliable operation and high efficiency for wells and irrigation.", "logo": "/images/brands/frecon.png", "image": "/images/frecon-vfd.jpeg" },
+            { "name": "Veichi", "blurb": "Veichi — solar pump drives with built-in MPPT tracking and comprehensive pump protection.", "logo": "/images/brands/veichi.png", "image": "/images/veichi-vfd.jpeg" },
+            { "name": "INVT", "blurb": "INVT — solar pump inverters across a wide power range, suited to small and large irrigation projects.", "logo": "/images/brands/invt.png", "image": "/images/invt-vfd-pump.jpeg" }
+          ]
+        },
+        {
+          "title": "On-Grid Inverters",
+          "blurb": "Grid-tied inverters that power your loads and export surplus to the grid.",
+          "brands": [
+            { "name": "Huawei", "blurb": "Huawei — smart FusionSolar inverters with high efficiency, advanced monitoring and excellent reliability.", "logo": "/images/brands/huawei.png", "image": "/images/huawei-inverter.jpeg" },
+            { "name": "GoodWe", "blurb": "GoodWe — reliable grid-tied inverters spanning residential to commercial power ranges.", "logo": "/images/brands/goodwe.png", "image": "/images/goodwe-inverter.jpeg" },
+            { "name": "Solis", "blurb": "Solis — one of the most established inverter makers, with efficient and cost-effective grid-tied solutions.", "logo": "/images/brands/solis.png" }
+          ]
+        },
+        {
+          "title": "Off-Grid & Hybrid Inverters",
+          "blurb": "Hybrid and off-grid inverters with battery support for operation during outages.",
+          "brands": [
+            { "name": "Growatt", "blurb": "Growatt — high-performance hybrid and off-grid inverters with flexible storage support.", "logo": "/images/brands/growatt.png", "image": "/images/growatt-hybrid.jpeg" },
+            { "name": "Deye", "blurb": "Deye — powerful hybrid inverters with high capacity and advanced battery/backup support.", "logo": "/images/brands/deye.png", "image": "/images/deye-hybrid.jpeg" }
+          ]
+        }
       ]
     },
     "cables": {
@@ -139,6 +194,15 @@
         "Excellent moisture insulation",
         "Compliant with international standards",
         "Long lifespan"
+      ],
+      "subsections": [
+        {
+          "title": "Cables & Connectors",
+          "items": [
+            { "name": "MC4 Connectors", "desc": "IP67 waterproof connectors for safe, efficient panel interconnection.", "image": "/images/mc4-connectors.jpeg" },
+            { "name": "DC Solar Cable", "desc": "1500–1800V UV- and heat-resistant cable (red/black).", "image": "/images/dc-cable-red-black.jpeg" }
+          ]
+        }
       ]
     },
     "structures": {
@@ -154,15 +218,43 @@
       ]
     },
     "extras": {
-      "title": "Extra Components",
-      "subtitle": "All additional components needed for solar systems",
-      "description": "We provide all additional components needed to complete the solar energy system, including breakers, fuses, meters, and smart monitoring devices.",
+      "title": "Accessories & DC Protection",
+      "subtitle": "Everything needed to protect and connect your solar system on the DC side",
+      "description": "We supply a full range of DC-side protection and connection equipment from trusted brands such as Suntree — breakers, fuses, surge protection, combiner boxes and isolator switches.",
       "features": [
-        "Advanced protection breakers",
-        "Smart meters for consumption monitoring",
-        "Remote monitoring devices",
-        "Overcurrent protection fuses",
-        "High-quality accessories"
+        "DC circuit breakers (MCB / MCCB)",
+        "DC surge protection devices (SPD)",
+        "DC fuses and fuse holders",
+        "IP65 combiner boxes",
+        "DC isolator switches"
+      ],
+      "subsections": [
+        {
+          "title": "DC Protection",
+          "blurb": "Breakers, fuses and surge protection to safeguard your system on the DC side.",
+          "items": [
+            { "name": "DC Circuit Breakers", "desc": "DC breakers up to 1500V to protect strings and arrays.", "image": "/images/suntree-dc-breaker.jpeg" },
+            { "name": "DC MCCB", "desc": "Moulded-case breakers for higher currents in larger plants.", "image": "/images/suntree-dc-mccb.jpeg" },
+            { "name": "DC Surge Protection (SPD)", "desc": "Protection against lightning-induced voltage surges.", "image": "/images/suntree-dc-spd.jpeg" },
+            { "name": "DC Fuses & Holders", "desc": "1000–1100V fuses with holders for string protection.", "image": "/images/suntree-dc-fuse.jpeg" }
+          ]
+        },
+        {
+          "title": "Combiner Boxes (IP65)",
+          "blurb": "Weather- and dust-resistant IP65 boxes to safely combine PV strings.",
+          "items": [
+            { "name": "IP65 Combiner Box", "desc": "Combines multiple strings with built-in protection (fuses/breakers/SPD)." }
+          ]
+        },
+        {
+          "title": "DC Isolator Switches",
+          "blurb": "Isolator switches to safely disconnect the system for maintenance.",
+          "items": [
+            { "name": "DC Isolator Switch", "desc": "Weatherproof isolator with MC4 connectors.", "image": "/images/dc-isolator-switch.jpeg" },
+            { "name": "Isolator Switch Range", "desc": "Multiple options with bus-bar and waterproof cover.", "image": "/images/dc-isolator-range.jpeg" },
+            { "name": "2-Pole DC Isolator", "desc": "For small systems and single strings.", "image": "/images/dc-isolator-2p.jpeg" }
+          ]
+        }
       ]
     }
   },
@@ -199,13 +291,6 @@
     "subtitle": "Size your solar system using international standards and Saudi electricity tariffs",
     "inputs": {
       "title": "Project Details",
-      "establishment": "Establishment Type",
-      "establishmentOptions": {
-        "agricultural": "Agricultural",
-        "industrial": "Industrial",
-        "commercial": "Commercial",
-        "residential": "Residential"
-      },
       "city": "Region",
       "inputMode": "Input Method",
       "byBill": "Monthly Electricity Bill",
@@ -223,16 +308,14 @@
     "results": {
       "title": "Design Results",
       "whatsappShare": "Share Your Results via WhatsApp",
-      "whatsappMessage": "Hello, I calculated my solar system on CESCO's website:\n• Establishment: {establishment}\n• City: {city}\n• System Size: {size} kW\n• Panels: {panels}\n• Annual Savings: SAR {savings}\n• Payback Period: {payback} years\nPlease contact me for a detailed quote",
+      "whatsappMessage": "Hello, I calculated my solar system on CESCO's website:\n• City: {city}\n• System Size: {size} kW\n• Panels: {panels}\n• Annual Savings: SAR {savings}\nPlease contact me for a detailed quote",
       "systemSize": "System Size",
       "panels": "Number of Panels",
       "annualSavings": "Estimated Annual Savings",
-      "payback": "Payback Period",
       "co2": "CO₂ Emissions Reduction",
       "treesEquiv": "Equivalent to planting",
       "treesUnit": "trees per year",
       "area": "Required Area",
-      "roi25": "Return on Investment (25 years)",
       "systemCost": "Estimated System Cost",
       "batteryCost": "Storage System Cost",
       "monthlyConsumption": "Monthly Consumption",
@@ -242,7 +325,6 @@
       "disclaimer": "Estimates based on IEC 62548 · IEC 60364-7-712 · Saudi Electricity Company requirements. Contact our team for a precise technical study.",
       "ctaTitle": "Ready to install your system?",
       "ctaButton": "Request an Accurate Quote",
-      "years": "years",
       "kw": "kW",
       "kwh": "kWh",
       "sar": "SAR",

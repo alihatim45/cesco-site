@@ -17,17 +17,17 @@ const About = () => {
     {
       title: t('about.story.vision'),
       Icon: VisionIcon,
-      color: 'from-green-primary to-green-primary/80',
+      accent: 'border-green-primary',
     },
     {
       title: t('about.story.mission'),
       Icon: MissionIcon,
-      color: 'from-yellow-primary to-yellow-primary/80',
+      accent: 'border-yellow-primary',
     },
     {
       title: t('about.story.values'),
       Icon: ValuesIcon,
-      color: 'from-green-primary to-yellow-primary',
+      accent: 'border-[#15803d]',
       description: t('about.story.valuesDesc'),
     },
   ]
@@ -104,16 +104,14 @@ const About = () => {
                 animate={cardsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={{ scale: 1.05, y: -10 }}
-                className={`bg-gradient-to-br ${value.color} rounded-2xl shadow-xl p-8 text-white`}
+                className={`bg-white border-t-4 ${value.accent} rounded-2xl shadow-lg p-8 text-center`}
               >
                 <div className="mb-4 flex justify-center">
-                  <div className="bg-white/90 rounded-2xl p-1.5 shadow-md">
-                    <value.Icon size={52} />
-                  </div>
+                  <value.Icon size={56} />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-center">{value.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">{value.title}</h3>
                 {value.description && (
-                  <p className="text-center opacity-90">{value.description}</p>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 )}
               </motion.div>
             ))}

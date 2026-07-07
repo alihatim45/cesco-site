@@ -90,10 +90,8 @@ const Breadcrumbs = () => {
     return null
   }
 
-  // For RTL: reverse array to maintain same visual order (Home / Section / Page)
-  // because dir="rtl" on flex container will reverse items, so we pre-reverse to counteract
-  // For LTR: use original order
-  const displayBreadcrumbs = isArabic ? [...breadcrumbs].reverse() : breadcrumbs
+  // Always render natural order; dir on the <ol> handles RTL/LTR visual ordering
+  const displayBreadcrumbs = breadcrumbs
 
   // Build structured data for SEO (always use original order)
   const structuredData = {
@@ -135,7 +133,7 @@ const Breadcrumbs = () => {
             style={{ 
               WebkitOverflowScrolling: 'touch',
               direction: isArabic ? 'rtl' : 'ltr',
-              justifyContent: isArabic ? 'flex-end' : 'flex-start',
+              justifyContent: 'flex-start',
               textAlign: 'start',
             }}
           >

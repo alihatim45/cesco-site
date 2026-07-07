@@ -165,7 +165,7 @@ export const MissionIcon = ({ size = 64 }) => (
 )
 
 export const ValuesIcon = ({ size = 64 }) => (
-  <IconFrame id="valuesGrad" c1="#0284C7" c2="#38BDF8" size={size}>
+  <IconFrame id="valuesGrad" c1="#15803d" c2="#4ade80" size={size}>
     <path d="M22 27 L26 20 H38 L42 27 L32 46 Z" />
     <path d="M22 27 H42 M26 20 L32 27 L38 20 M32 27 L32 46" />
   </IconFrame>
