@@ -152,16 +152,16 @@ const PrimaryCard = ({ icon, label, value, decimals, unit, locale, delay }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay }}
-    className="bg-white rounded-2xl shadow-lg border-s-4 border-green-primary p-6 text-center"
+    className="calculator-primary-card rounded-[1.75rem] p-6 text-center"
   >
-    <div className="w-12 h-12 rounded-xl bg-green-primary/10 text-green-primary flex items-center justify-center mb-4 mx-auto">
+    <div className="w-12 h-12 rounded-2xl bg-yellow-primary text-[#15321f] flex items-center justify-center mb-4 mx-auto">
       <MetricIcon name={icon} />
     </div>
-    <div className="text-3xl md:text-4xl font-bold text-gray-900">
+    <div className="text-3xl md:text-4xl font-extrabold text-white">
       <AnimatedNumber value={value} decimals={decimals} locale={locale} />
     </div>
-    <div className="text-sm text-gray-500 mt-1">{unit}</div>
-    <p className="text-gray-700 font-medium mt-3 leading-snug">{label}</p>
+    <div className="text-sm text-green-50/55 mt-1">{unit}</div>
+    <p className="text-green-50/85 font-semibold mt-3 leading-snug">{label}</p>
   </motion.div>
 )
 
@@ -170,7 +170,7 @@ const SecondaryCard = ({ icon, label, value, decimals, unit, locale, extra, dela
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay }}
-    className="bg-green-primary/10 rounded-2xl p-6 text-center"
+    className="rounded-[1.75rem] border border-green-primary/10 bg-white p-6 text-center shadow-[0_18px_36px_-28px_rgba(15,56,31,0.35)]"
   >
     <div className="w-12 h-12 rounded-xl bg-white text-green-primary flex items-center justify-center mb-4 mx-auto shadow-sm">
       <MetricIcon name={icon} />
@@ -260,7 +260,7 @@ const Calculator = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-primary/20 via-white to-yellow-primary/20 py-20">
+      <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -282,7 +282,7 @@ const Calculator = () => {
       </section>
 
       {/* Input + Results */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-[#f3f7f3]">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Input Card */}
           <motion.div
@@ -290,7 +290,7 @@ const Calculator = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={formInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
-            className="bg-white rounded-2xl shadow-xl p-8 md:p-10 max-w-2xl mx-auto"
+            className="modern-surface bg-white rounded-[2rem] p-8 md:p-10 max-w-2xl mx-auto"
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               {t('calculator.inputs.title')}
@@ -489,7 +489,7 @@ const Calculator = () => {
                 </div>
 
                 {/* Cost breakdown (collapsible) */}
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
+                <div className="modern-surface bg-white rounded-[1.75rem] overflow-hidden mb-6">
                   <button
                     type="button"
                     onClick={() => setShowBreakdown((s) => !s)}

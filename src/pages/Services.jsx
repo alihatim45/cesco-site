@@ -28,7 +28,7 @@ const Services = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-primary/20 via-white to-yellow-primary/20 py-20">
+      <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -45,14 +45,15 @@ const Services = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-[#0e2c1d] relative overflow-hidden">
+        <div className="absolute -top-40 -right-32 h-96 w-96 rounded-full bg-green-primary/25 blur-3xl" />
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             ref={titleRef}
             initial={{ opacity: 0, y: 30 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {services.map((service, index) => (
               <motion.div
@@ -60,18 +61,20 @@ const Services = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={titleInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                whileHover={{ y: -8 }}
+                className="inner-service-card group relative min-h-[270px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.07] p-8 backdrop-blur-sm transition-all duration-300"
               >
-                <div className="mb-6 flex justify-center">
-                  <service.Icon size={56} />
+                <span className="absolute -top-8 end-5 text-8xl font-extrabold leading-none text-white/[0.06]">0{service.key}</span>
+                <div className="icon-pop relative mb-7 flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-2xl bg-yellow-primary text-[#15321f] shadow-lg shadow-black/10">
+                  <service.Icon size={32} />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+                <h3 className="relative text-xl font-extrabold text-white mb-4 leading-8 text-start">
                   {t(`services.list.${service.key}.title`)}
                 </h3>
-                <p className="text-gray-700 leading-relaxed text-center rtl:text-right ltr:text-left">
+                <p className="relative text-green-50/65 leading-7 text-start">
                   {t(`services.list.${service.key}.description`)}
                 </p>
+                <span className="absolute inset-x-8 bottom-0 h-1 origin-start scale-x-0 rounded-full bg-yellow-primary transition-transform duration-500 group-hover:scale-x-100" />
               </motion.div>
             ))}
           </motion.div>

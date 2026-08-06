@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { useParallax } from '../hooks/useParallax'
 import { ROUTES } from '../utils/constants'
 
 /* Brand logo with text-badge fallback (legible AR/EN, brand colors) */
@@ -35,11 +36,12 @@ const BrandCard = ({ brand, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.4, delay: index * 0.08 }}
-    className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 p-6 flex flex-col"
+    whileHover={{ y: -6 }}
+    className="card-hover modern-surface bg-white rounded-3xl transition-all duration-300 p-6 flex flex-col"
   >
     {brand.image && (
       <div className="h-44 mb-5 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center">
-        <img src={brand.image} alt={brand.name} className="w-full h-full object-contain" />
+        <img src={brand.image} alt={brand.name} className="img-zoom w-full h-full object-contain" />
       </div>
     )}
     <div className="mb-3">
@@ -77,11 +79,12 @@ const ItemCard = ({ item, index }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.4, delay: index * 0.08 }}
-    className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 p-6 text-center flex flex-col"
+    whileHover={{ y: -6 }}
+    className="card-hover modern-surface bg-white rounded-3xl transition-all duration-300 p-6 text-center flex flex-col"
   >
     {item.image ? (
       <div className="h-40 mb-4 rounded-xl overflow-hidden bg-gray-50 flex items-center justify-center">
-        <img src={item.image} alt={item.name} className="w-full h-full object-contain" />
+        <img src={item.image} alt={item.name} className="img-zoom w-full h-full object-contain" />
       </div>
     ) : (
       <div className="h-40 mb-4 rounded-xl bg-green-primary/5 flex items-center justify-center px-4">
@@ -98,6 +101,7 @@ const ItemCard = ({ item, index }) => (
 const ProductDetail = ({ productKey }) => {
   const { t } = useTranslation()
   const { ref: heroRef, isInView: heroInView } = useScrollAnimation()
+  const { ref: heroParallaxRef, y: heroParallaxY } = useParallax(50)
   const { ref: descRef, isInView: descInView } = useScrollAnimation()
   const { ref: featuresRef, isInView: featuresInView } = useScrollAnimation()
   const { ref: galleryRef, isInView: galleryInView } = useScrollAnimation()
@@ -135,15 +139,15 @@ const ProductDetail = ({ productKey }) => {
   return (
     <div className="w-full">
       {/* Hero Banner */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <section ref={heroParallaxRef} className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <motion.div className="absolute inset-0 z-0 scale-110" style={{ y: heroParallaxY }}>
           <img
             src={heroImage}
             alt={t(`products.${transKey}.title`)}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-br from-green-primary/70 via-green-primary/60 to-yellow-primary/50" />
-        </div>
+        </motion.div>
         <motion.div
           ref={heroRef}
           initial={{ opacity: 0, y: 30 }}
@@ -159,7 +163,7 @@ const ProductDetail = ({ productKey }) => {
       </section>
 
       {/* Description Section */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             ref={descRef}
@@ -168,8 +172,9 @@ const ProductDetail = ({ productKey }) => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <div className="prose prose-lg max-w-none rtl:text-right ltr:text-left">
-              <p className="text-xl text-gray-700 leading-relaxed">
+            <div className="product-description-panel relative overflow-hidden rounded-[2rem] bg-[#0e2c1d] p-8 md:p-12 lg:p-14 rtl:text-right ltr:text-left">
+              <span className="mb-5 inline-block text-sm font-bold tracking-wide text-yellow-primary">CESCO SOLAR</span>
+              <p className="relative text-xl text-green-50/80 leading-9">
                 {t(`products.${transKey}.description`)}
               </p>
             </div>
@@ -178,7 +183,7 @@ const ProductDetail = ({ productKey }) => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-[#f3f7f3]">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             ref={featuresRef}
@@ -190,7 +195,7 @@ const ProductDetail = ({ productKey }) => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
               {t('products.featuresTitle')}
             </h2>
-            <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="modern-surface bg-white rounded-[2rem] p-8 md:p-12">
               <ul className="space-y-4">
                 {t(`products.${transKey}.features`, { returnObjects: true }).map(
                   (feature, index) => (
@@ -199,7 +204,7 @@ const ProductDetail = ({ productKey }) => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={featuresInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
-                      className="flex items-start gap-4 text-lg text-gray-700 rtl:text-right ltr:text-left"
+                      className="flex items-start gap-4 rounded-2xl bg-green-primary/[0.045] px-4 py-3 text-lg text-gray-700 rtl:text-right ltr:text-left"
                     >
                       <span className="text-green-primary text-2xl mt-1">✓</span>
                       <span>{feature}</span>
@@ -214,7 +219,7 @@ const ProductDetail = ({ productKey }) => {
 
       {/* Brands & Subsections (rendered only when present) */}
       {hasBrandsOrSubsections && (
-        <section className="py-20 bg-white">
+        <section className="py-24 bg-white">
           <div className="container mx-auto px-4 md:px-6 lg:px-8">
             <motion.div
               ref={brandsRef}
@@ -262,7 +267,7 @@ const ProductDetail = ({ productKey }) => {
 
       {/* Image Gallery (generic; hidden for branded categories) */}
       {!hasBrandsOrSubsections && (
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             ref={galleryRef}
@@ -281,13 +286,13 @@ const ProductDetail = ({ productKey }) => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={galleryInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+                  whileHover={{ y: -6 }}
+                  className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
                 >
                   <img
                     src={img}
                     alt={`${t(`products.${transKey}.title`)} ${index + 1}`}
-                    className="w-full h-64 object-cover"
+                    className="img-zoom w-full h-64 object-cover"
                   />
                 </motion.div>
               ))}
@@ -298,7 +303,7 @@ const ProductDetail = ({ productKey }) => {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-green-primary to-yellow-primary">
+      <section className="py-24 bg-gradient-to-br from-[#14733c] via-green-primary to-[#eab60d]">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -306,7 +311,7 @@ const ProductDetail = ({ productKey }) => {
             </h2>
             <Link
               to={ROUTES.contact}
-              className="inline-block px-8 py-4 bg-white text-green-primary rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="btn-animated inline-block px-8 py-4 bg-white text-green-primary rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               {t('common.contactUs')}
             </Link>

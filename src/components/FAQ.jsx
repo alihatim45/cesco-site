@@ -16,8 +16,8 @@ const FAQ = () => {
         return (
           <div
             key={index}
-            className={`border rounded-2xl overflow-hidden transition-colors duration-200 ${
-              isOpen ? 'border-green-primary' : 'border-gray-200'
+            className={`modern-surface border rounded-2xl overflow-hidden transition-colors duration-200 ${
+              isOpen ? 'border-green-primary' : 'border-green-primary/10'
             }`}
           >
             <button

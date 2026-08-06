@@ -1,91 +1,85 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import { useScrollAnimation } from '../../hooks/useScrollAnimation'
 import { COMPANY_INFO, ROUTES } from '../../utils/constants'
 
+/* Footer link with an animated underline sweep on hover */
+const FooterLink = ({ to, children }) => (
+  <Link
+    to={to}
+    className="relative inline-block hover:text-yellow-primary transition-colors after:content-[''] after:absolute after:bottom-0 after:start-0 after:h-px after:w-0 after:bg-yellow-primary after:transition-all after:duration-300 hover:after:w-full"
+  >
+    {children}
+  </Link>
+)
+
 const Footer = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isRTL = i18n.language === 'ar'
+  const { ref, isInView } = useScrollAnimation({ margin: '-50px' })
+
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1 } },
+  }
+  const itemVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  }
 
   return (
-    <footer className="bg-gray-900 text-white mt-20">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-12">
+    <footer className="bg-[#0d2519] text-white mt-20 border-t border-white/10" style={{ position: 'relative', overflow: 'hidden' }}>
+      <motion.div
+        ref={ref}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        variants={containerVariants}
+        className="container mx-auto px-4 md:px-6 lg:px-8 py-16"
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Company Info */}
-          <div className="space-y-4">
-            <Link to={ROUTES.home}>
+          <motion.div variants={itemVariants} className="space-y-4">
+            <Link to={ROUTES.home} className="inline-block transition-transform duration-300 hover:scale-105">
               <img src="/images/cesco-logo.png" alt="CESCO Logo" className="h-16 w-auto object-contain mb-4" />
             </Link>
-            <p className="text-gray-400 text-sm">
+            <p className="text-green-50/60 text-sm leading-7 max-w-sm">
               {t('about.story.p1').substring(0, 100)}...
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
+          <motion.div variants={itemVariants}>
             <h3 className="text-lg font-semibold mb-4">{t('common.quickLinks')}</h3>
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 text-green-50/60">
               <li>
-                <Link
-                  to={ROUTES.home}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.home')}
-                </Link>
+                <FooterLink to={ROUTES.home}>{t('nav.home')}</FooterLink>
               </li>
               <li>
-                <Link
-                  to={ROUTES.about}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.about')}
-                </Link>
+                <FooterLink to={ROUTES.about}>{t('nav.about')}</FooterLink>
               </li>
               <li>
-                <Link
-                  to={ROUTES.vision}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.vision')}
-                </Link>
+                <FooterLink to={ROUTES.vision}>{t('nav.vision')}</FooterLink>
               </li>
               <li>
-                <Link
-                  to={ROUTES.services}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.services')}
-                </Link>
+                <FooterLink to={ROUTES.services}>{t('nav.services')}</FooterLink>
               </li>
               <li>
-                <Link
-                  to={ROUTES.products}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.products')}
-                </Link>
+                <FooterLink to={ROUTES.products}>{t('nav.products')}</FooterLink>
               </li>
               <li>
-                <Link
-                  to={ROUTES.calculator}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.calculator')}
-                </Link>
+                <FooterLink to={ROUTES.calculator}>{t('nav.calculator')}</FooterLink>
               </li>
               <li>
-                <Link
-                  to={ROUTES.contact}
-                  className="hover:text-yellow-primary transition-colors"
-                >
-                  {t('nav.contact')}
-                </Link>
+                <FooterLink to={ROUTES.contact}>{t('nav.contact')}</FooterLink>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div>
+          <motion.div variants={itemVariants}>
             <h3 className="text-lg font-semibold mb-4">{t('contact.info.title')}</h3>
-            <ul className="space-y-3 text-gray-400">
+            <ul className="space-y-3 text-green-50/60">
               <li className="flex items-start gap-2">
                 <svg
                   className="w-5 h-5 mt-1 text-yellow-primary"
@@ -151,15 +145,29 @@ const Footer = () => {
                 <span>{COMPANY_INFO.address}</span>
               </li>
             </ul>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+        <div className="border-t border-white/10 mt-10 pt-8 text-center text-green-50/50 text-sm">
           <p>
             &copy; {new Date().getFullYear()} {t('common.companyName')} - CESCO.{' '}
             {t('common.allRightsReserved')}
           </p>
         </div>
+      </motion.div>
+
+      {/* Decorative floating island — follows page direction (right in RTL, left in LTR) */}
+      <div
+        className="footer-island-wrapper"
+        style={isRTL ? { right: '230px', left: 'auto' } : { left: '230px', right: 'auto' }}
+        aria-hidden="true"
+      >
+        <img
+          src="/images/renewable-energy-island.png"
+          alt=""
+          className="footer-island"
+          draggable={false}
+        />
       </div>
     </footer>
   )

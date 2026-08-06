@@ -116,14 +116,14 @@ const Breadcrumbs = () => {
       {/* Breadcrumbs Navigation - Sticky below navbar, always visible on scroll */}
       <nav
         aria-label="breadcrumb"
-        className="w-full bg-white backdrop-blur-md border-b border-gray-200/60 shadow-sm transition-colors transition-shadow duration-200"
+        className="w-full bg-white/80 backdrop-blur-xl border-b border-green-primary/10 transition-colors transition-shadow duration-200"
         style={{
           position: 'sticky',
           top: 'var(--navbar-height)',
           display: 'block',
           width: '100%',
           zIndex: 999,
-          backgroundColor: '#ffffff',
+          backgroundColor: 'rgba(255,255,255,0.82)',
         }}
       >
         <div className="container mx-auto px-4 md:px-6 lg:px-8 py-2">

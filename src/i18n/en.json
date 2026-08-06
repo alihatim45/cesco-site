@@ -103,6 +103,17 @@
   "products": {
     "title": "Our Products",
     "subtitle": "Best solutions and equipment for solar energy",
+    "catalog": {
+      "eyebrow": "CESCO Solutions Catalogue",
+      "title": "Reliable equipment, built for lasting performance",
+      "description": "We carefully select every solar-system component for operational efficiency, reliability and easy maintenance in Saudi conditions.",
+      "quality": "Trusted brands",
+      "coverage": "Complete solutions",
+      "support": "Specialist support",
+      "ctaTitle": "Need help choosing your equipment?",
+      "ctaText": "Let our team help you select the solution that fits your project and budget.",
+      "ctaButton": "Talk to an expert"
+    },
     "featuresTitle": "Key Features",
     "galleryTitle": "Image Gallery",
     "solar": {
