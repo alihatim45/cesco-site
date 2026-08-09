@@ -1,4 +1,4 @@
-{
+﻿{
   "nav": {
     "home": "Home",
     "about": "About",
@@ -11,7 +11,7 @@
   "home": {
     "hero": {
       "title": "Solar Energy Solutions for Agricultural, Industrial & Commercial Sectors",
-      "subtitle": "We serve farms, factories, businesses and homes with reliable solar systems that cut costs and deliver lasting sustainability",
+      "subtitle": "We serve farms, factories, and commercial businesses with reliable solar systems that cut costs and deliver lasting sustainability",
       "ctaPrimary": "Get a Quote",
       "ctaSecondary": "Contact Us"
     },
@@ -38,7 +38,7 @@
       "title": "Calculate Your Solar System Size Now",
       "subtitle": "Enter your electricity consumption and get an instant system design with cost and savings estimates",
       "button": "Calculate for Free",
-      "stat": "Homes & Businesses Calculated",
+      "stat": "Business Projects Calculated",
       "statSub": "Solar systems designed with our calculator"
     }
   },
@@ -48,7 +48,7 @@
       "title": "Company Overview",
       "p1": "Pure Environment for Renewable Energy is a leading company in the renewable energy sector, specializing in providing innovative and effective solutions in solar energy. The company was founded with the aim of providing clean and sustainable energy solutions that contribute to environmental protection and cost reduction for its clients.",
       "p2": "Pure Environment for Renewable Energy is one of the subsidiaries of Tal Holding Group, which has great diversity in its sectors, such as agriculture, commerce, and industry. Through this affiliation with the group, the company is committed to providing high-quality solar energy solutions, benefiting from diverse expertise across various sectors to provide innovative solutions that meet the needs of local, regional, and international markets.",
-      "p3": "Pure Environment for Renewable Energy seeks to facilitate the transition to renewable energy and provide effective solutions for clients across various sectors, including homes and large companies. Thanks to our advanced technologies and specialized team, we ensure the delivery of solar energy systems that achieve high efficiency and economic savings in the long term.",
+      "p3": "Pure Environment for Renewable Energy seeks to facilitate the transition to renewable energy and provide effective solutions for clients across various sectors, including farms, factories, and commercial businesses. Thanks to our advanced technologies and specialized team, we ensure the delivery of solar energy systems that achieve high efficiency and economic savings in the long term.",
       "vision": "Vision: To be pioneers in renewable energy in the region and contribute to the global transition towards the use of clean and sustainable energy.",
       "mission": "Mission: To provide innovative and effective solutions in renewable energy, focusing on environmental sustainability and energy efficiency with the lowest costs.",
       "values": "Values",
@@ -76,7 +76,7 @@
       },
       "2": {
         "title": "Solar System Installation",
-        "description": "Installation of solar systems for farms, factories, businesses and homes"
+        "description": "Installation of solar systems for farms, factories, and commercial businesses"
       },
       "3": {
         "title": "Maintenance & Technical Support",
@@ -158,7 +158,7 @@
     "inverters": {
       "title": "Inverters",
       "subtitle": "High-quality inverters to convert DC to AC",
-      "description": "We provide a wide range of solar inverters that convert DC current from solar panels to AC current for residential and commercial use. Our inverters feature high efficiency and excellent reliability.",
+      "description": "We provide a wide range of solar inverters that convert DC current from solar panels to AC current for agricultural, industrial, and commercial use. Our inverters feature high efficiency and excellent reliability.",
       "features": [
         "High conversion efficiency up to 98%",
         "Advanced overcurrent protection",
@@ -181,7 +181,7 @@
           "blurb": "Grid-tied inverters that power your loads and export surplus to the grid.",
           "brands": [
             { "name": "Huawei", "blurb": "Huawei — smart FusionSolar inverters with high efficiency, advanced monitoring and excellent reliability.", "logo": "/images/brands/huawei.png", "image": "/images/huawei-inverter.jpeg" },
-            { "name": "GoodWe", "blurb": "GoodWe — reliable grid-tied inverters spanning residential to commercial power ranges.", "logo": "/images/brands/goodwe.png", "image": "/images/goodwe-inverter.jpeg" },
+            { "name": "GoodWe", "blurb": "GoodWe — reliable grid-tied inverters for agricultural, industrial, and commercial power ranges.", "logo": "/images/brands/goodwe.png", "image": "/images/goodwe-inverter.jpeg" },
             { "name": "Solis", "blurb": "Solis — one of the most established inverter makers, with efficient and cost-effective grid-tied solutions.", "logo": "/images/brands/solis.png" }
           ]
         },
@@ -329,11 +329,14 @@
       "area": "Required Area",
       "systemCost": "Estimated System Cost",
       "batteryCost": "Storage System Cost",
+      "batteryCapacity": "Recommended Storage Capacity",
+      "engineerEstimate": "Estimated system cost based on the engineer price",
+      "marketStorageNote": "This estimate uses the engineer-approved price of SAR 1,500 per kW and covers the base system only; storage and site-specific works are quoted after the technical study.",
       "monthlyConsumption": "Monthly Consumption",
       "annualProduction": "Estimated Annual Production",
       "inverterSize": "Inverter Size",
-      "breakdown": "Cost Breakdown",
-      "disclaimer": "Estimates based on IEC 62548 · IEC 60364-7-712 · Saudi Electricity Company requirements. Contact our team for a precise technical study.",
+      "breakdown": "Design Details",
+      "disclaimer": "Calculations follow the approved engineering design workbook. Prices are not included; request a quote after a detailed technical study in line with IEC 62548 · IEC 60364-7-712 and Saudi Electricity Company requirements.",
       "ctaTitle": "Ready to install your system?",
       "ctaButton": "Request an Accurate Quote",
       "kw": "kW",
@@ -362,7 +365,7 @@
       },
       {
         "q": "How long does system installation take?",
-        "a": "Small residential systems (5-15 kW) take one to two days. Medium commercial and agricultural systems (20-100 kW) take 3 to 7 days. Large projects require a detailed schedule."
+        "a": "Medium commercial, agricultural, and industrial systems (20-100 kW) take 3 to 7 days. Large projects require a detailed execution schedule."
       },
       {
         "q": "Does a solar system need official permits?",
@@ -378,7 +381,7 @@
       },
       {
         "q": "What is a realistic payback period for a system in Saudi Arabia?",
-        "a": "Agricultural and industrial: 6-10 years. Commercial: 7-12 years. Residential: 12-18 years. These are estimates based on current electricity tariffs and installation costs in the Saudi market."
+        "a": "Agricultural and industrial: 6-10 years. Commercial: 7-12 years. These estimates depend on electricity tariffs, installation costs, and project size in the Saudi market."
       }
     ]
   },
@@ -396,8 +399,7 @@
     "sectorOptions": {
       "agricultural": "Agricultural",
       "industrial": "Industrial",
-      "commercial": "Commercial",
-      "residential": "Residential"
+      "commercial": "Commercial"
     }
   },
   "common": {
@@ -415,4 +417,11 @@
     "invalid": "Invalid"
   }
 }
+
+
+
+
+
+
+
 

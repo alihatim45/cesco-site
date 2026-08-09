@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const WHATSAPP_PHONE = '966552277824'
 
 // Sector order follows CESCO market priority
-const SECTOR_ORDER = ['agricultural', 'industrial', 'commercial', 'residential']
+const SECTOR_ORDER = ['agricultural', 'industrial', 'commercial']
 
 const SiteAssessmentModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation()
@@ -156,3 +156,4 @@ const SiteAssessmentModal = ({ isOpen, onClose }) => {
 }
 
 export default SiteAssessmentModal
+

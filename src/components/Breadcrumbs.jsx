@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+﻿import { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ROUTES } from '../utils/constants'
@@ -16,6 +16,16 @@ const Breadcrumbs = () => {
     '/products/structures': 'structures',
     '/products/extras': 'extras',
   }
+  // Map service detail routes to their existing service titles
+  const serviceKeyMap = {
+    '/services/design': '1',
+    '/services/installation': '2',
+    '/services/maintenance': '3',
+    '/services/consulting': '4',
+    '/services/storage': '5',
+    '/services/supply': '6',
+    '/services/feasibility': '7',
+  }
 
   // Map routes to translation keys
   const routeTranslationMap = {
@@ -24,6 +34,7 @@ const Breadcrumbs = () => {
     '/vision': 'nav.vision',
     '/services': 'nav.services',
     '/products': 'nav.products',
+    '/calculator': 'nav.calculator',
     '/contact': 'nav.contact',
   }
 
@@ -67,6 +78,21 @@ const Breadcrumbs = () => {
         items.push({
           path: pathname,
           label: t('nav.products'),
+          isLast: true,
+        })
+      }
+        } else if (pathname.startsWith('/services/')) {
+      const serviceKey = serviceKeyMap[pathname]
+
+      if (serviceKey) {
+        items.push({
+          path: ROUTES.services,
+          label: t('nav.services'),
+          isLast: false,
+        })
+        items.push({
+          path: pathname,
+          label: t(`services.list.${serviceKey}.title`),
           isLast: true,
         })
       }
@@ -181,3 +207,5 @@ const Breadcrumbs = () => {
 }
 
 export default Breadcrumbs
+
+

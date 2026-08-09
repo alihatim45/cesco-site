@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
@@ -20,68 +20,92 @@ import { CalculatorIcon } from '../components/SolarIcons'
    metrics, recomputed from the resulting system size.
    ────────────────────────────────────────────────────────────────────── */
 
-// Saudi cities — labels only (UX / lead capture; no effect on the result)
+// Saudi cities — used for lead capture. The engineer's Excel model uses fixed
+// design assumptions, so city selection does not alter its formulas.
 const CITIES = {
-  riyadh: { ar: 'الرياض', en: 'Riyadh' },
-  jeddah: { ar: 'جدة', en: 'Jeddah' },
-  mecca: { ar: 'مكة المكرمة', en: 'Mecca' },
-  medina: { ar: 'المدينة المنورة', en: 'Medina' },
-  dammam: { ar: 'الدمام', en: 'Dammam' },
-  abha: { ar: 'أبها', en: 'Abha' },
-  tabuk: { ar: 'تبوك', en: 'Tabuk' },
-  hail: { ar: 'حائل', en: 'Hail' },
-  najran: { ar: 'نجران', en: 'Najran' },
-  jizan: { ar: 'جازان', en: 'Jizan' },
+  riyadh: { ar: 'الرياض', en: 'Riyadh' }, diriyah: { ar: 'الدرعية', en: 'Diriyah' },
+  kharj: { ar: 'الخرج', en: 'Al Kharj' }, majmaah: { ar: 'المجمعة', en: 'Al Majmaah' },
+  zulfi: { ar: 'الزلفي', en: 'Az Zulfi' }, shaqra: { ar: 'شقراء', en: 'Shaqra' },
+  dawadmi: { ar: 'الدوادمي', en: 'Ad Dawadmi' }, afif: { ar: 'عفيف', en: 'Afif' },
+  quwayiyah: { ar: 'القويعية', en: 'Al Quwayiyah' }, wadi_dawasir: { ar: 'وادي الدواسر', en: 'Wadi ad Dawasir' },
+  jeddah: { ar: 'جدة', en: 'Jeddah' }, mecca: { ar: 'مكة المكرمة', en: 'Makkah' },
+  taif: { ar: 'الطائف', en: 'Taif' }, rabigh: { ar: 'رابغ', en: 'Rabigh' }, lith: { ar: 'الليث', en: 'Al Lith' },
+  qunfudhah: { ar: 'القنفذة', en: 'Al Qunfudhah' }, bahrah: { ar: 'بحرة', en: 'Bahrah' },
+  medina: { ar: 'المدينة المنورة', en: 'Madinah' }, yanbu: { ar: 'ينبع', en: 'Yanbu' },
+  ula: { ar: 'العلا', en: 'Al Ula' }, badr: { ar: 'بدر', en: 'Badr' }, khaybar: { ar: 'خيبر', en: 'Khaybar' },
+  dammam: { ar: 'الدمام', en: 'Dammam' }, khobar: { ar: 'الخبر', en: 'Al Khobar' },
+  dhahran: { ar: 'الظهران', en: 'Dhahran' }, qatf: { ar: 'القطيف', en: 'Al Qatif' },
+  jubail: { ar: 'الجبيل', en: 'Al Jubail' }, ras_tanura: { ar: 'رأس تنورة', en: 'Ras Tanura' },
+  hofuf: { ar: 'الهفوف', en: 'Al Hofuf' }, mubarrazz: { ar: 'المبرز', en: 'Al Mubarraz' },
+  hafr_batin: { ar: 'حفر الباطن', en: 'Hafr Al Batin' }, khafji: { ar: 'الخفجي', en: 'Al Khafji' },
+  buraidah: { ar: 'بريدة', en: 'Buraidah' }, unaizah: { ar: 'عنيزة', en: 'Unaizah' },
+  rass: { ar: 'الرس', en: 'Ar Rass' }, bukayriyah: { ar: 'البكيرية', en: 'Al Bukayriyah' },
+  abha: { ar: 'أبها', en: 'Abha' }, khamis_mushait: { ar: 'خميس مشيط', en: 'Khamis Mushait' },
+  bisha: { ar: 'بيشة', en: 'Bisha' }, muhayil: { ar: 'محايل عسير', en: 'Muhayil' },
+  rjal_almaa: { ar: 'رجال ألمع', en: 'Rijal Almaa' }, namas: { ar: 'النماص', en: 'An Namas' },
+  tabuk: { ar: 'تبوك', en: 'Tabuk' }, duba: { ar: 'ضباء', en: 'Duba' }, umluj: { ar: 'أملج', en: 'Umluj' },
+  wajh: { ar: 'الوجه', en: 'Al Wajh' }, tayma: { ar: 'تيماء', en: 'Tayma' }, haql: { ar: 'حقل', en: 'Haql' },
+  hail: { ar: 'حائل', en: 'Hail' }, baqaa: { ar: 'بقعاء', en: 'Baqaa' }, ghazalah: { ar: 'الغزالة', en: 'Al Ghazalah' },
+  sakaka: { ar: 'سكاكا', en: 'Sakaka' }, qurayyat: { ar: 'القريات', en: 'Al Qurayyat' },
+  dumat_jandal: { ar: 'دومة الجندل', en: 'Dumat Al Jandal' }, tabarjal: { ar: 'طبرجل', en: 'Tabarjal' },
+  arar: { ar: 'عرعر', en: 'Arar' }, rafha: { ar: 'رفحاء', en: 'Rafha' }, turaif: { ar: 'طريف', en: 'Turaif' },
+  najran: { ar: 'نجران', en: 'Najran' }, sharurah: { ar: 'شرورة', en: 'Sharurah' }, habuna: { ar: 'حبونا', en: 'Hubuna' },
+  jizan: { ar: 'جازان', en: 'Jazan' }, sabya: { ar: 'صبيا', en: 'Sabya' },
+  abu_arish: { ar: 'أبو عريش', en: 'Abu Arish' }, samtah: { ar: 'صامطة', en: 'Samtah' },
+  bish: { ar: 'بيش', en: 'Bish' }, farasan: { ar: 'فرسان', en: 'Farasan' },
+  bahah: { ar: 'الباحة', en: 'Al Bahah' }, baljurashi: { ar: 'بلجرشي', en: 'Baljurashi' },
+  mandaq: { ar: 'المندق', en: 'Al Mandaq' }, mikhwah: { ar: 'المخواة', en: 'Al Mikhwah' },
 }
 
-// Core formula constants — official engineering sizing model (implement literally)
-const TARIFF_SAR_PER_KWH = 0.22 // flat electricity price for bill↔kWh and savings
+// Engineering workbook assumptions (Sheet1, C33:G36 / G10:G13).
+const ENGINEERING_TARIFF_SAR_PER_KWH = 0.22
 const DAYS_PER_MONTH = 30
-const LOSS_MARGIN = 1.15 // loss margin applied to daily consumption
-const PEAK_SUN_HOURS = 6 // KSA design peak sun hours (sizing ÷ and production ×)
-const INVERTER_MARGIN = 1.15 // inverter oversized over station kW
+const GRID_LOSS_MARGIN = 1.15
+const GRID_PEAK_SUN_HOURS = 6
+const OFF_GRID_LOSS_MARGIN = 1.3
+const OFF_GRID_PEAK_SUN_HOURS = 4
 const PANEL_WATTAGE_W = 550
 
-// Production constants — annual yield only, NOT part of the sizing formula
+// Engineer-approved preliminary price for agricultural, industrial, and commercial projects.
+// Storage and site-specific civil works are quoted separately.
+const ENGINEER_ESTIMATED_PRICE_PER_KW = 1500
+
+// Production constants
 const SYSTEM_EFFICIENCY = 0.8
 const DAYS_PER_YEAR = 365
 
-// Secondary constants for downstream metrics
-const COST_PER_KW_FLAT = 4500 // flat installed cost, SAR/kW
-const PANEL_AREA_M2 = 2.2 // m2 per 550W panel
-const CO2_KG_PER_KWH = 0.72 // Saudi national grid emission factor
-const TREES_PER_TON_CO2 = 45 // ~45 trees absorb 1 ton CO2/year
-const BATTERY_DOD = 0.8 // Depth of Discharge for LFP
-const BATTERY_COST_PER_KWH = 1800 // SAR/kWh (LFP, installed)
-
+// Secondary metrics. Pricing is intentionally not calculated: the approved
+// engineering workbook contains no price formula.
+const PANEL_AREA_M2 = 2.2
+const CO2_KG_PER_KWH = 0.72
+const TREES_PER_TON_CO2 = 45
+const BATTERY_DOD = 0.8
 // WhatsApp business number — same value as the floating WhatsAppButton component
 const WHATSAPP_PHONE = '966552277824'
 
 /* ── Formulas ─────────────────────────────────────────────────────────── */
 
 const computeResults = ({ systemType, backupHours, inputMode, value }) => {
-  const monthlyBillSAR = inputMode === 'bill' ? value : value * TARIFF_SAR_PER_KWH
-
-  // Official engineering sizing (on-grid, bill-based) — implemented literally.
-  // Verified: bill 574 → 16.67 kW station, 19.17 kW inverter.
-  const monthlyKwh = monthlyBillSAR / TARIFF_SAR_PER_KWH
+  // Workbook bill model: monthly bill ÷ 0.22 = monthly consumption in kWh.
+  const monthlyKwh = inputMode === 'bill' ? value / ENGINEERING_TARIFF_SAR_PER_KWH : value
   const dailyKwh = monthlyKwh / DAYS_PER_MONTH
-  const stationKw = (dailyKwh * LOSS_MARGIN) / PEAK_SUN_HOURS
-  const inverterKw = stationKw * INVERTER_MARGIN
+  const needsBattery = systemType === 'offGrid'
+  const lossMargin = needsBattery ? OFF_GRID_LOSS_MARGIN : GRID_LOSS_MARGIN
+  const peakSunHours = needsBattery ? OFF_GRID_PEAK_SUN_HOURS : GRID_PEAK_SUN_HOURS
+  const stationKw = (dailyKwh * lossMargin) / peakSunHours
+  const inverterKw = needsBattery ? stationKw * OFF_GRID_LOSS_MARGIN : stationKw * GRID_LOSS_MARGIN
   const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
-
-  // Downstream marketing metrics — recomputed from the official station size
-  const annualKwh = stationKw * SYSTEM_EFFICIENCY * PEAK_SUN_HOURS * DAYS_PER_YEAR
-  const annualSavings = annualKwh * TARIFF_SAR_PER_KWH
-  const systemCostSAR = stationKw * COST_PER_KW_FLAT
-
+  const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
+  const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
+  const estimatedSystemCostSAR = stationKw * ENGINEER_ESTIMATED_PRICE_PER_KW
   const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
   const treesEquiv = Math.round(co2TonYear * TREES_PER_TON_CO2)
   const areaM2 = numPanels * PANEL_AREA_M2
 
-  const needsBattery = systemType === 'hybrid' || systemType === 'offGrid'
-  const batteryKwh = needsBattery ? ((dailyKwh * backupHours) / 24) / BATTERY_DOD : 0
-  const batteryCostSAR = batteryKwh * BATTERY_COST_PER_KWH
+  // For off-grid only: workbook's 1.3 allowance and 80% usable battery depth.
+  const batteryKwh = needsBattery
+    ? ((dailyKwh * backupHours) / 24) * OFF_GRID_LOSS_MARGIN / BATTERY_DOD
+    : 0
 
   return {
     monthlyKwh,
@@ -90,16 +114,14 @@ const computeResults = ({ systemType, backupHours, inputMode, value }) => {
     inverterKw,
     annualKwh,
     annualSavings,
-    systemCostSAR,
+    estimatedSystemCostSAR,
     co2TonYear,
     treesEquiv,
     areaM2,
     needsBattery,
     batteryKwh,
-    batteryCostSAR,
   }
 }
-
 /* ── Animated number (0 → value) — remounts per calculation via key ────── */
 
 const AnimatedNumber = ({ value, decimals = 0, locale }) => {
@@ -203,9 +225,9 @@ const Calculator = () => {
   const [results, setResults] = useState(null)
   const [calcId, setCalcId] = useState(0)
   const [error, setError] = useState('')
-  const [showBreakdown, setShowBreakdown] = useState(false)
+  const [showBreakdown, setShowBreakdown] = useState(true)
 
-  const needsBattery = form.systemType === 'hybrid' || form.systemType === 'offGrid'
+  const needsBattery = form.systemType === 'offGrid'
 
   const handleSelect = (e) => {
     const { name, value } = e.target
@@ -218,7 +240,7 @@ const Calculator = () => {
     icon: '📍',
   }))
 
-  const systemTypes = ['gridTied', 'hybrid', 'offGrid']
+  const systemTypes = ['gridTied', 'offGrid']
 
   const handleCalculate = () => {
     const raw = form.inputMode === 'bill' ? form.bill : form.kwh
@@ -230,6 +252,7 @@ const Calculator = () => {
     }
     setError('')
     setResults(computeResults({ ...form, value: num }))
+    setShowBreakdown(true)
     setCalcId((id) => id + 1)
   }
 
@@ -361,7 +384,7 @@ const Calculator = () => {
                 <label className="form-label block text-gray-700 font-semibold mb-2">
                   {t('calculator.inputs.systemType')}
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {systemTypes.map((st) => (
                     <button
                       key={st}
@@ -379,7 +402,7 @@ const Calculator = () => {
                 </div>
               </div>
 
-              {/* Backup hours (hybrid / off-grid only) */}
+              {/* Backup hours (off-grid only) */}
               <AnimatePresence>
                 {needsBattery && (
                   <motion.div
@@ -488,7 +511,7 @@ const Calculator = () => {
                   />
                 </div>
 
-                {/* Cost breakdown (collapsible) */}
+                {/* Engineering details (collapsible) */}
                 <div className="modern-surface bg-white rounded-[1.75rem] overflow-hidden mb-6">
                   <button
                     type="button"
@@ -521,22 +544,18 @@ const Calculator = () => {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <ul className="px-6 pb-6 divide-y divide-gray-100">
-                          <li className="flex items-center justify-between py-3">
-                            <span className="text-gray-600">
-                              {t('calculator.results.systemCost')}
-                            </span>
-                            <span className="font-semibold text-gray-900">
-                              {fmt(results.systemCostSAR)} {t('calculator.results.sar')}
-                            </span>
+                        <ul className="px-6 pb-4 divide-y divide-gray-100">
+                          <li className="flex items-center justify-between py-3 gap-4">
+                            <span className="text-gray-600">{t('calculator.results.engineerEstimate')}</span>
+                            <span className="font-semibold text-gray-900 whitespace-nowrap">{fmt(results.estimatedSystemCostSAR)} {t('calculator.results.sar')}</span>
                           </li>
                           {results.needsBattery && (
                             <li className="flex items-center justify-between py-3">
                               <span className="text-gray-600">
-                                {t('calculator.results.batteryCost')}
+                                {t('calculator.results.batteryCapacity')}
                               </span>
                               <span className="font-semibold text-gray-900">
-                                {fmt(results.batteryCostSAR)} {t('calculator.results.sar')}
+                                {fmt(results.batteryKwh, 1)} {t('calculator.results.kwh')}
                               </span>
                             </li>
                           )}
@@ -609,3 +628,13 @@ const Calculator = () => {
 }
 
 export default Calculator
+
+
+
+
+
+
+
+
+
+

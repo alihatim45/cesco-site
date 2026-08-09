@@ -1,11 +1,12 @@
-import { useTranslation } from 'react-i18next'
+﻿import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { COMPANY_INFO } from '../utils/constants'
 import { VisionIcon, MissionIcon, ValuesIcon } from '../components/SolarIcons'
 
 const About = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const isArabic = i18n.language === 'ar'
   const { ref: storyRef, isInView: storyInView } = useScrollAnimation()
   const { ref: cardsRef, isInView: cardsInView } = useScrollAnimation()
   const { ref: infoRef, isInView: infoInView } = useScrollAnimation()
@@ -15,22 +16,32 @@ const About = () => {
 
   const values = [
     {
-      title: t('about.story.vision'),
+      title: isArabic ? 'الرؤية' : 'Vision',
       Icon: VisionIcon,
-      accent: 'border-green-primary',
+      description: t('about.story.vision').replace(/^(الرؤية|Vision):\s*/, ''),
     },
     {
-      title: t('about.story.mission'),
+      title: isArabic ? 'المهمة' : 'Mission',
       Icon: MissionIcon,
-      accent: 'border-yellow-primary',
+      description: t('about.story.mission').replace(/^(المهمة|Mission):\s*/, ''),
     },
     {
       title: t('about.story.values'),
       Icon: ValuesIcon,
-      accent: 'border-[#15803d]',
       description: t('about.story.valuesDesc'),
     },
   ]
+  const approach = isArabic
+    ? [
+        ['نبدأ بالفهم', 'نستوعب استهلاك المنشأة وأهدافها التشغيلية قبل اختيار أي حل.'],
+        ['نصمم للتشغيل', 'نربط التصميم الفني باحتياج الموقع والعائد المتوقع على المدى الطويل.'],
+        ['نبقى شركاء', 'نرافق المشروع بالتنفيذ والدعم والصيانة لضمان أفضل استفادة ممكنة.'],
+      ]
+    : [
+        ['We start by understanding', 'We assess facility consumption and operational goals before choosing any solution.'],
+        ['We design for operations', 'We connect the technical design to site needs and long-term expected return.'],
+        ['We remain partners', 'We support delivery, operation, and maintenance for lasting value.'],
+      ]
 
   return (
     <div className="w-full">
@@ -87,6 +98,27 @@ const About = () => {
         </div>
       </section>
 
+      {/* Our approach */}
+      <section className="bg-white py-20 md:py-24">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-[.8fr_1.2fr]">
+            <div>
+              <span className="text-sm font-bold text-green-primary">{isArabic ? 'كيف نعمل' : 'How we work'}</span>
+              <h2 className="mt-3 max-w-xl text-3xl font-extrabold leading-[1.6] tracking-normal text-gray-900 md:text-[2.85rem]">{isArabic ? 'شراكة تبدأ من فهم منشأتك' : 'A partnership that begins with your facility'}</h2>
+              <p className="mt-5 max-w-xl text-lg leading-8 text-gray-600">{isArabic ? 'نقدم حلول طاقة شمسية عملية للمشاريع الزراعية والصناعية والتجارية، لأن كل منشأة تحتاج مساراً يناسبها.' : 'We deliver practical solar solutions for agricultural, industrial, and commercial projects because every facility needs a path that fits it.'}</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {approach.map(([title, text], index) => (
+                <motion.div key={title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45, delay: index * 0.1 }} className="rounded-3xl border border-green-primary/10 bg-[#f4f8f4] p-6">
+                  <span className="text-sm font-extrabold text-yellow-700">0{index + 1}</span>
+                  <h3 className="mt-4 text-xl font-extrabold text-gray-900">{title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-gray-600">{text}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Vision, Mission, Values Cards */}
       <section className="py-24 bg-[#f3f7f3]">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -104,15 +136,15 @@ const About = () => {
                 animate={cardsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={{ scale: 1.05, y: -10 }}
-                className="about-value-card group relative min-h-[230px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#123321] p-8 text-start"
+                className="about-value-card group relative min-h-[250px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#123321] p-7 md:p-8 text-start flex flex-col"
               >
                 <span className="absolute -top-7 end-5 text-8xl font-extrabold leading-none text-white/[0.05]">0{index + 1}</span>
-                <div className="icon-pop mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-primary text-[#15321f]">
+                <div className="icon-pop mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-primary text-[#15321f]">
                   <value.Icon size={29} />
                 </div>
-                <h3 className="relative text-xl font-extrabold mb-4 text-white leading-7">{value.title}</h3>
+                <h3 className="relative text-2xl font-extrabold mb-3 text-white leading-tight">{value.title}</h3>
                 {value.description && (
-                  <p className="relative text-green-50/65 leading-7">{value.description}</p>
+                  <p className="relative max-w-[34ch] text-[15px] md:text-base text-green-50/75 leading-8">{value.description}</p>
                 )}
               </motion.div>
             ))}
@@ -254,3 +286,7 @@ const About = () => {
 }
 
 export default About
+
+
+
+

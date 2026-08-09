@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+﻿import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion, useMotionValue, useSpring, useMotionValueEvent } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
@@ -48,6 +48,8 @@ const Counter = ({ end, suffix = '', className = 'text-white' }) => {
 
 const Home = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [showAllProjects, setShowAllProjects] = useState(false)
   const { ref: heroRef, isInView: heroInView } = useScrollAnimation()
   const { ref: heroParallaxRef, y: heroParallaxY } = useParallax(80)
   const { ref: aboutRef, isInView: aboutInView } = useScrollAnimation()
@@ -65,6 +67,11 @@ const Home = () => {
     '/images/WhatsApp Image 2025-12-05 at 3.40.05 PM4.jpeg',
     '/images/WhatsApp Image 2025-12-05 at 3.40.07 PM7.jpeg',
     '/images/WhatsApp Image 2025-12-05 at 3.40.08 PM3.jpeg',
+    '/images/WhatsApp Image 2025-12-05 at 3.40.08 PM6.jpeg',
+    '/images/WhatsApp Image 2025-12-05 at 3.40.08 PM9.jpeg',
+    '/images/WhatsApp Image 2025-12-05 at 3.40.09 PM88.jpeg',
+    '/images/WhatsApp Image 2025-12-05 at 3.40.10 PM56.jpeg',
+    '/images/WhatsApp Image 2025-12-05 at 3.40.11 PM221.jpeg',
   ]
 
   const featuredProducts = [
@@ -108,6 +115,13 @@ const Home = () => {
               transition={{ duration: 0.8 }}
               className="hero-content text-white text-center max-w-4xl mx-auto"
             >
+              <img
+                src="/images/cesco-icon.png"
+                alt=""
+                aria-hidden="true"
+                draggable={false}
+                className="hero-sun-mark"
+              />
               <div className="section-kicker mb-6">
                 <span className="h-2 w-2 rounded-full bg-yellow-primary shadow-[0_0_12px_#fec819]" />
                 <span>{t('common.companyName')}</span>
@@ -146,7 +160,7 @@ const Home = () => {
               <p className="text-xl text-gray-700 mt-2 text-center">{t('home.counters.projects')}</p>
             </div>
             <div className="py-7 md:py-9 bg-white/80">
-              <Counter end={200} suffix="+" className="text-gray-900" />
+              <Counter end={70} suffix="+" className="text-gray-900" />
               <p className="text-xl text-gray-700 mt-2 text-center">{t('home.counters.clients')}</p>
             </div>
             <div className="py-7 md:py-9 bg-white/80">
@@ -193,7 +207,7 @@ const Home = () => {
             <div className="flex flex-col items-center justify-center text-center">
               <CalculatorIcon size={120} />
               <div className="mt-6">
-                <Counter end={5000} suffix="+" />
+                <Counter end={1000} suffix="+" />
                 <p className="text-lg text-white mt-2 font-semibold">
                   {t('home.calculatorCta.stat')}
                 </p>
@@ -276,7 +290,13 @@ const Home = () => {
                 animate={aboutInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
-                className="service-feature-card group relative min-h-[285px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.07] p-7 backdrop-blur-sm transition-all duration-300"
+                onClick={() => navigate(`/services/${['design', 'installation', 'maintenance', 'consulting'][serviceNum - 1]}`)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') navigate(`/services/${['design', 'installation', 'maintenance', 'consulting'][serviceNum - 1]}`)
+                }}
+                role="link"
+                tabIndex={0}
+                className="service-feature-card group relative min-h-[285px] cursor-pointer overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.07] p-7 backdrop-blur-sm transition-all duration-300"
               >
                 <span className="absolute -top-8 end-4 text-8xl font-extrabold leading-none text-white/[0.06] transition-transform duration-500 group-hover:scale-110">
                   0{serviceNum}
@@ -288,10 +308,14 @@ const Home = () => {
                     {serviceNum === 3 && <MaintenanceIcon size={30} />}
                     {serviceNum === 4 && <ConsultingIcon size={30} />}
                   </div>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/70 transition-all duration-300 group-hover:border-yellow-primary group-hover:bg-yellow-primary group-hover:text-[#15321f]">
+                  <Link
+                    to={`/services/${['design', 'installation', 'maintenance', 'consulting'][serviceNum - 1]}`}
+                    aria-label={t(`services.list.${serviceNum}.title`)}
+                    className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/70 transition-all duration-300 hover:border-yellow-primary hover:bg-yellow-primary hover:text-[#15321f]"
+                  >
                     <span className="ltr:hidden" aria-hidden="true">←</span>
                     <span className="rtl:hidden" aria-hidden="true">→</span>
-                  </span>
+                  </Link>
                 </div>
                 <h3 className="relative text-lg font-extrabold text-white mb-3 leading-7 text-start">
                   {t(`services.list.${serviceNum}.title`)}
@@ -391,37 +415,59 @@ const Home = () => {
             </h2>
             <p className="text-xl text-gray-600">{t('home.projects.subtitle')}</p>
           </motion.div>
-          <div className="project-gallery grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
-            {galleryImages.map((img, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={galleryInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -7 }}
-                className={`project-gallery-card group relative overflow-hidden rounded-[1.75rem] shadow-lg transition-all duration-300 ${
-                  index === 0
-                    ? 'md:col-span-2 lg:col-span-6 lg:row-span-2 h-[340px] lg:h-[520px]'
-                    : 'lg:col-span-3 h-[260px]'
-                }`}
-              >
-                <img
-                  src={img}
-                  alt={`Solar Project ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#061a10]/90 via-[#061a10]/10 to-transparent" />
-                <div className="absolute top-5 start-5 flex h-9 min-w-9 items-center justify-center rounded-full border border-white/25 bg-white/10 px-3 text-xs font-bold text-white backdrop-blur">
-                  0{index + 1}
-                </div>
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                  <p className={`${index === 0 ? 'text-xl md:text-2xl' : 'text-base'} text-white font-extrabold`}>
-                    {t('home.projects.imageCaption')}
-                  </p>
-                  <span className="mt-2 block h-0.5 w-10 rounded-full bg-yellow-primary transition-all duration-500 group-hover:w-20" />
-                </div>
-              </motion.div>
-            ))}
+          <div className="project-showcase">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={galleryInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65 }}
+              className="project-feature grid overflow-hidden rounded-[2rem] bg-[#0e2c1d] shadow-[0_28px_60px_-34px_rgba(7,44,23,0.65)] lg:grid-cols-[1.15fr_0.85fr]"
+            >
+              <div className="relative min-h-[330px] overflow-hidden lg:min-h-[440px]">
+                <img src={galleryImages[0]} alt="Solar Project 1" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071d11]/70 via-transparent to-transparent" />
+                <span className="absolute bottom-6 start-6 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-sm font-extrabold text-white backdrop-blur">01</span>
+              </div>
+              <div className="relative flex flex-col justify-center p-8 md:p-12 lg:p-14">
+                <span className="mb-5 text-sm font-bold tracking-wide text-yellow-primary">CESCO SOLAR</span>
+                <h3 className="text-3xl md:text-4xl font-extrabold leading-tight text-white">{t('home.projects.imageCaption')}</h3>
+                <p className="mt-5 max-w-md text-base leading-8 text-green-50/70">{t('home.projects.subtitle')}</p>
+                <span className="mt-8 h-1 w-16 rounded-full bg-yellow-primary" />
+              </div>
+            </motion.div>
+
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+              {(showAllProjects ? galleryImages.slice(1) : galleryImages.slice(1, 6)).map((img, index) => (
+                <motion.div
+                  key={img}
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={galleryInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                  whileHover={{ y: -7 }}
+                  className="project-thumbnail group relative h-[250px] overflow-hidden rounded-[1.5rem] bg-[#0e2c1d]"
+                >
+                  <img src={img} alt={`Solar Project ${index + 2}`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#071d11]/90 via-transparent to-transparent" />
+                  <span className="absolute top-4 start-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-xs font-bold text-white backdrop-blur">0{index + 2}</span>
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="text-sm font-extrabold leading-6 text-white">{t('home.projects.imageCaption')}</p>
+                    <span className="mt-3 block h-0.5 w-8 rounded-full bg-yellow-primary transition-all duration-500 group-hover:w-14" />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            {!showAllProjects && (
+              <div className="mt-10 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAllProjects(true)}
+                  className="btn-animated inline-flex items-center gap-3 rounded-full bg-yellow-primary px-8 py-3.5 font-bold text-[#123321] shadow-lg transition-transform hover:scale-105"
+                >
+                  {t('common.viewDetails')} - {t('home.projects.title')}
+                  <span className="ltr:hidden" aria-hidden="true">←</span>
+                  <span className="rtl:hidden" aria-hidden="true">→</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -477,3 +523,7 @@ const Home = () => {
 }
 
 export default Home
+
+
+
+

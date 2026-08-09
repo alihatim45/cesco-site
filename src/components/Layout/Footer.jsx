@@ -40,8 +40,11 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Company Info */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <Link to={ROUTES.home} className="inline-block transition-transform duration-300 hover:scale-105">
-              <img src="/images/cesco-logo.png" alt="CESCO Logo" className="h-16 w-auto object-contain mb-4" />
+            <Link to={ROUTES.home} className="footer-brand inline-flex items-center transition-transform duration-300 hover:scale-105">
+              <img src="/images/cesco-icon.png" alt="" aria-hidden="true" className="footer-logo-sun" draggable={false} />
+              <span className="footer-logo-name-crop">
+                <img src="/images/cesco-name.png" alt="CESCO Logo" className="footer-logo-name" draggable={false} />
+              </span>
             </Link>
             <p className="text-green-50/60 text-sm leading-7 max-w-sm">
               {t('about.story.p1').substring(0, 100)}...

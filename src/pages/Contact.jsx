@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react'
+﻿import { useState, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -204,6 +204,17 @@ const Contact = () => {
     }, 500)
   }
 
+  const contactJourney = isRTL
+    ? [
+        ['شاركنا بيانات المنشأة', 'أرسل تفاصيل الاستهلاك والموقع وهدف المشروع.'],
+        ['ندرس الاحتياج', 'يراجع فريقنا البيانات ويقترح الخطوة الفنية المناسبة.'],
+        ['نبدأ بوضوح', 'نرتب معاينة أو استشارة ونبني عرضاً يناسب المشروع.'],
+      ]
+    : [
+        ['Share your facility details', 'Send consumption, location, and project objectives.'],
+        ['We study the need', 'Our team reviews the data and recommends the right technical step.'],
+        ['Start with clarity', 'We arrange a survey or consultation and build a proposal for the project.'],
+      ]
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -326,6 +337,21 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Start your project */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8">
+          <div className="grid overflow-hidden rounded-[2rem] bg-[#123b26] shadow-[0_24px_54px_-34px_rgba(6,42,22,.64)] lg:grid-cols-[.8fr_1.2fr]">
+            <div className="p-8 md:p-12">
+              <span className="text-sm font-bold text-yellow-primary">{isRTL ? 'من أول رسالة إلى مشروع جاهز' : 'From first message to a ready project'}</span>
+              <h2 className="mt-4 text-3xl font-extrabold leading-tight text-white md:text-4xl">{isRTL ? 'خطوات بسيطة لبدء دراسة منشأتك' : 'Simple steps to begin your facility study'}</h2>
+              <a href="https://wa.me/966552277824" target="_blank" rel="noreferrer" className="mt-8 inline-flex rounded-full bg-yellow-primary px-6 py-3 font-bold text-[#15321f] transition-transform hover:scale-105">{isRTL ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}</a>
+            </div>
+            <div className="border-t border-white/10 p-8 md:p-12 lg:border-s lg:border-t-0">
+              <div className="space-y-5">{contactJourney.map(([title, text], index) => <div key={title} className="flex gap-4"><span className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-yellow-primary/45 text-sm font-bold text-yellow-primary">0{index + 1}</span><div><h3 className="font-bold text-white">{title}</h3><p className="mt-1 leading-7 text-green-50/65">{text}</p></div></div>)}</div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Contact Form */}
       <section className="py-24 bg-[#f3f7f3]">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -529,3 +555,4 @@ const Contact = () => {
 }
 
 export default Contact
+

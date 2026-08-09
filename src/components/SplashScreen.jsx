@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+﻿import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
@@ -14,43 +14,28 @@ const SplashScreen = () => {
   }, [navigate])
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      style={{
-        background: '#FFFFFF',
-      }}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
       <motion.div
-        initial={{ scale: 0, rotate: -180 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{
-          type: 'spring',
-          stiffness: 200,
-          damping: 15,
-          duration: 1.2,
-        }}
-        className="relative"
+        initial={{ opacity: 0, scale: 0.78, y: 18 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+        className="splash-brand"
       >
-        <motion.img
-          src="/images/cesco-logo.png"
-          alt="CESCO Logo"
-          className="h-12 w-auto md:h-16 lg:h-20 rounded-lg shadow-2xl"
-          style={{
-            filter: 'drop-shadow(0 0 30px rgba(254, 200, 25, 0.6))',
-          }}
-          animate={{
-            filter: [
-              'drop-shadow(0 0 30px rgba(254, 200, 25, 0.6))',
-              'drop-shadow(0 0 50px rgba(254, 200, 25, 0.8))',
-              'drop-shadow(0 0 30px rgba(254, 200, 25, 0.6))',
-            ],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
+        <img
+          src="/images/cesco-icon.png"
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          className="splash-logo-sun"
         />
+        <span className="splash-logo-name-crop">
+          <img
+            src="/images/cesco-name.png"
+            alt="CESCO - البيئة النقية للمقاولات"
+            draggable={false}
+            className="splash-logo-name"
+          />
+        </span>
       </motion.div>
     </div>
   )

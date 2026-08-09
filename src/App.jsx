@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import SplashScreen from './components/SplashScreen'
 import Layout from './components/Layout/Layout'
@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Vision from './pages/Vision'
 import Services from './pages/Services'
+import ServiceDetail from './pages/ServiceDetail'
 import Products from './pages/Products'
 import ProductDetail from './pages/ProductDetail'
 import Contact from './pages/Contact'
@@ -39,6 +40,7 @@ function App() {
         <Route path={ROUTES.about} element={<About />} />
         <Route path={ROUTES.vision} element={<Vision />} />
         <Route path={ROUTES.services} element={<Services />} />
+        <Route path={ROUTES.serviceDetail} element={<ServiceDetail />} />
         <Route path={ROUTES.products} element={<Products />} />
         <Route path={ROUTES.calculator} element={<Calculator />} />
         <Route path={ROUTES.productSolar} element={<ProductDetail productKey="solar" />} />
@@ -53,3 +55,4 @@ function App() {
 }
 
 export default App
+
