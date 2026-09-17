@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 const ModernSelect = ({ label, value, onChange, options, required = false, error = null, name = 'establishment' }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [query, setQuery] = useState('')
   const selectRef = useRef(null)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (selectRef.current && !selectRef.current.contains(event.target)) {
         setIsOpen(false)
+    setQuery('')
       }
     }
 
@@ -20,9 +22,14 @@ const ModernSelect = ({ label, value, onChange, options, required = false, error
   const handleSelect = (optionValue) => {
     onChange({ target: { name, value: optionValue } })
     setIsOpen(false)
+    setQuery('')
   }
 
   const selectedOption = options.find(opt => opt.value === value)
+  const isSearchable = options.length > 12
+  const filteredOptions = options.filter((option) =>
+    option.label.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())
+  )
 
   return (
     <div
@@ -122,7 +129,13 @@ const ModernSelect = ({ label, value, onChange, options, required = false, error
               boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
             }}
           >
-            {options.map((option, index) => (
+            {isSearchable && (
+              <div className="border-b border-gray-100 p-3 bg-white">
+                <input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="بحث عن مدينة / Search city" className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-green-primary focus:ring-2 focus:ring-green-primary/15" autoFocus />
+              </div>
+            )}
+            <div className="max-h-72 overflow-y-auto overscroll-contain">
+            {filteredOptions.map((option, index) => (
               <motion.button
                 key={option.value}
                 type="button"
@@ -172,6 +185,8 @@ const ModernSelect = ({ label, value, onChange, options, required = false, error
                 )}
               </motion.button>
             ))}
+            {filteredOptions.length === 0 && <p className="px-4 py-6 text-center text-sm text-gray-500">لا توجد مدينة مطابقة</p>}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

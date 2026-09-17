@@ -1,0 +1,91 @@
+.cesco-lamp {
+  position: absolute;
+  z-index: 0;
+  top: clamp(74px, 13vh, 132px);
+  inset-inline-start: clamp(8px, 2vw, 34px);
+  width: min(760px, 70vw);
+  height: 330px;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.cesco-lamp-beam,
+.cesco-lamp-horizon,
+.cesco-lamp-core,
+.cesco-lamp-ambient {
+  position: absolute;
+  display: block;
+}
+
+.cesco-lamp-beam {
+  top: 0;
+  width: 52%;
+  height: 245px;
+  transform-origin: top;
+  filter: blur(0.5px);
+}
+
+.cesco-lamp-beam.is-start {
+  inset-inline-end: 50%;
+  background: conic-gradient(from 87deg at 100% 0%, transparent 0deg, rgb(48 168 75 / 0.08) 30deg, rgb(254 200 25 / 0.7) 65deg, transparent 92deg);
+  transform-origin: 100% 0;
+}
+
+.cesco-lamp-beam.is-end {
+  inset-inline-start: 50%;
+  background: conic-gradient(from 273deg at 0% 0%, transparent 0deg, rgb(254 200 25 / 0.62) 28deg, rgb(48 168 75 / 0.12) 66deg, transparent 92deg);
+  transform-origin: 0 0;
+}
+
+.cesco-lamp-horizon {
+  top: 0;
+  left: 18%;
+  width: 64%;
+  height: 2px;
+  transform-origin: center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgb(48 168 75 / 0.82) 22%, #fec819 50%, rgb(48 168 75 / 0.78) 78%, transparent);
+  box-shadow: 0 0 12px rgb(254 200 25 / 0.7), 0 0 30px rgb(48 168 75 / 0.45);
+}
+
+.cesco-lamp-core {
+  top: -12px;
+  left: 35%;
+  width: 30%;
+  height: 30px;
+  border-radius: 50%;
+  background: rgb(255 218 83 / 0.58);
+  filter: blur(12px);
+}
+
+.cesco-lamp-ambient {
+  top: -30px;
+  left: 11%;
+  width: 78%;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 0%, rgb(254 200 25 / 0.28), rgb(48 168 75 / 0.1) 38%, transparent 70%);
+  filter: blur(18px);
+}
+
+@media (max-width: 1100px) {
+  .cesco-lamp { width: min(760px, 88vw); }
+}
+
+@media (max-width: 600px) {
+  .cesco-lamp {
+    top: 56px;
+    inset-inline-start: 2px;
+    width: calc(100% - 12px);
+    height: 230px;
+    opacity: 0.68;
+  }
+  .cesco-lamp-beam { height: 175px; }
+  .cesco-lamp-horizon { left: 12%; width: 76%; }
+  .cesco-lamp-ambient { height: 190px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cesco-lamp { opacity: 0.55; }
+}

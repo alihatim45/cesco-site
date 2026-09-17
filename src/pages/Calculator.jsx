@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
@@ -20,92 +20,108 @@ import { CalculatorIcon } from '../components/SolarIcons'
    metrics, recomputed from the resulting system size.
    ────────────────────────────────────────────────────────────────────── */
 
-// Saudi cities — labels only (UX / lead capture; no effect on the result)
+// Saudi cities — used for lead capture. The engineer's Excel model uses fixed
+// design assumptions, so city selection does not alter its formulas.
 const CITIES = {
-  riyadh: { ar: 'الرياض', en: 'Riyadh' },
-  jeddah: { ar: 'جدة', en: 'Jeddah' },
-  mecca: { ar: 'مكة المكرمة', en: 'Mecca' },
-  medina: { ar: 'المدينة المنورة', en: 'Medina' },
-  dammam: { ar: 'الدمام', en: 'Dammam' },
-  abha: { ar: 'أبها', en: 'Abha' },
-  tabuk: { ar: 'تبوك', en: 'Tabuk' },
-  hail: { ar: 'حائل', en: 'Hail' },
-  najran: { ar: 'نجران', en: 'Najran' },
-  jizan: { ar: 'جازان', en: 'Jizan' },
+  riyadh: { ar: 'الرياض', en: 'Riyadh' }, diriyah: { ar: 'الدرعية', en: 'Diriyah' },
+  kharj: { ar: 'الخرج', en: 'Al Kharj' }, majmaah: { ar: 'المجمعة', en: 'Al Majmaah' },
+  zulfi: { ar: 'الزلفي', en: 'Az Zulfi' }, shaqra: { ar: 'شقراء', en: 'Shaqra' },
+  dawadmi: { ar: 'الدوادمي', en: 'Ad Dawadmi' }, afif: { ar: 'عفيف', en: 'Afif' },
+  quwayiyah: { ar: 'القويعية', en: 'Al Quwayiyah' }, wadi_dawasir: { ar: 'وادي الدواسر', en: 'Wadi ad Dawasir' },
+  jeddah: { ar: 'جدة', en: 'Jeddah' }, mecca: { ar: 'مكة المكرمة', en: 'Makkah' },
+  taif: { ar: 'الطائف', en: 'Taif' }, rabigh: { ar: 'رابغ', en: 'Rabigh' }, lith: { ar: 'الليث', en: 'Al Lith' },
+  qunfudhah: { ar: 'القنفذة', en: 'Al Qunfudhah' }, bahrah: { ar: 'بحرة', en: 'Bahrah' },
+  medina: { ar: 'المدينة المنورة', en: 'Madinah' }, yanbu: { ar: 'ينبع', en: 'Yanbu' },
+  ula: { ar: 'العلا', en: 'Al Ula' }, badr: { ar: 'بدر', en: 'Badr' }, khaybar: { ar: 'خيبر', en: 'Khaybar' },
+  dammam: { ar: 'الدمام', en: 'Dammam' }, khobar: { ar: 'الخبر', en: 'Al Khobar' },
+  dhahran: { ar: 'الظهران', en: 'Dhahran' }, qatf: { ar: 'القطيف', en: 'Al Qatif' },
+  jubail: { ar: 'الجبيل', en: 'Al Jubail' }, ras_tanura: { ar: 'رأس تنورة', en: 'Ras Tanura' },
+  hofuf: { ar: 'الهفوف', en: 'Al Hofuf' }, mubarrazz: { ar: 'المبرز', en: 'Al Mubarraz' },
+  hafr_batin: { ar: 'حفر الباطن', en: 'Hafr Al Batin' }, khafji: { ar: 'الخفجي', en: 'Al Khafji' },
+  buraidah: { ar: 'بريدة', en: 'Buraidah' }, unaizah: { ar: 'عنيزة', en: 'Unaizah' },
+  rass: { ar: 'الرس', en: 'Ar Rass' }, bukayriyah: { ar: 'البكيرية', en: 'Al Bukayriyah' },
+  abha: { ar: 'أبها', en: 'Abha' }, khamis_mushait: { ar: 'خميس مشيط', en: 'Khamis Mushait' },
+  bisha: { ar: 'بيشة', en: 'Bisha' }, muhayil: { ar: 'محايل عسير', en: 'Muhayil' },
+  rjal_almaa: { ar: 'رجال ألمع', en: 'Rijal Almaa' }, namas: { ar: 'النماص', en: 'An Namas' },
+  tabuk: { ar: 'تبوك', en: 'Tabuk' }, duba: { ar: 'ضباء', en: 'Duba' }, umluj: { ar: 'أملج', en: 'Umluj' },
+  wajh: { ar: 'الوجه', en: 'Al Wajh' }, tayma: { ar: 'تيماء', en: 'Tayma' }, haql: { ar: 'حقل', en: 'Haql' },
+  hail: { ar: 'حائل', en: 'Hail' }, baqaa: { ar: 'بقعاء', en: 'Baqaa' }, ghazalah: { ar: 'الغزالة', en: 'Al Ghazalah' },
+  sakaka: { ar: 'سكاكا', en: 'Sakaka' }, qurayyat: { ar: 'القريات', en: 'Al Qurayyat' },
+  dumat_jandal: { ar: 'دومة الجندل', en: 'Dumat Al Jandal' }, tabarjal: { ar: 'طبرجل', en: 'Tabarjal' },
+  arar: { ar: 'عرعر', en: 'Arar' }, rafha: { ar: 'رفحاء', en: 'Rafha' }, turaif: { ar: 'طريف', en: 'Turaif' },
+  najran: { ar: 'نجران', en: 'Najran' }, sharurah: { ar: 'شرورة', en: 'Sharurah' }, habuna: { ar: 'حبونا', en: 'Hubuna' },
+  jizan: { ar: 'جازان', en: 'Jazan' }, sabya: { ar: 'صبيا', en: 'Sabya' },
+  abu_arish: { ar: 'أبو عريش', en: 'Abu Arish' }, samtah: { ar: 'صامطة', en: 'Samtah' },
+  bish: { ar: 'بيش', en: 'Bish' }, farasan: { ar: 'فرسان', en: 'Farasan' },
+  bahah: { ar: 'الباحة', en: 'Al Bahah' }, baljurashi: { ar: 'بلجرشي', en: 'Baljurashi' },
+  mandaq: { ar: 'المندق', en: 'Al Mandaq' }, mikhwah: { ar: 'المخواة', en: 'Al Mikhwah' },
 }
 
-// Core formula constants
-const TARIFF_SAR_PER_KWH = 0.22 // flat electricity price for bill↔kWh and savings
+// Engineering workbook assumptions (Sheet1, C33:G36 / G10:G13).
+const ENGINEERING_TARIFF_SAR_PER_KWH = 0.22
+const DAYS_PER_MONTH = 30
+const GRID_LOSS_MARGIN = 1.15
+const GRID_PEAK_SUN_HOURS = 6
+const OFF_GRID_LOSS_MARGIN = 1.3
+const OFF_GRID_PEAK_SUN_HOURS = 4
 const PANEL_WATTAGE_W = 550
+
+// Engineer-approved preliminary price for agricultural, industrial, and commercial projects.
+// Storage and site-specific civil works are quoted separately.
+const ENGINEER_ESTIMATED_PRICE_PER_KW = 1500
+
+// Production constants
 const SYSTEM_EFFICIENCY = 0.8
-const PEAK_SUN_HOURS = 6
 const DAYS_PER_YEAR = 365
 
-// Client empirical sizing constants — implement literally (do not "correct")
-const DENOM_DAYS = 30
-const DENOM_FACTOR = 5
-const SIZING_NUM = 1300
-
-// Secondary constants for downstream metrics
-const COST_PER_KW_FLAT = 4500 // flat installed cost, SAR/kW
-const PANEL_AREA_M2 = 2.2 // m2 per 550W panel
-const CO2_KG_PER_KWH = 0.72 // Saudi national grid emission factor
-const TREES_PER_TON_CO2 = 45 // ~45 trees absorb 1 ton CO2/year
-const BATTERY_DOD = 0.8 // Depth of Discharge for LFP
-const BATTERY_COST_PER_KWH = 1800 // SAR/kWh (LFP, installed)
-
+// Secondary metrics. Pricing is intentionally not calculated: the approved
+// engineering workbook contains no price formula.
+const PANEL_AREA_M2 = 2.2
+const CO2_KG_PER_KWH = 0.72
+const TREES_PER_TON_CO2 = 45
+const BATTERY_DOD = 0.8
 // WhatsApp business number — same value as the floating WhatsAppButton component
 const WHATSAPP_PHONE = '966552277824'
 
 /* ── Formulas ─────────────────────────────────────────────────────────── */
 
 const computeResults = ({ systemType, backupHours, inputMode, value }) => {
-  const monthlyBillSAR = inputMode === 'bill' ? value : value * TARIFF_SAR_PER_KWH
-
-  // Official simplified sizing — client formula, implemented literally
-  const numPanels = Math.ceil(
-    (monthlyBillSAR / (TARIFF_SAR_PER_KWH * DENOM_DAYS * DENOM_FACTOR)) * SIZING_NUM / PANEL_WATTAGE_W
-  )
-  const stationPowerW = numPanels * PANEL_WATTAGE_W
-  const actualKw = stationPowerW / 1000
-  const annualKwh = actualKw * SYSTEM_EFFICIENCY * PEAK_SUN_HOURS * DAYS_PER_YEAR
-  const annualSavings = annualKwh * TARIFF_SAR_PER_KWH
-  const monthlyKwh = monthlyBillSAR / TARIFF_SAR_PER_KWH
-
-  // Downstream metrics recomputed from the new system size
-  const inverterKw = Math.ceil(actualKw * 1.1 * 2) / 2
-  const systemCostSAR = actualKw * COST_PER_KW_FLAT
-  const paybackYears = annualSavings > 0 ? systemCostSAR / annualSavings : 0
-  const roi25 = systemCostSAR > 0 ? ((annualSavings * 25 - systemCostSAR) / systemCostSAR) * 100 : 0
-
+  // Workbook bill model: monthly bill ÷ 0.22 = monthly consumption in kWh.
+  const monthlyKwh = inputMode === 'bill' ? value / ENGINEERING_TARIFF_SAR_PER_KWH : value
+  const dailyKwh = monthlyKwh / DAYS_PER_MONTH
+  const needsBattery = systemType === 'offGrid'
+  const lossMargin = needsBattery ? OFF_GRID_LOSS_MARGIN : GRID_LOSS_MARGIN
+  const peakSunHours = needsBattery ? OFF_GRID_PEAK_SUN_HOURS : GRID_PEAK_SUN_HOURS
+  const stationKw = (dailyKwh * lossMargin) / peakSunHours
+  const inverterKw = needsBattery ? stationKw * OFF_GRID_LOSS_MARGIN : stationKw * GRID_LOSS_MARGIN
+  const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
+  const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
+  const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
+  const estimatedSystemCostSAR = stationKw * ENGINEER_ESTIMATED_PRICE_PER_KW
   const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
   const treesEquiv = Math.round(co2TonYear * TREES_PER_TON_CO2)
   const areaM2 = numPanels * PANEL_AREA_M2
 
-  const needsBattery = systemType === 'hybrid' || systemType === 'offGrid'
-  const dailyKwh = monthlyKwh / 30
-  const batteryKwh = needsBattery ? ((dailyKwh * backupHours) / 24) / BATTERY_DOD : 0
-  const batteryCostSAR = batteryKwh * BATTERY_COST_PER_KWH
+  // For off-grid only: workbook's 1.3 allowance and 80% usable battery depth.
+  const batteryKwh = needsBattery
+    ? ((dailyKwh * backupHours) / 24) * OFF_GRID_LOSS_MARGIN / BATTERY_DOD
+    : 0
 
   return {
     monthlyKwh,
-    actualKw,
+    actualKw: stationKw,
     numPanels,
     inverterKw,
     annualKwh,
     annualSavings,
-    systemCostSAR,
-    paybackYears,
-    roi25,
+    estimatedSystemCostSAR,
     co2TonYear,
     treesEquiv,
     areaM2,
     needsBattery,
     batteryKwh,
-    batteryCostSAR,
   }
 }
-
 /* ── Animated number (0 → value) — remounts per calculation via key ────── */
 
 const AnimatedNumber = ({ value, decimals = 0, locale }) => {
@@ -158,16 +174,16 @@ const PrimaryCard = ({ icon, label, value, decimals, unit, locale, delay }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay }}
-    className="bg-white rounded-2xl shadow-lg border-s-4 border-green-primary p-6 text-center"
+    className="calculator-primary-card rounded-[1.75rem] p-6 text-center"
   >
-    <div className="w-12 h-12 rounded-xl bg-green-primary/10 text-green-primary flex items-center justify-center mb-4 mx-auto">
+    <div className="w-12 h-12 rounded-2xl bg-yellow-primary text-[#15321f] flex items-center justify-center mb-4 mx-auto">
       <MetricIcon name={icon} />
     </div>
-    <div className="text-3xl md:text-4xl font-bold text-gray-900">
+    <div className="text-3xl md:text-4xl font-extrabold text-white">
       <AnimatedNumber value={value} decimals={decimals} locale={locale} />
     </div>
-    <div className="text-sm text-gray-500 mt-1">{unit}</div>
-    <p className="text-gray-700 font-medium mt-3 leading-snug">{label}</p>
+    <div className="text-sm text-green-50/55 mt-1">{unit}</div>
+    <p className="text-green-50/85 font-semibold mt-3 leading-snug">{label}</p>
   </motion.div>
 )
 
@@ -176,7 +192,7 @@ const SecondaryCard = ({ icon, label, value, decimals, unit, locale, extra, dela
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, delay }}
-    className="bg-green-primary/10 rounded-2xl p-6 text-center"
+    className="rounded-[1.75rem] border border-green-primary/10 bg-white p-6 text-center shadow-[0_18px_36px_-28px_rgba(15,56,31,0.35)]"
   >
     <div className="w-12 h-12 rounded-xl bg-white text-green-primary flex items-center justify-center mb-4 mx-auto shadow-sm">
       <MetricIcon name={icon} />
@@ -209,9 +225,9 @@ const Calculator = () => {
   const [results, setResults] = useState(null)
   const [calcId, setCalcId] = useState(0)
   const [error, setError] = useState('')
-  const [showBreakdown, setShowBreakdown] = useState(false)
+  const [showBreakdown, setShowBreakdown] = useState(true)
 
-  const needsBattery = form.systemType === 'hybrid' || form.systemType === 'offGrid'
+  const needsBattery = form.systemType === 'offGrid'
 
   const handleSelect = (e) => {
     const { name, value } = e.target
@@ -224,7 +240,7 @@ const Calculator = () => {
     icon: '📍',
   }))
 
-  const systemTypes = ['gridTied', 'hybrid', 'offGrid']
+  const systemTypes = ['gridTied', 'offGrid']
 
   const handleCalculate = () => {
     const raw = form.inputMode === 'bill' ? form.bill : form.kwh
@@ -236,6 +252,7 @@ const Calculator = () => {
     }
     setError('')
     setResults(computeResults({ ...form, value: num }))
+    setShowBreakdown(true)
     setCalcId((id) => id + 1)
   }
 
@@ -247,7 +264,6 @@ const Calculator = () => {
       .replace('{size}', results.actualKw.toFixed(1))
       .replace('{panels}', String(results.numPanels))
       .replace('{savings}', Math.round(results.annualSavings).toLocaleString(locale))
-      .replace('{payback}', results.paybackYears.toFixed(1))
     window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
@@ -267,7 +283,7 @@ const Calculator = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-primary/20 via-white to-yellow-primary/20 py-20">
+      <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -289,7 +305,7 @@ const Calculator = () => {
       </section>
 
       {/* Input + Results */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-[#f3f7f3]">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           {/* Input Card */}
           <motion.div
@@ -297,7 +313,7 @@ const Calculator = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={formInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
-            className="bg-white rounded-2xl shadow-xl p-8 md:p-10 max-w-2xl mx-auto"
+            className="modern-surface bg-white rounded-[2rem] p-8 md:p-10 max-w-2xl mx-auto"
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               {t('calculator.inputs.title')}
@@ -368,7 +384,7 @@ const Calculator = () => {
                 <label className="form-label block text-gray-700 font-semibold mb-2">
                   {t('calculator.inputs.systemType')}
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {systemTypes.map((st) => (
                     <button
                       key={st}
@@ -386,7 +402,7 @@ const Calculator = () => {
                 </div>
               </div>
 
-              {/* Backup hours (hybrid / off-grid only) */}
+              {/* Backup hours (off-grid only) */}
               <AnimatePresence>
                 {needsBattery && (
                   <motion.div
@@ -440,7 +456,7 @@ const Calculator = () => {
                 </h2>
 
                 {/* Primary metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                   <PrimaryCard
                     icon="bolt"
                     label={t('calculator.results.systemSize')}
@@ -468,19 +484,10 @@ const Calculator = () => {
                     locale={locale}
                     delay={0.15}
                   />
-                  <PrimaryCard
-                    icon="payback"
-                    label={t('calculator.results.payback')}
-                    value={results.paybackYears}
-                    decimals={1}
-                    unit={t('calculator.results.years')}
-                    locale={locale}
-                    delay={0.2}
-                  />
                 </div>
 
                 {/* Secondary metrics */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <SecondaryCard
                     icon="eco"
                     label={t('calculator.results.co2')}
@@ -502,19 +509,10 @@ const Calculator = () => {
                     locale={locale}
                     delay={0.3}
                   />
-                  <SecondaryCard
-                    icon="chart"
-                    label={t('calculator.results.roi25')}
-                    value={results.roi25}
-                    decimals={0}
-                    unit="%"
-                    locale={locale}
-                    delay={0.35}
-                  />
                 </div>
 
-                {/* Cost breakdown (collapsible) */}
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
+                {/* Engineering details (collapsible) */}
+                <div className="modern-surface bg-white rounded-[1.75rem] overflow-hidden mb-6">
                   <button
                     type="button"
                     onClick={() => setShowBreakdown((s) => !s)}
@@ -546,22 +544,18 @@ const Calculator = () => {
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <ul className="px-6 pb-6 divide-y divide-gray-100">
-                          <li className="flex items-center justify-between py-3">
-                            <span className="text-gray-600">
-                              {t('calculator.results.systemCost')}
-                            </span>
-                            <span className="font-semibold text-gray-900">
-                              {fmt(results.systemCostSAR)} {t('calculator.results.sar')}
-                            </span>
+                        <ul className="px-6 pb-4 divide-y divide-gray-100">
+                          <li className="flex items-center justify-between py-3 gap-4">
+                            <span className="text-gray-600">{t('calculator.results.engineerEstimate')}</span>
+                            <span className="font-semibold text-gray-900 whitespace-nowrap">{fmt(results.estimatedSystemCostSAR)} {t('calculator.results.sar')}</span>
                           </li>
                           {results.needsBattery && (
                             <li className="flex items-center justify-between py-3">
                               <span className="text-gray-600">
-                                {t('calculator.results.batteryCost')}
+                                {t('calculator.results.batteryCapacity')}
                               </span>
                               <span className="font-semibold text-gray-900">
-                                {fmt(results.batteryCostSAR)} {t('calculator.results.sar')}
+                                {fmt(results.batteryKwh, 1)} {t('calculator.results.kwh')}
                               </span>
                             </li>
                           )}
@@ -613,13 +607,13 @@ const Calculator = () => {
                 </button>
 
                 {/* CTA banner */}
-                <div className="bg-gradient-to-br from-green-primary to-yellow-primary rounded-2xl p-8 md:p-10 text-center">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                <div className="bg-white border-t-4 border-green-primary rounded-2xl shadow-lg p-8 md:p-10 text-center">
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
                     {t('calculator.results.ctaTitle')}
                   </h3>
                   <Link
                     to={ROUTES.contact}
-                    className="inline-block px-8 py-4 bg-white text-green-primary rounded-lg font-semibold text-lg hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    className="inline-block px-8 py-4 bg-green-primary text-white rounded-lg font-semibold text-lg hover:bg-green-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
                     {t('calculator.results.ctaButton')}
                   </Link>
@@ -634,3 +628,13 @@ const Calculator = () => {
 }
 
 export default Calculator
+
+
+
+
+
+
+
+
+
+

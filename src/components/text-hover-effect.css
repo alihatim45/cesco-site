@@ -1,0 +1,8 @@
+.cesco-signature { background:#080d12; padding:55px clamp(24px,6vw,100px) 72px; text-align:center; }
+.cesco-signature-caption { display:flex; justify-content:center; align-items:center; gap:14px; color:#b5babd; font-size:11px; letter-spacing:.18em; text-transform:uppercase; }
+.cesco-signature-caption::before,.cesco-signature-caption::after { content:''; height:1px; width:40px; background:#b997474f; }
+.cesco-text-effect { max-width:940px; margin:0 auto; user-select:none; }
+.cesco-text-effect svg { width:100%; height:auto; display:block; overflow:visible; }
+.cesco-text-effect text { font-family:Arial,sans-serif !important; }
+html[dir=rtl] .cesco-signature-caption { letter-spacing:0; font-size:13px; }
+@media(max-width:600px) { .cesco-signature { padding:30px 24px 55px; } .cesco-signature-caption { font-size:9px; letter-spacing:.08em; } }

@@ -1,0 +1,8 @@
+.cesco-spotlight-card { position:relative; isolation:isolate; overflow:hidden; height:100%; }
+.cesco-spotlight-glow,.cesco-spotlight-dots { position:absolute; inset:-1px; z-index:0; pointer-events:none; opacity:0; transition:opacity 260ms ease; }
+.cesco-spotlight-glow { background:radial-gradient(var(--spotlight-radius) circle at 50% 45%,rgba(48,168,75,.24),rgba(254,200,25,.09) 36%,transparent 72%); }
+.cesco-spotlight-dots { background-image:radial-gradient(rgba(254,200,25,.68) .8px,transparent .9px); background-size:8px 8px; mask-image:radial-gradient(150px circle at 50% 45%,#000,transparent 75%); -webkit-mask-image:radial-gradient(150px circle at 50% 45%,#000,transparent 75%); }
+.cesco-spotlight-content { position:relative; z-index:1; display:block; height:100%; }
+@media (hover:hover) and (pointer:fine) { .cesco-spotlight-card:hover .cesco-spotlight-glow,.cesco-spotlight-card:hover .cesco-spotlight-dots,a:focus-visible .cesco-spotlight-card .cesco-spotlight-glow { opacity:1; } }
+@media (hover:none), (pointer:coarse) { .cesco-spotlight-glow { opacity:.55; } .cesco-spotlight-dots { opacity:.3; } }
+@media (prefers-reduced-motion:reduce) { .cesco-spotlight-glow { opacity:.55; transition:none; } .cesco-spotlight-dots { opacity:.25; transition:none; } }

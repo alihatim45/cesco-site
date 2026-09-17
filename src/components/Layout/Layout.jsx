@@ -1,20 +1,29 @@
-import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import WhatsAppButton from '../WhatsAppButton'
 import ScrollNav from '../ScrollNav'
 import Breadcrumbs from '../Breadcrumbs'
 import SiteAssessmentModal from '../SiteAssessmentModal'
+import DecorativeImages from '../DecorativeImages'
+import GlowingEffect from '../GlowingEffect'
 
 const Layout = () => {
   const { t } = useTranslation()
   const [assessmentOpen, setAssessmentOpen] = useState(false)
+  const location = useLocation()
+  const prefersReducedMotion = useReducedMotion()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [location.pathname])
 
   return (
     <div className="min-h-screen flex flex-col">
+      <GlowingEffect />
       {/* Site Header - Sticky container for Navbar and Breadcrumbs */}
       <header 
         className="site-header w-full flex flex-col"
@@ -30,14 +39,25 @@ const Layout = () => {
         <Breadcrumbs />
       </header>
       
-      {/* Main content */}
+      {/* Main content — smooth cross-fade + slight rise on route change */}
       <main className="site-main flex-grow">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0, y: -16 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="page-transition"
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
       
       <Footer />
       <WhatsAppButton />
-      <ScrollNav />
+      {location.pathname !== '/' && <ScrollNav />}
 
       {/* Site Assessment floating trigger — leading edge (start), opposite the WhatsApp button */}
       <motion.button
@@ -61,6 +81,9 @@ const Layout = () => {
       </motion.button>
 
       <SiteAssessmentModal isOpen={assessmentOpen} onClose={() => setAssessmentOpen(false)} />
+
+      {/* Decorative fixed side images — sun (left) + energy island (right) */}
+      <DecorativeImages />
     </div>
   )
 }

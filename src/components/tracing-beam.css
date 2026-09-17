@@ -1,0 +1,10 @@
+.cesco-tracing-beam { position:relative; width:100%; }
+.cesco-beam-rail { position:absolute; z-index:30; top:20px; bottom:20px; inset-inline-start:clamp(10px,2vw,30px); width:20px; pointer-events:none; filter:drop-shadow(0 0 8px rgba(48,168,75,.2)); }
+.cesco-beam-rail svg { display:block; overflow:visible; }
+.cesco-beam-track,.cesco-beam-progress { fill:none; vector-effect:non-scaling-stroke; }
+.cesco-beam-track { stroke:rgba(48,168,75,.17); stroke-width:1; }
+.cesco-beam-progress { stroke-width:2; }
+.cesco-beam-marker { position:absolute; z-index:2; inset-inline-start:3px; width:14px; height:14px; border:2px solid #fec819; border-radius:50%; background:#30a84b; box-shadow:0 0 0 4px rgba(254,200,25,.13),0 0 18px rgba(48,168,75,.55); transform:translateY(-50%); }
+.cesco-beam-marker::after { content:''; position:absolute; inset:3px; border-radius:50%; background:#fff7d0; }
+@media (max-width:767px) { .cesco-beam-rail { display:none; } }
+@media (prefers-reduced-motion:reduce) { .cesco-beam-progress { opacity:.55; } .cesco-beam-marker { box-shadow:0 0 0 4px rgba(254,200,25,.1); } }

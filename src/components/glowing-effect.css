@@ -1,0 +1,41 @@
+.cesco-glow-card {
+  --cesco-glow-active: 0;
+  --cesco-glow-angle: 0deg;
+  --cesco-glow-x: 50%;
+  --cesco-glow-y: 50%;
+  position: relative;
+  isolation: isolate;
+}
+
+.cesco-glow-layer {
+  position: absolute;
+  inset: -1px;
+  z-index: 30;
+  display: block;
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--cesco-glow-active);
+  background:
+    radial-gradient(190px circle at var(--cesco-glow-x) var(--cesco-glow-y), rgb(254 200 25 / 0.96) 0, rgb(65 180 87 / 0.82) 32%, rgb(254 200 25 / 0.28) 58%, transparent 74%),
+    conic-gradient(from var(--cesco-glow-angle), transparent 0 31%, rgb(65 180 87 / 0.78) 39%, rgb(254 200 25 / 0.98) 48%, rgb(65 180 87 / 0.72) 57%, transparent 68% 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: drop-shadow(0 0 7px rgb(254 200 25 / 0.2));
+  transition: opacity 180ms ease;
+  will-change: opacity;
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cesco-glow-layer {
+    opacity: 0.34;
+    background: linear-gradient(125deg, rgb(65 180 87 / 0.45), rgb(254 200 25 / 0.56), rgb(65 180 87 / 0.24));
+    filter: none;
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .cesco-glow-layer { display: none; }
+}

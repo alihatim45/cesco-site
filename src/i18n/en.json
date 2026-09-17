@@ -11,7 +11,7 @@
   "home": {
     "hero": {
       "title": "Solar Energy Solutions for Agricultural, Industrial & Commercial Sectors",
-      "subtitle": "We serve farms, factories, businesses and homes with reliable solar systems that cut costs and deliver lasting sustainability",
+      "subtitle": "We serve farms, factories, and commercial businesses with reliable solar systems that cut costs and deliver lasting sustainability",
       "ctaPrimary": "Get a Quote",
       "ctaSecondary": "Contact Us"
     },
@@ -38,8 +38,22 @@
       "title": "Calculate Your Solar System Size Now",
       "subtitle": "Enter your electricity consumption and get an instant system design with cost and savings estimates",
       "button": "Calculate for Free",
-      "stat": "Homes & Businesses Calculated",
+      "stat": "Business Projects Calculated",
       "statSub": "Solar systems designed with our calculator"
+    },
+    "cinematic": {
+      "eyebrow": "Powering a sustainable future",
+      "line1": "Clean Energy.",
+      "line2": "Smarter Future.",
+      "description": "Advanced solar energy solutions engineered for homes, businesses, and large-scale projects.",
+      "solutions": "Explore Our Solutions",
+      "consultation": "Get a Consultation",
+      "renewable": "Renewable Energy",
+      "efficiency": "High Efficiency",
+      "monitoring": "Smart Monitoring",
+      "scroll": "Scroll to Explore",
+      "metaTitle": "CESCO | Clean Energy. Smarter Future.",
+      "loading": "Loading the scene…"
     }
   },
   "about": {
@@ -48,7 +62,7 @@
       "title": "Company Overview",
       "p1": "Pure Environment for Renewable Energy is a leading company in the renewable energy sector, specializing in providing innovative and effective solutions in solar energy. The company was founded with the aim of providing clean and sustainable energy solutions that contribute to environmental protection and cost reduction for its clients.",
       "p2": "Pure Environment for Renewable Energy is one of the subsidiaries of Tal Holding Group, which has great diversity in its sectors, such as agriculture, commerce, and industry. Through this affiliation with the group, the company is committed to providing high-quality solar energy solutions, benefiting from diverse expertise across various sectors to provide innovative solutions that meet the needs of local, regional, and international markets.",
-      "p3": "Pure Environment for Renewable Energy seeks to facilitate the transition to renewable energy and provide effective solutions for clients across various sectors, including homes and large companies. Thanks to our advanced technologies and specialized team, we ensure the delivery of solar energy systems that achieve high efficiency and economic savings in the long term.",
+      "p3": "Pure Environment for Renewable Energy seeks to facilitate the transition to renewable energy and provide effective solutions for clients across various sectors, including farms, factories, and commercial businesses. Thanks to our advanced technologies and specialized team, we ensure the delivery of solar energy systems that achieve high efficiency and economic savings in the long term.",
       "vision": "Vision: To be pioneers in renewable energy in the region and contribute to the global transition towards the use of clean and sustainable energy.",
       "mission": "Mission: To provide innovative and effective solutions in renewable energy, focusing on environmental sustainability and energy efficiency with the lowest costs.",
       "values": "Values",
@@ -76,7 +90,7 @@
       },
       "2": {
         "title": "Solar System Installation",
-        "description": "Installation of solar systems for farms, factories, businesses and homes"
+        "description": "Installation of solar systems for farms, factories, and commercial businesses"
       },
       "3": {
         "title": "Maintenance & Technical Support",
@@ -103,6 +117,17 @@
   "products": {
     "title": "Our Products",
     "subtitle": "Best solutions and equipment for solar energy",
+    "catalog": {
+      "eyebrow": "CESCO Solutions Catalogue",
+      "title": "Reliable equipment, built for lasting performance",
+      "description": "We carefully select every solar-system component for operational efficiency, reliability and easy maintenance in Saudi conditions.",
+      "quality": "Trusted brands",
+      "coverage": "Complete solutions",
+      "support": "Specialist support",
+      "ctaTitle": "Need help choosing your equipment?",
+      "ctaText": "Let our team help you select the solution that fits your project and budget.",
+      "ctaButton": "Talk to an expert"
+    },
     "featuresTitle": "Key Features",
     "galleryTitle": "Image Gallery",
     "solar": {
@@ -123,8 +148,14 @@
           "logo": "/images/brands/jinko.png",
           "image": "/images/jinko-bifacial-720w.jpeg",
           "datasheets": [
-            { "label": "Datasheet — Bifacial 720W", "file": "/datasheets/jinko-tiger-neo-66hl5-bdv-720w.pdf" },
-            { "label": "Datasheet — Monofacial 635W", "file": "/datasheets/jinko-tiger-neo-78hl4-635w.pdf" }
+            {
+              "label": "Datasheet — Bifacial 720W",
+              "file": "/datasheets/jinko-tiger-neo-66hl5-bdv-720w.pdf"
+            },
+            {
+              "label": "Datasheet — Monofacial 635W",
+              "file": "/datasheets/jinko-tiger-neo-78hl4-635w.pdf"
+            }
           ]
         },
         {
@@ -133,7 +164,10 @@
           "logo": "/images/brands/ja-solar.png",
           "image": "/images/ja-solar-720w.jpeg",
           "datasheets": [
-            { "label": "Download datasheet", "file": "/datasheets/ja-solar-jam66d46-720w.pdf" }
+            {
+              "label": "Download datasheet",
+              "file": "/datasheets/ja-solar-jam66d46-720w.pdf"
+            }
           ]
         },
         {
@@ -147,7 +181,7 @@
     "inverters": {
       "title": "Inverters",
       "subtitle": "High-quality inverters to convert DC to AC",
-      "description": "We provide a wide range of solar inverters that convert DC current from solar panels to AC current for residential and commercial use. Our inverters feature high efficiency and excellent reliability.",
+      "description": "We provide a wide range of solar inverters that convert DC current from solar panels to AC current for agricultural, industrial, and commercial use. Our inverters feature high efficiency and excellent reliability.",
       "features": [
         "High conversion efficiency up to 98%",
         "Advanced overcurrent protection",
@@ -160,26 +194,65 @@
           "title": "Water-Pump VFDs — Agricultural Applications",
           "blurb": "Variable-frequency drives that run solar water pumps directly from PV with no batteries — ideal for wells and irrigation.",
           "brands": [
-            { "name": "Frecon", "blurb": "Frecon — solar water-pump VFDs with reliable operation and high efficiency for wells and irrigation.", "logo": "/images/brands/frecon.png", "image": "/images/frecon-vfd.jpeg" },
-            { "name": "Veichi", "blurb": "Veichi — solar pump drives with built-in MPPT tracking and comprehensive pump protection.", "logo": "/images/brands/veichi.png", "image": "/images/veichi-vfd.jpeg" },
-            { "name": "INVT", "blurb": "INVT — solar pump inverters across a wide power range, suited to small and large irrigation projects.", "logo": "/images/brands/invt.png", "image": "/images/invt-vfd-pump.jpeg" }
+            {
+              "name": "Frecon",
+              "blurb": "Frecon — solar water-pump VFDs with reliable operation and high efficiency for wells and irrigation.",
+              "logo": "/images/brands/frecon.png",
+              "image": "/images/frecon-vfd.jpeg"
+            },
+            {
+              "name": "Veichi",
+              "blurb": "Veichi — solar pump drives with built-in MPPT tracking and comprehensive pump protection.",
+              "logo": "/images/brands/veichi.png",
+              "image": "/images/veichi-vfd.jpeg"
+            },
+            {
+              "name": "INVT",
+              "blurb": "INVT — solar pump inverters across a wide power range, suited to small and large irrigation projects.",
+              "logo": "/images/brands/invt.png",
+              "image": "/images/invt-vfd-pump.jpeg"
+            }
           ]
         },
         {
           "title": "On-Grid Inverters",
           "blurb": "Grid-tied inverters that power your loads and export surplus to the grid.",
           "brands": [
-            { "name": "Huawei", "blurb": "Huawei — smart FusionSolar inverters with high efficiency, advanced monitoring and excellent reliability.", "logo": "/images/brands/huawei.png", "image": "/images/huawei-inverter.jpeg" },
-            { "name": "GoodWe", "blurb": "GoodWe — reliable grid-tied inverters spanning residential to commercial power ranges.", "logo": "/images/brands/goodwe.png", "image": "/images/goodwe-inverter.jpeg" },
-            { "name": "Solis", "blurb": "Solis — one of the most established inverter makers, with efficient and cost-effective grid-tied solutions.", "logo": "/images/brands/solis.png" }
+            {
+              "name": "Huawei",
+              "blurb": "Huawei — smart FusionSolar inverters with high efficiency, advanced monitoring and excellent reliability.",
+              "logo": "/images/brands/huawei.png",
+              "image": "/images/huawei-inverter.jpeg"
+            },
+            {
+              "name": "GoodWe",
+              "blurb": "GoodWe — reliable grid-tied inverters for agricultural, industrial, and commercial power ranges.",
+              "logo": "/images/brands/goodwe.png",
+              "image": "/images/goodwe-inverter.jpeg"
+            },
+            {
+              "name": "Solis",
+              "blurb": "Solis — one of the most established inverter makers, with efficient and cost-effective grid-tied solutions.",
+              "logo": "/images/brands/solis.png"
+            }
           ]
         },
         {
           "title": "Off-Grid & Hybrid Inverters",
           "blurb": "Hybrid and off-grid inverters with battery support for operation during outages.",
           "brands": [
-            { "name": "Growatt", "blurb": "Growatt — high-performance hybrid and off-grid inverters with flexible storage support.", "logo": "/images/brands/growatt.png", "image": "/images/growatt-hybrid.jpeg" },
-            { "name": "Deye", "blurb": "Deye — powerful hybrid inverters with high capacity and advanced battery/backup support.", "logo": "/images/brands/deye.png", "image": "/images/deye-hybrid.jpeg" }
+            {
+              "name": "Growatt",
+              "blurb": "Growatt — high-performance hybrid and off-grid inverters with flexible storage support.",
+              "logo": "/images/brands/growatt.png",
+              "image": "/images/growatt-hybrid.jpeg"
+            },
+            {
+              "name": "Deye",
+              "blurb": "Deye — powerful hybrid inverters with high capacity and advanced battery/backup support.",
+              "logo": "/images/brands/deye.png",
+              "image": "/images/deye-hybrid.jpeg"
+            }
           ]
         }
       ]
@@ -199,8 +272,16 @@
         {
           "title": "Cables & Connectors",
           "items": [
-            { "name": "MC4 Connectors", "desc": "IP67 waterproof connectors for safe, efficient panel interconnection.", "image": "/images/mc4-connectors.jpeg" },
-            { "name": "DC Solar Cable", "desc": "1500–1800V UV- and heat-resistant cable (red/black).", "image": "/images/dc-cable-red-black.jpeg" }
+            {
+              "name": "MC4 Connectors",
+              "desc": "IP67 waterproof connectors for safe, efficient panel interconnection.",
+              "image": "/images/mc4-connectors.jpeg"
+            },
+            {
+              "name": "DC Solar Cable",
+              "desc": "1500–1800V UV- and heat-resistant cable (red/black).",
+              "image": "/images/dc-cable-red-black.jpeg"
+            }
           ]
         }
       ]
@@ -233,26 +314,57 @@
           "title": "DC Protection",
           "blurb": "Breakers, fuses and surge protection to safeguard your system on the DC side.",
           "items": [
-            { "name": "DC Circuit Breakers", "desc": "DC breakers up to 1500V to protect strings and arrays.", "image": "/images/suntree-dc-breaker.jpeg" },
-            { "name": "DC MCCB", "desc": "Moulded-case breakers for higher currents in larger plants.", "image": "/images/suntree-dc-mccb.jpeg" },
-            { "name": "DC Surge Protection (SPD)", "desc": "Protection against lightning-induced voltage surges.", "image": "/images/suntree-dc-spd.jpeg" },
-            { "name": "DC Fuses & Holders", "desc": "1000–1100V fuses with holders for string protection.", "image": "/images/suntree-dc-fuse.jpeg" }
+            {
+              "name": "DC Circuit Breakers",
+              "desc": "DC breakers up to 1500V to protect strings and arrays.",
+              "image": "/images/suntree-dc-breaker.jpeg"
+            },
+            {
+              "name": "DC MCCB",
+              "desc": "Moulded-case breakers for higher currents in larger plants.",
+              "image": "/images/suntree-dc-mccb.jpeg"
+            },
+            {
+              "name": "DC Surge Protection (SPD)",
+              "desc": "Protection against lightning-induced voltage surges.",
+              "image": "/images/suntree-dc-spd.jpeg"
+            },
+            {
+              "name": "DC Fuses & Holders",
+              "desc": "1000–1100V fuses with holders for string protection.",
+              "image": "/images/suntree-dc-fuse.jpeg"
+            }
           ]
         },
         {
           "title": "Combiner Boxes (IP65)",
           "blurb": "Weather- and dust-resistant IP65 boxes to safely combine PV strings.",
           "items": [
-            { "name": "IP65 Combiner Box", "desc": "Combines multiple strings with built-in protection (fuses/breakers/SPD)." }
+            {
+              "name": "IP65 Combiner Box",
+              "desc": "Combines multiple strings with built-in protection (fuses/breakers/SPD)."
+            }
           ]
         },
         {
           "title": "DC Isolator Switches",
           "blurb": "Isolator switches to safely disconnect the system for maintenance.",
           "items": [
-            { "name": "DC Isolator Switch", "desc": "Weatherproof isolator with MC4 connectors.", "image": "/images/dc-isolator-switch.jpeg" },
-            { "name": "Isolator Switch Range", "desc": "Multiple options with bus-bar and waterproof cover.", "image": "/images/dc-isolator-range.jpeg" },
-            { "name": "2-Pole DC Isolator", "desc": "For small systems and single strings.", "image": "/images/dc-isolator-2p.jpeg" }
+            {
+              "name": "DC Isolator Switch",
+              "desc": "Weatherproof isolator with MC4 connectors.",
+              "image": "/images/dc-isolator-switch.jpeg"
+            },
+            {
+              "name": "Isolator Switch Range",
+              "desc": "Multiple options with bus-bar and waterproof cover.",
+              "image": "/images/dc-isolator-range.jpeg"
+            },
+            {
+              "name": "2-Pole DC Isolator",
+              "desc": "For small systems and single strings.",
+              "image": "/images/dc-isolator-2p.jpeg"
+            }
           ]
         }
       ]
@@ -308,26 +420,26 @@
     "results": {
       "title": "Design Results",
       "whatsappShare": "Share Your Results via WhatsApp",
-      "whatsappMessage": "Hello, I calculated my solar system on CESCO's website:\n• City: {city}\n• System Size: {size} kW\n• Panels: {panels}\n• Annual Savings: SAR {savings}\n• Payback Period: {payback} years\nPlease contact me for a detailed quote",
+      "whatsappMessage": "Hello, I calculated my solar system on CESCO's website:\n• City: {city}\n• System Size: {size} kW\n• Panels: {panels}\n• Annual Savings: SAR {savings}\nPlease contact me for a detailed quote",
       "systemSize": "System Size",
       "panels": "Number of Panels",
       "annualSavings": "Estimated Annual Savings",
-      "payback": "Payback Period",
       "co2": "CO₂ Emissions Reduction",
       "treesEquiv": "Equivalent to planting",
       "treesUnit": "trees per year",
       "area": "Required Area",
-      "roi25": "Return on Investment (25 years)",
       "systemCost": "Estimated System Cost",
       "batteryCost": "Storage System Cost",
+      "batteryCapacity": "Recommended Storage Capacity",
+      "engineerEstimate": "Estimated system cost based on the engineer price",
+      "marketStorageNote": "This estimate uses the engineer-approved price of SAR 1,500 per kW and covers the base system only; storage and site-specific works are quoted after the technical study.",
       "monthlyConsumption": "Monthly Consumption",
       "annualProduction": "Estimated Annual Production",
       "inverterSize": "Inverter Size",
-      "breakdown": "Cost Breakdown",
-      "disclaimer": "Estimates based on IEC 62548 · IEC 60364-7-712 · Saudi Electricity Company requirements. Contact our team for a precise technical study.",
+      "breakdown": "Design Details",
+      "disclaimer": "Calculations follow the approved engineering design workbook. Prices are not included; request a quote after a detailed technical study in line with IEC 62548 · IEC 60364-7-712 and Saudi Electricity Company requirements.",
       "ctaTitle": "Ready to install your system?",
       "ctaButton": "Request an Accurate Quote",
-      "years": "years",
       "kw": "kW",
       "kwh": "kWh",
       "sar": "SAR",
@@ -354,7 +466,7 @@
       },
       {
         "q": "How long does system installation take?",
-        "a": "Small residential systems (5-15 kW) take one to two days. Medium commercial and agricultural systems (20-100 kW) take 3 to 7 days. Large projects require a detailed schedule."
+        "a": "Medium commercial, agricultural, and industrial systems (20-100 kW) take 3 to 7 days. Large projects require a detailed execution schedule."
       },
       {
         "q": "Does a solar system need official permits?",
@@ -370,7 +482,7 @@
       },
       {
         "q": "What is a realistic payback period for a system in Saudi Arabia?",
-        "a": "Agricultural and industrial: 6-10 years. Commercial: 7-12 years. Residential: 12-18 years. These are estimates based on current electricity tariffs and installation costs in the Saudi market."
+        "a": "Agricultural and industrial: 6-10 years. Commercial: 7-12 years. These estimates depend on electricity tariffs, installation costs, and project size in the Saudi market."
       }
     ]
   },
@@ -388,8 +500,7 @@
     "sectorOptions": {
       "agricultural": "Agricultural",
       "industrial": "Industrial",
-      "commercial": "Commercial",
-      "residential": "Residential"
+      "commercial": "Commercial"
     }
   },
   "common": {
@@ -407,4 +518,3 @@
     "invalid": "Invalid"
   }
 }
-
