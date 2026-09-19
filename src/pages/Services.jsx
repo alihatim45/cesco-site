@@ -1,4 +1,4 @@
-﻿import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
@@ -11,6 +11,7 @@ import {
   SupplyIcon,
   AnalysisIcon,
 } from '../components/SolarIcons'
+import ServiceStory from '../components/ServiceStory'
 
 const Services = () => {
   const { t, i18n } = useTranslation()
@@ -45,6 +46,10 @@ const Services = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Scroll-driven services showcase */}
+      <ServiceStory services={services} t={t} language={i18n.language} />
+
 
       {/* Services Grid */}
       <section className="py-24 bg-[#0e2c1d] relative overflow-hidden">
@@ -97,6 +102,3 @@ const Services = () => {
 }
 
 export default Services
-
-
-

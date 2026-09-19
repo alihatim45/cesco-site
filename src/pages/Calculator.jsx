@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
@@ -12,6 +12,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { ROUTES } from '../utils/constants'
 import ModernSelect from '../components/ModernSelect'
 import { CalculatorIcon } from '../components/SolarIcons'
+import ThoughtLine from '../components/ThoughtLine'
 
 /* ──────────────────────────────────────────────────────────────────────
    SOLAR DATA CONSTANTS — client official simplified sizing model
@@ -226,8 +227,16 @@ const Calculator = () => {
   const [calcId, setCalcId] = useState(0)
   const [error, setError] = useState('')
   const [showBreakdown, setShowBreakdown] = useState(true)
+  const [calculationStage, setCalculationStage] = useState('idle')
+  const calculationTimers = useRef([])
 
   const needsBattery = form.systemType === 'offGrid'
+  const isCalculating = calculationStage === 'working'
+  const thoughtSteps = i18n.language === 'ar'
+    ? ['تحليل استهلاك الطاقة', 'تحديد حجم الألواح والمحولات', 'تقدير الإنتاج والتوفير السنوي']
+    : ['Analyzing energy consumption', 'Sizing panels and inverter', 'Estimating production and annual savings']
+
+  useEffect(() => () => calculationTimers.current.forEach(window.clearTimeout), [])
 
   const handleSelect = (e) => {
     const { name, value } = e.target
@@ -248,12 +257,24 @@ const Calculator = () => {
     if (!raw || Number.isNaN(num) || num <= 0) {
       setError(t('calculator.inputs.required'))
       setResults(null)
+      setCalculationStage('idle')
       return
     }
+
+    calculationTimers.current.forEach(window.clearTimeout)
+    calculationTimers.current = []
+    const nextResults = computeResults({ ...form, value: num })
     setError('')
-    setResults(computeResults({ ...form, value: num }))
+    setResults(null)
+    setCalculationStage('working')
     setShowBreakdown(true)
-    setCalcId((id) => id + 1)
+
+    calculationTimers.current.push(window.setTimeout(() => {
+      setCalculationStage('settled')
+      setResults(nextResults)
+      setCalcId((id) => id + 1)
+
+    }, 3200))
   }
 
   const handleWhatsAppShare = () => {
@@ -433,10 +454,37 @@ const Calculator = () => {
               <button
                 type="button"
                 onClick={handleCalculate}
-                className="w-full px-8 py-4 bg-green-primary text-white rounded-lg font-semibold text-lg hover:bg-green-primary/90 hover:shadow-xl transform hover:scale-105 transition-all duration-200 shadow-lg"
+                disabled={isCalculating}
+                aria-busy={isCalculating}
+                className="w-full px-8 py-4 bg-green-primary text-white rounded-lg font-semibold text-lg hover:bg-green-primary/90 hover:shadow-xl transform hover:scale-105 transition-all duration-200 shadow-lg disabled:cursor-wait disabled:opacity-75 disabled:hover:scale-100"
               >
-                {t('calculator.inputs.calculate')}
+                {isCalculating
+                  ? (i18n.language === 'ar' ? 'جاري الحساب…' : 'Calculating…')
+                  : t('calculator.inputs.calculate')}
               </button>
+
+              <AnimatePresence initial={false}>
+                {calculationStage !== 'idle' && (
+                  <motion.div
+                    key="calculator-thought-line"
+                    initial={{ opacity: 0, height: 0, y: -8 }}
+                    animate={{ opacity: 1, height: 'auto', y: 0 }}
+                    exit={{ opacity: 0, height: 0, y: -6 }}
+                    transition={{ duration: 0.35 }}
+                    className="overflow-hidden"
+                  >
+                    <ThoughtLine
+                      working={isCalculating}
+                      steps={thoughtSteps}
+                      label={i18n.language === 'ar' ? 'جاري إعداد تقدير نظامك…' : 'Preparing your system estimate…'}
+                      doneLabel={i18n.language === 'ar' ? 'اكتمل الحساب خلال' : 'Calculated in'}
+                      collapseOnSettle
+                      showTimer
+                      className="calculator-thought-line"
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 
@@ -628,13 +676,3 @@ const Calculator = () => {
 }
 
 export default Calculator
-
-
-
-
-
-
-
-
-
-

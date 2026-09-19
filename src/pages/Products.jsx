@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { ROUTES } from '../utils/constants'
+import AnimatedTabs from '../components/AnimatedTabs'
 import {
   SolarPanelIcon,
   InverterIcon,
@@ -10,65 +11,127 @@ import {
   StructureIcon,
   ExtrasIcon,
 } from '../components/SolarIcons'
+import ThreeDMarquee from '../components/ThreeDMarquee'
+import ProductInlineDetails from '../components/ProductInlineDetails'
+
+const MARQUEE_IMAGES = [
+  '/images/jinko-bifacial-720w.jpeg',
+  '/images/huawei-inverter.jpeg',
+  '/images/dc-cable-red-black.jpeg',
+  '/images/WhatsApp Image 2025-12-05 at 3.40.05 PM4.jpeg',
+  '/images/suntree-dc-breaker.jpeg',
+  '/images/ja-solar-720w.jpeg',
+  '/images/goodwe-inverter.jpeg',
+  '/images/mc4-connectors.jpeg',
+  '/images/WhatsApp Image 2025-12-05 at 3.40.07 PM8.jpeg',
+  '/images/dc-isolator-switch.jpeg',
+  '/images/aiko-comet-620w.jpeg',
+  '/images/growatt-hybrid.jpeg',
+  '/images/suntree-dc-spd.jpeg',
+  '/images/WhatsApp Image 2025-12-05 at 3.40.08 PM3.jpeg',
+  '/images/dc-isolator-range.jpeg',
+  '/images/jinko-monofacial-635w.jpeg',
+  '/images/deye-hybrid.jpeg',
+  '/images/suntree-dc-mccb.jpeg',
+  '/images/WhatsApp Image 2025-12-05 at 3.40.09 PM88.jpeg',
+  '/images/dc-isolator-2p.jpeg',
+  '/images/ja-solar-635w.jpeg',
+  '/images/frecon-vfd.jpeg',
+  '/images/suntree-dc-fuse.jpeg',
+  '/images/WhatsApp Image 2025-12-05 at 3.40.10 PM663.jpeg',
+]
 
 const Products = () => {
   const { t } = useTranslation()
-  const { ref, isInView } = useScrollAnimation()
+  const [activeProduct, setActiveProduct] = useState('solar')
 
   const products = [
     {
       key: 'solar',
       route: ROUTES.productSolar,
       Icon: SolarPanelIcon,
-      image: '/images/WhatsApp Image 2025-12-05 at 3.40.02 PM.jpeg',
+      image: '/images/jinko-bifacial-720w.jpeg',
+      productShot: true,
     },
     {
       key: 'inverters',
       route: ROUTES.productInverters,
       Icon: InverterIcon,
-      image: '/images/WhatsApp Image 2025-12-05 at 3.40.03 PM1.jpeg',
+      image: '/images/huawei-inverter.jpeg',
+      productShot: true,
     },
     {
       key: 'cables',
       route: ROUTES.productCables,
       Icon: CableIcon,
-      image: '/images/WhatsApp Image 2025-12-05 at 3.40.04 PM2.jpeg',
+      image: '/images/dc-cable-red-black.jpeg',
+      productShot: true,
     },
     {
       key: 'structures',
       route: ROUTES.productStructures,
       Icon: StructureIcon,
       image: '/images/WhatsApp Image 2025-12-05 at 3.40.05 PM4.jpeg',
+      productShot: false,
     },
     {
       key: 'extras',
       route: ROUTES.productExtras,
       Icon: ExtrasIcon,
-      image: '/images/WhatsApp Image 2025-12-05 at 3.40.07 PM7.jpeg',
+      image: '/images/suntree-dc-breaker.jpeg',
+      productShot: true,
     },
   ]
 
+  const productTabs = products.map((product, index) => ({
+    title: t(`products.${product.key}.title`),
+    value: product.key,
+    icon: <product.Icon size={24} />,
+    content: (
+      <div className="cesco-product-tab-card">
+        <div className={`cesco-product-tab-image ${product.productShot ? 'is-product-shot' : ''}`}>
+          <img src={product.image} alt={t(`products.${product.key}.title`)} />
+          <span className="cesco-product-tab-number">CESCO · 0{index + 1}</span>
+        </div>
+        <div className="cesco-product-tab-copy">
+          <div className="cesco-product-tab-heading">
+            <span aria-hidden="true"><product.Icon size={30} /></span>
+            <h2>{t(`products.${product.key}.title`)}</h2>
+          </div>
+          <p>{t(`products.${product.key}.description`)}</p>
+          <button
+            type="button"
+            className="cesco-product-tab-link"
+            onClick={() => document.getElementById('product-live-details')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+          >
+            {t('common.learnMore')}
+            <span className="ltr:hidden" aria-hidden="true">←</span>
+            <span className="rtl:hidden" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    ),
+  }))
+
   return (
     <div className="w-full">
-      {/* Hero Section */}
-      <section className="page-hero py-20">
+      <section className="products-marquee-hero" aria-labelledby="products-marquee-title">
+        <ThreeDMarquee images={MARQUEE_IMAGES} />
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 34 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+            className="products-marquee-copy"
           >
-            <span className="page-eyebrow mb-5">{t('products.catalog.eyebrow')}</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-              {t('products.title')}
-            </h1>
-            <p className="text-xl text-gray-600">{t('products.subtitle')}</p>
+            <span className="page-eyebrow">{t('products.catalog.eyebrow')}</span>
+            <h1 id="products-marquee-title">{t('products.title')}</h1>
+            <p>{t('products.subtitle')}</p>
+            <span className="products-marquee-accent">CESCO PRODUCT SYSTEMS</span>
           </motion.div>
         </div>
       </section>
 
-      {/* Catalogue introduction: gives the product listing an editorial, sales-focused opening. */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="catalog-intro grid overflow-hidden rounded-[2rem] bg-[#0e2c1d] shadow-[0_26px_60px_-32px_rgba(9,52,28,0.6)] lg:grid-cols-[0.9fr_1.1fr]">
@@ -105,58 +168,30 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Products Grid */}
       <section className="pt-8 pb-24 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
-            ref={ref}
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.8 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="mx-auto max-w-6xl"
           >
-            {products.map((product, index) => (
-              <motion.div
-                key={product.key}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -9 }}
-                className="inner-product-card group relative overflow-hidden rounded-[1.75rem] bg-[#102b1c] transition-all duration-300"
-              >
-                <Link to={product.route}>
-                  <div className="relative h-56 overflow-hidden">
-                    <img
-                      src={product.image}
-                      alt={t(`products.${product.key}.title`)}
-                      className="img-zoom w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#102b1c] via-[#102b1c]/20 to-transparent" />
-                    <div className="absolute bottom-5 start-6">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/90 shadow-lg backdrop-blur">
-                        <product.Icon size={28} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-7 pt-2">
-                    <h3 className="text-xl md:text-2xl font-extrabold text-white mb-3 text-start">
-                      {t(`products.${product.key}.title`)}
-                    </h3>
-                    <p className="text-green-50/65 mb-5 leading-7 text-start">
-                      {t(`products.${product.key}.subtitle`)}
-                    </p>
-                    <div>
-                      <span className="inline-flex items-center gap-2 text-sm font-bold text-yellow-primary transition-colors group-hover:text-white">
-                        {t('common.learnMore')}
-                        <span className="ltr:hidden" aria-hidden="true">←</span>
-                        <span className="rtl:hidden" aria-hidden="true">→</span>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+            <AnimatedTabs
+              tabs={productTabs}
+              ariaLabel={t('products.title')}
+              value={activeProduct}
+              onValueChange={setActiveProduct}
+            />
           </motion.div>
+
+          <div className="mx-auto max-w-6xl">
+            <ProductInlineDetails
+              key={activeProduct}
+              productKey={activeProduct}
+              detailRoute={products.find((product) => product.key === activeProduct)?.route || ROUTES.productSolar}
+            />
+          </div>
 
           <div className="catalog-cta mt-16 rounded-[2rem] border border-green-primary/10 bg-[#edf5ef] p-8 md:p-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
             <div>

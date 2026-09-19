@@ -1,0 +1,58 @@
+.cesco-tabs { width:100%; perspective:1200px; }
+.cesco-tabs-list { position:relative; z-index:20; display:flex; width:100%; max-width:100%; align-items:center; gap:8px; overflow-x:auto; padding:5px; border:1px solid rgb(18 51 33 / .1); border-radius:999px; background:#edf5ef; box-shadow:0 16px 34px -28px rgb(15 56 31 / .45); }
+.cesco-tab-button { position:relative; isolation:isolate; display:flex; min-width:max-content; flex:1; align-items:center; justify-content:center; gap:9px; min-height:50px; padding:10px 16px; border:0; border-radius:999px; background:transparent; color:#52645a; font-size:14px; font-weight:800; cursor:pointer; }
+.cesco-tab-button:focus-visible { outline:3px solid rgb(48 168 75 / .34); outline-offset:3px; }
+.cesco-tab-active { position:absolute; inset:0; z-index:-1; border-radius:inherit; background:#123b26; box-shadow:0 12px 24px -16px rgb(9 52 28 / .75), inset 0 0 0 1px rgb(254 200 25 / .22); }
+.cesco-tab-button[aria-selected='true'] { color:#fff; }
+.cesco-tab-icon { display:flex; width:25px; height:25px; align-items:center; justify-content:center; color:#30a84b; }
+.cesco-tab-button[aria-selected='true'] .cesco-tab-icon { color:#fec819; }
+.cesco-tab-icon svg { width:23px; height:23px; }
+.cesco-tabs-stage { position:relative; isolation:isolate; height:440px; margin-top:34px; transform-style:preserve-3d; }
+.cesco-tabs-stage::before,.cesco-tabs-stage::after { content:''; position:absolute; inset:0; z-index:0; border:1px solid rgb(48 168 75 / .16); border-radius:2rem; background:linear-gradient(135deg,#dfece3,#edf5ef); box-shadow:0 22px 45px -34px rgb(15 56 31 / .48); pointer-events:none; transition:transform .35s ease; }
+.cesco-tabs-stage::before { transform:translateY(11px) scale(.975); }
+.cesco-tabs-stage::after { z-index:-1; transform:translateY(22px) scale(.95); opacity:.72; }
+.cesco-tabs-stage.is-hovering::before { transform:translateY(14px) scale(.972); }
+.cesco-tabs-stage.is-hovering::after { transform:translateY(27px) scale(.944); }
+.cesco-tab-panel { position:absolute; inset:0; z-index:2; width:100%; height:100%; transform-origin:top center; border-radius:2rem; }
+.cesco-tab-panel[aria-hidden='true'] { visibility:hidden !important; opacity:0 !important; }
+.cesco-product-tab-card { position:relative; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); width:100%; height:100%; overflow:hidden; border:1px solid rgb(255 255 255 / .1); border-radius:2rem; background:#102b1c; box-shadow:0 30px 60px -38px rgb(7 48 24 / .75); }
+.cesco-product-tab-image { position:relative; min-height:100%; overflow:hidden; }
+.cesco-product-tab-image img { width:100%; height:100%; object-fit:cover; transition:transform .7s cubic-bezier(.22,1,.36,1); }
+.cesco-product-tab-image.is-product-shot { background:radial-gradient(circle at 50% 42%,#fff 0%,#f4f7f5 68%,#e3ece6 100%); }
+.cesco-product-tab-image.is-product-shot img { object-fit:contain; padding:clamp(18px,3vw,38px); filter:drop-shadow(0 18px 24px rgb(10 45 25 / .14)); }
+.cesco-product-tab-card:hover .cesco-product-tab-image img { transform:scale(1.045); }
+.cesco-product-tab-image::after { content:''; position:absolute; inset:0; background:linear-gradient(0deg,rgb(7 35 21 / .72),transparent 58%); pointer-events:none; }
+.cesco-product-tab-number { position:absolute; z-index:2; inset-inline-start:24px; bottom:22px; display:flex; align-items:center; gap:11px; color:#fff; font-size:12px; font-weight:800; letter-spacing:.08em; }
+.cesco-product-tab-number::before { content:''; width:28px; height:1px; background:#fec819; }
+.cesco-product-tab-copy { position:relative; display:flex; flex-direction:column; justify-content:center; padding:clamp(30px,5vw,70px); text-align:start; }
+.cesco-product-tab-copy::before { content:''; position:absolute; inset-inline-end:-60px; top:-80px; width:240px; height:240px; border-radius:50%; background:rgb(48 168 75 / .18); filter:blur(45px); }
+.cesco-product-tab-heading { display:flex; align-items:center; gap:15px; margin-bottom:20px; }
+.cesco-product-tab-heading > span { display:flex; width:54px; height:54px; flex:none; align-items:center; justify-content:center; border-radius:17px; background:#fec819; color:#123321; }
+.cesco-product-tab-heading h2 { margin:0; color:#fff; font-size:clamp(25px,3vw,40px); font-weight:900; line-height:1.2; }
+.cesco-product-tab-copy p { max-width:590px; margin:0; color:rgb(236 255 241 / .7); font-size:clamp(15px,1.6vw,18px); line-height:1.9; }
+.cesco-product-tab-link { display:inline-flex; align-items:center; gap:10px; width:max-content; margin-top:28px; padding:13px 21px; border-radius:999px; background:#fec819; color:#102b1c; font-size:14px; font-weight:900; text-decoration:none; transition:transform .2s,background-color .2s; }
+.cesco-product-tab-link:hover { transform:translateY(-2px); background:#ffd54a; }
+.no-visible-scrollbar { scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch; }
+.no-visible-scrollbar::-webkit-scrollbar { display:none; }
+
+@media (max-width:800px) {
+  .cesco-tabs-list { justify-content:flex-start; border-radius:20px; }
+  .cesco-tab-button { flex:0 0 auto; min-height:46px; padding:9px 14px; }
+  .cesco-tabs-stage { height:560px; margin-top:24px; }
+  .cesco-product-tab-card { grid-template-columns:1fr; grid-template-rows:230px 1fr; }
+  .cesco-product-tab-copy { justify-content:flex-start; padding:27px; }
+  .cesco-product-tab-heading { margin-bottom:14px; }
+  .cesco-product-tab-heading > span { width:46px; height:46px; border-radius:14px; }
+  .cesco-product-tab-copy p { font-size:15px; line-height:1.75; }
+  .cesco-product-tab-link { margin-top:20px; }
+}
+
+@media (max-width:420px) {
+  .cesco-tab-icon { display:none; }
+  .cesco-tabs-stage { height:585px; }
+  .cesco-product-tab-card { grid-template-rows:210px 1fr; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .cesco-product-tab-image img,.cesco-product-tab-link { transition:none; }
+}
