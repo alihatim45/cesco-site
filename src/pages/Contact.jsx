@@ -1,10 +1,11 @@
-﻿import { useState, useRef, useMemo } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { COMPANY_INFO } from '../utils/constants'
+import { COMPANY_INFO, ROUTES } from '../utils/constants'
 import ModernSelect from '../components/ModernSelect'
+import PageCinematicHero from '../components/PageCinematicHero'
 
 const Contact = () => {
   const { t, i18n } = useTranslation()
@@ -217,6 +218,7 @@ const Contact = () => {
       ]
   return (
     <div className="w-full">
+      <PageCinematicHero eyebrow={isRTL ? 'لنبدأ مشروعك' : 'Let’s start your project'} title={t('contact.title')} subtitle={t('contact.subtitle')} primaryLabel={isRTL ? 'اطلب استشارة' : 'Request a consultation'} primaryTo={ROUTES.contact} secondaryLabel={isRTL ? 'شاهد مشاريعنا' : 'View our projects'} secondaryTo={ROUTES.projects} />
       {/* Hero Section */}
       <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -555,4 +557,5 @@ const Contact = () => {
 }
 
 export default Contact
+
 

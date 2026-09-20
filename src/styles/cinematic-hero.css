@@ -48,3 +48,5 @@
 .cesco-loader-name { font-family:Arial,sans-serif !important; font-size:15px; font-weight:700; letter-spacing:.22em; }
 .cesco-loader-caption { font-size:13px; color:#bbc7bf; }
 .cesco-cinematic:not(.is-loaded) .cesco-hero-copy, .cesco-cinematic:not(.is-loaded) .cesco-hero-labels, .cesco-cinematic:not(.is-loaded) .cesco-scroll-cue { visibility:hidden; }
+
+.cesco-page-cinematic .cesco-hero-copy h1 span{display:block}.cesco-page-cinematic+.page-hero{display:none}

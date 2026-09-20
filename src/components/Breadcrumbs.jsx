@@ -1,4 +1,4 @@
-﻿import { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ROUTES } from '../utils/constants'
@@ -34,6 +34,7 @@ const Breadcrumbs = () => {
     '/vision': 'nav.vision',
     '/services': 'nav.services',
     '/products': 'nav.products',
+    '/projects': 'nav.projects',
     '/calculator': 'nav.calculator',
     '/contact': 'nav.contact',
   }
@@ -207,5 +208,6 @@ const Breadcrumbs = () => {
 }
 
 export default Breadcrumbs
+
 
 

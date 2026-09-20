@@ -5,6 +5,7 @@
     "vision": "Vision",
     "services": "Services",
     "products": "Products",
+    "projects": "Projects",
     "contact": "Contact",
     "calculator": "Calculator"
   },
@@ -518,4 +519,5 @@
     "invalid": "Invalid"
   }
 }
+
 

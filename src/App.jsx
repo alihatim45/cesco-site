@@ -6,6 +6,8 @@ import Vision from './pages/Vision'
 import Services from './pages/Services'
 import ServiceDetail from './pages/ServiceDetail'
 import Products from './pages/Products'
+import Projects from './pages/Projects'
+import ProjectDetail from './pages/ProjectDetail'
 import ProductDetail from './pages/ProductDetail'
 import Contact from './pages/Contact'
 import Calculator from './pages/Calculator'
@@ -21,6 +23,8 @@ function App() {
         <Route path={ROUTES.services} element={<Services />} />
         <Route path={ROUTES.serviceDetail} element={<ServiceDetail />} />
         <Route path={ROUTES.products} element={<Products />} />
+        <Route path={ROUTES.projects} element={<Projects />} />
+        <Route path={ROUTES.projectDetail} element={<ProjectDetail />} />
         <Route path={ROUTES.calculator} element={<Calculator />} />
         <Route path={ROUTES.productSolar} element={<ProductDetail productKey="solar" />} />
         <Route path={ROUTES.productInverters} element={<ProductDetail productKey="inverters" />} />
@@ -34,4 +38,6 @@ function App() {
 }
 
 export default App
+
+
 

@@ -1,4 +1,4 @@
-﻿export const BRAND_COLORS = {
+export const BRAND_COLORS = {
   green: '#30a84b',
   yellow: '#fec819',
 }
@@ -17,6 +17,8 @@ export const ROUTES = {
   services: '/services',
   serviceDetail: '/services/:serviceId',
   products: '/products',
+  projects: '/projects',
+  projectDetail: '/projects/:projectId',
   calculator: '/calculator',
   productSolar: '/products/solar',
   productInverters: '/products/inverters',
@@ -25,5 +27,7 @@ export const ROUTES = {
   productExtras: '/products/extras',
   contact: '/contact',
 }
+
+
 
 

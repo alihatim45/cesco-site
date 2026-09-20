@@ -1,8 +1,9 @@
-﻿import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { ROUTES } from '../utils/constants'
 import { DesignIcon, InstallIcon, MaintenanceIcon, ConsultingIcon, BatteryIcon, SupplyIcon, AnalysisIcon } from '../components/SolarIcons'
+import PageCinematicHero from '../components/PageCinematicHero'
 
 const SERVICE_DETAILS = {
   design: {
@@ -146,18 +147,7 @@ const ServiceDetail = () => {
 
   return (
     <div className="w-full bg-[#f4f8f4]">
-      <section className="relative overflow-hidden bg-[#0d321f] py-20 md:py-28">
-        <div className="absolute inset-0 opacity-25" style={{ backgroundImage: `linear-gradient(90deg, rgba(6, 25, 14, .94), rgba(6, 25, 14, .52)), url("${service.image}")`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="absolute -top-24 end-10 h-72 w-72 rounded-full bg-yellow-primary/15 blur-3xl" />
-        <div className="container relative mx-auto px-4 md:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }} className="max-w-3xl text-start">
-            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-yellow-primary text-[#15321f] shadow-xl"><Icon size={38} /></div>
-            <p className="mb-3 text-sm font-bold tracking-wide text-yellow-primary">{copy.eyebrow}</p>
-            <h1 className="text-4xl font-extrabold leading-tight text-white md:text-6xl">{copy.title}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-green-50/80 md:text-xl">{copy.intro}</p>
-          </motion.div>
-        </div>
-      </section>
+      <PageCinematicHero eyebrow={copy.eyebrow} title={copy.title} subtitle={copy.intro} primaryLabel={copy.cta} primaryTo={ROUTES.contact} secondaryLabel={isArabic ? 'كل الخدمات' : 'All services'} secondaryTo={ROUTES.services} />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -189,4 +179,5 @@ const ServiceDetail = () => {
 }
 
 export default ServiceDetail
+
 

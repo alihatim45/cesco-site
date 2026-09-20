@@ -13,6 +13,7 @@ import { ROUTES } from '../utils/constants'
 import ModernSelect from '../components/ModernSelect'
 import { CalculatorIcon } from '../components/SolarIcons'
 import ThoughtLine from '../components/ThoughtLine'
+import PageCinematicHero from '../components/PageCinematicHero'
 
 /* ──────────────────────────────────────────────────────────────────────
    SOLAR DATA CONSTANTS — client official simplified sizing model
@@ -303,6 +304,7 @@ const Calculator = () => {
 
   return (
     <div className="w-full">
+      <PageCinematicHero eyebrow={i18n.language === 'ar' ? 'خطوتك الأولى نحو التوفير' : 'Your first step toward savings'} title={t('calculator.title')} subtitle={t('calculator.subtitle')} primaryLabel={i18n.language === 'ar' ? 'ابدأ الحساب' : 'Start calculating'} primaryTo={ROUTES.calculator} secondaryLabel={i18n.language === 'ar' ? 'استشر فريقنا' : 'Talk to our team'} secondaryTo={ROUTES.contact} />
       {/* Hero Section */}
       <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -676,3 +678,5 @@ const Calculator = () => {
 }
 
 export default Calculator
+
+

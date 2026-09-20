@@ -27,6 +27,7 @@ const Navbar = () => {
     { path: ROUTES.vision, key: 'vision' },
     { path: ROUTES.services, key: 'services' },
     { path: ROUTES.products, key: 'products' },
+    { path: ROUTES.projects, key: 'projects' },
     { path: ROUTES.contact, key: 'contact' },
     { path: ROUTES.calculator, key: 'calculator', isCta: true },
   ]
@@ -186,3 +187,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

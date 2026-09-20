@@ -1,8 +1,9 @@
-﻿import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { COMPANY_INFO } from '../utils/constants'
+import { COMPANY_INFO, ROUTES } from '../utils/constants'
 import { VisionIcon, MissionIcon, ValuesIcon } from '../components/SolarIcons'
+import PageCinematicHero from '../components/PageCinematicHero'
 
 const About = () => {
   const { t, i18n } = useTranslation()
@@ -45,6 +46,7 @@ const About = () => {
 
   return (
     <div className="w-full">
+      <PageCinematicHero eyebrow={isArabic ? 'قصتنا وخبرتنا' : 'Our story and expertise'} title={t('about.title')} subtitle={isArabic ? 'شريك هندسي موثوق لحلول الطاقة الشمسية في القطاعات الزراعية والصناعية والتجارية.' : 'A trusted engineering partner for solar solutions across agricultural, industrial, and commercial sectors.'} primaryLabel={isArabic ? 'استكشف خدماتنا' : 'Explore our services'} primaryTo={ROUTES.services} secondaryLabel={isArabic ? 'تواصل معنا' : 'Contact us'} secondaryTo={ROUTES.contact} />
       {/* Hero Section */}
       <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -286,6 +288,7 @@ const About = () => {
 }
 
 export default About
+
 
 
 

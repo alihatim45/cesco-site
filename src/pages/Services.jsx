@@ -12,6 +12,8 @@ import {
   AnalysisIcon,
 } from '../components/SolarIcons'
 import ServiceStory from '../components/ServiceStory'
+import { ROUTES } from '../utils/constants'
+import PageCinematicHero from '../components/PageCinematicHero'
 
 const Services = () => {
   const { t, i18n } = useTranslation()
@@ -30,6 +32,7 @@ const Services = () => {
 
   return (
     <div className="w-full">
+      <PageCinematicHero eyebrow={i18n.language === 'ar' ? 'حلول من الدراسة إلى التشغيل' : 'From study to operation'} title={t('services.title')} subtitle={t('services.subtitle')} primaryLabel={i18n.language === 'ar' ? 'ابدأ مشروعك' : 'Start your project'} primaryTo={ROUTES.contact} secondaryLabel={i18n.language === 'ar' ? 'شاهد مشاريعنا' : 'View our projects'} secondaryTo={ROUTES.projects} />
       {/* Hero Section */}
       <section className="page-hero py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -102,3 +105,5 @@ const Services = () => {
 }
 
 export default Services
+
+

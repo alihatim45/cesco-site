@@ -28,7 +28,7 @@ export default function CescoCinematicFooter() {
   const columns = [
     {
       title: rtl ? 'روابط سريعة' : 'Quick links',
-      links: [[ROUTES.home, t('nav.home')], [ROUTES.about, t('nav.about')], [ROUTES.vision, t('nav.vision')], [ROUTES.contact, t('nav.contact')]],
+      links: [[ROUTES.home, t('nav.home')], [ROUTES.about, t('nav.about')], [ROUTES.vision, t('nav.vision')], [ROUTES.projects, t('nav.projects')], [ROUTES.contact, t('nav.contact')]],
     },
     {
       title: t('nav.services'),
@@ -102,3 +102,4 @@ export default function CescoCinematicFooter() {
     </footer>
   )
 }
+

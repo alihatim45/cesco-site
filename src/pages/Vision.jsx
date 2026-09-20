@@ -1,10 +1,11 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { useParallax } from '../hooks/useParallax'
 import { ROUTES } from '../utils/constants'
 import { VisionIcon, InstallIcon, AnalysisIcon } from '../components/SolarIcons'
+import PageCinematicHero from '../components/PageCinematicHero'
 
 const VISION_CONTENT = {
   ar: {
@@ -73,19 +74,7 @@ const Vision = () => {
 
   return (
     <div className="w-full bg-[#f4f8f4]">
-      <section ref={heroParallaxRef} className="relative min-h-[62vh] flex items-center justify-center overflow-hidden">
-        <motion.div className="absolute inset-0 z-0 scale-110" style={{ y: heroParallaxY }}>
-          <img src={heroImage} alt="Solar panels" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#062f1a]/90 via-[#0b6838]/72 to-[#c69a06]/42" />
-        </motion.div>
-        <div className="absolute top-12 end-8 h-48 w-48 rounded-full bg-yellow-primary/20 blur-3xl" />
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="relative z-10 max-w-4xl px-4 text-center text-white md:px-6">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-bold backdrop-blur-sm"><span className="h-2 w-2 rounded-full bg-yellow-primary" />{copy.badge}</span>
-          <h1 className="mt-6 text-5xl font-extrabold tracking-tight md:text-7xl">{t('vision.title')}</h1>
-          <p className="mt-4 text-xl font-medium text-green-50/90 md:text-3xl">{t('vision.subtitle')}</p>
-          <p className="mx-auto mt-7 max-w-3xl text-base leading-8 text-white/80 md:text-lg">{copy.lead}</p>
-        </motion.div>
-      </section>
+      <PageCinematicHero eyebrow={copy.badge} title={t('vision.title')} subtitle={copy.lead} primaryLabel={copy.ctaButton} primaryTo={ROUTES.contact} secondaryLabel={i18n.language === 'ar' ? 'شاهد مشاريعنا' : 'View our projects'} secondaryTo={ROUTES.projects} />
 
       <section className="relative overflow-hidden bg-[#0d321f] py-20 md:py-28">
         <div className="absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-green-primary/25 blur-3xl" />
@@ -143,5 +132,6 @@ const Vision = () => {
 }
 
 export default Vision
+
 
 

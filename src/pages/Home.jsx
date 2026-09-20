@@ -22,6 +22,7 @@ import {
 } from '../components/SolarIcons'
 import FAQ from '../components/FAQ'
 import WhyChooseCesco from '../components/WhyChooseCesco'
+import ProjectKineticGallery from '../components/ProjectKineticGallery'
 
 const Counter = ({ end, suffix = '', className = 'text-white' }) => {
   const count = useMotionValue(0)
@@ -383,59 +384,12 @@ const Home = () => {
             </h2>
             <p className="text-xl text-gray-600">{t('home.projects.subtitle')}</p>
           </motion.div>
-          <div className="project-showcase">
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={galleryInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.65 }}
-              className="project-feature grid overflow-hidden rounded-[2rem] bg-[#0e2c1d] shadow-[0_28px_60px_-34px_rgba(7,44,23,0.65)] lg:grid-cols-[1.15fr_0.85fr]"
-            >
-              <div className="relative min-h-[330px] overflow-hidden lg:min-h-[440px]">
-                <img src={galleryImages[0]} alt="Solar Project 1" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071d11]/70 via-transparent to-transparent" />
-                <span className="absolute bottom-6 start-6 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-sm font-extrabold text-white backdrop-blur">01</span>
-              </div>
-              <div className="relative flex flex-col justify-center p-8 md:p-12 lg:p-14">
-                <span className="mb-5 text-sm font-bold tracking-wide text-yellow-primary">CESCO SOLAR</span>
-                <h3 className="text-3xl md:text-4xl font-extrabold leading-tight text-white">{t('home.projects.imageCaption')}</h3>
-                <p className="mt-5 max-w-md text-base leading-8 text-green-50/70">{t('home.projects.subtitle')}</p>
-                <span className="mt-8 h-1 w-16 rounded-full bg-yellow-primary" />
-              </div>
-            </motion.div>
-
-            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-              {(showAllProjects ? galleryImages.slice(1) : galleryImages.slice(1, 6)).map((img, index) => (
-                <motion.div
-                  key={img}
-                  initial={{ opacity: 0, y: 22 }}
-                  animate={galleryInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.45, delay: index * 0.08 }}
-                  whileHover={{ y: -7 }}
-                  className="project-thumbnail group relative h-[250px] overflow-hidden rounded-[1.5rem] bg-[#0e2c1d]"
-                >
-                  <img src={img} alt={`Solar Project ${index + 2}`} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#071d11]/90 via-transparent to-transparent" />
-                  <span className="absolute top-4 start-4 flex h-8 w-8 items-center justify-center rounded-full border border-white/25 bg-white/10 text-xs font-bold text-white backdrop-blur">0{index + 2}</span>
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <p className="text-sm font-extrabold leading-6 text-white">{t('home.projects.imageCaption')}</p>
-                    <span className="mt-3 block h-0.5 w-8 rounded-full bg-yellow-primary transition-all duration-500 group-hover:w-14" />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            {!showAllProjects && (
-              <div className="mt-10 text-center">
-                <button
-                  type="button"
-                  onClick={() => setShowAllProjects(true)}
-                  className="btn-animated inline-flex items-center gap-3 rounded-full bg-yellow-primary px-8 py-3.5 font-bold text-[#123321] shadow-lg transition-transform hover:scale-105"
-                >
-                  {t('common.viewDetails')} - {t('home.projects.title')}
-                  <span className="ltr:hidden" aria-hidden="true">←</span>
-                  <span className="rtl:hidden" aria-hidden="true">→</span>
-                </button>
-              </div>
-            )}
+          <ProjectKineticGallery images={galleryImages} />
+          <div className="mt-10 text-center">
+            <Link to={ROUTES.projects} className="btn-animated inline-flex items-center gap-3 rounded-full bg-[#0e2c1d] px-8 py-3.5 font-bold text-white shadow-lg transition-all hover:-translate-y-1 hover:bg-[#164b30]">
+              {i18n.language === 'ar' ? 'عرض جميع المشاريع' : 'View all projects'}
+              <span aria-hidden="true">{i18n.language === 'ar' ? '←' : '→'}</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -492,6 +446,8 @@ const Home = () => {
 }
 
 export default Home
+
+
 
 
 
