@@ -1,0 +1,40 @@
+.cesco-cinematic-footer { margin-top: 5rem; overflow: hidden; background: #000805; color: #aab4ae; font-family: Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+.cesco-energy-globe { position: relative; height: 420px; overflow: hidden; background: #000805; }
+.cesco-energy-globe__top-fade { position: absolute; inset: 0 0 auto; z-index: 2; height: 8rem; background: linear-gradient(#000805, transparent); pointer-events: none; }
+.cesco-energy-globe svg { width: 100%; height: 100%; }
+.cesco-location-badge { position: absolute; z-index: 3; padding: .42rem .75rem; border: 1px solid #33443a; border-radius: .4rem; background: #101914; color: #809087; font-size: .78rem; font-weight: 650; white-space: nowrap; box-shadow: 0 10px 26px rgba(0,0,0,.35); pointer-events: none; }
+.cesco-location-badge[data-active] { border-color: #f7b500; color: #fff; box-shadow: 0 10px 30px rgba(247,181,0,.16); }
+.cesco-location-badge > span { color: #f7b500; font-size: .55rem; }
+.cesco-location-badge i { position: absolute; top: calc(100% + 4px); left: 50%; width: 1px; background: linear-gradient(#f7b500, transparent); transform: translateX(-50%); }
+.cesco-cinematic-links { position: relative; background: #07100b; padding: 4rem clamp(1.5rem, 5vw, 5rem); }
+.cesco-cinematic-links__fade { position: absolute; inset: -6rem 0 auto; z-index: 2; height: 6rem; background: linear-gradient(transparent, #07100b); pointer-events: none; }
+.cesco-cinematic-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: clamp(2rem, 5vw, 5rem); max-width: 1440px; margin: 0 auto; }
+.cesco-cinematic-grid h3 { margin-bottom: 1.4rem; color: #fff; font-size: .95rem; font-weight: 750; }
+.cesco-cinematic-grid ul { display: flex; flex-direction: column; gap: .72rem; }
+.cesco-cinematic-grid a { display: inline-block; color: #9aa89f; font-size: .86rem; line-height: 1.55; transition: color .22s ease, transform .22s ease; }
+.cesco-cinematic-grid a:hover { color: #fff; transform: translateX(4px); }
+[dir='rtl'] .cesco-cinematic-grid a:hover { transform: translateX(-4px); }
+.cesco-cinematic-actions { display: flex; flex-wrap: wrap; gap: .75rem; max-width: 1440px; margin: 3.5rem auto 0; }
+.cesco-cinematic-actions > a, .cesco-cinematic-actions > div > a { display: block; padding: .75rem 1.5rem; border: 1px solid #3a4a40; border-radius: .45rem; color: #fff; font-size: .82rem; font-weight: 700; transition: border-color .25s ease, background .25s ease; }
+.cesco-cinematic-actions > a:hover, .cesco-cinematic-actions > div > a:hover { border-color: #f7b500; background: rgba(247,181,0,.06); }
+.cesco-cinematic-copyright { display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem clamp(1.5rem,5vw,5rem); border-top: 1px dashed #29362f; background: #07100b; color: #65736b; font-family: ui-monospace, monospace; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }
+.cesco-cinematic-word { position: relative; display: flex; height: clamp(220px, 30vw, 400px); align-items: center; justify-content: center; overflow: hidden; background: #000; }
+.cesco-cinematic-word h2 { color: #fff; font-size: clamp(8rem, 28vw, 23rem); font-weight: 950; line-height: .8; letter-spacing: -.075em; white-space: nowrap; pointer-events: none; }
+.cesco-cinematic-word > div { position: absolute; inset: auto 0 0; z-index: 2; height: 5rem; background: linear-gradient(transparent, #000); }
+
+@media (max-width: 780px) {
+  .cesco-energy-globe { height: 350px; }
+  .cesco-location-badge { font-size: .65rem; }
+  .cesco-location-badge:not([data-active]) { opacity: .15 !important; }
+  .cesco-cinematic-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 2.5rem 1.5rem; }
+}
+@media (max-width: 480px) {
+  .cesco-energy-globe { height: 310px; }
+  .cesco-location-badge { display: none; }
+  .cesco-location-badge[data-active] { display: block; left: 50% !important; top: 18% !important; transform: translateX(-50%) !important; }
+  .cesco-cinematic-links { padding-inline: 1.25rem; }
+  .cesco-cinematic-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .cesco-cinematic-actions > a, .cesco-cinematic-actions > div > a { text-align: center; padding-inline: .7rem; }
+  .cesco-cinematic-copyright { flex-direction: column; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) { .cesco-cinematic-footer * { scroll-behavior: auto; } }

@@ -21,6 +21,7 @@ import {
   CalculatorIcon,
 } from '../components/SolarIcons'
 import FAQ from '../components/FAQ'
+import WhyChooseCesco from '../components/WhyChooseCesco'
 
 const Counter = ({ end, suffix = '', className = 'text-white' }) => {
   const count = useMotionValue(0)
@@ -50,7 +51,7 @@ const Counter = ({ end, suffix = '', className = 'text-white' }) => {
 }
 
 const Home = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [showAllProjects, setShowAllProjects] = useState(false)
   const { ref: aboutRef, isInView: aboutInView } = useScrollAnimation()
   const { ref: productsRef, isInView: productsInView } = useScrollAnimation()
@@ -207,6 +208,8 @@ const Home = () => {
         </div>
       </section>
 
+      <WhyChooseCesco />
+
       {/* Services Snapshot */}
       <section className="py-24 bg-[#0e2c1d] relative overflow-hidden">
         <div className="absolute -top-44 -left-32 h-96 w-96 rounded-full bg-green-primary/20 blur-3xl" />
@@ -328,6 +331,40 @@ const Home = () => {
               {t('common.viewDetails')} - {t('nav.products')}
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Solar energy flow */}
+      <section className="relative overflow-hidden border-y border-green-primary/10 bg-[#f3f7f3] py-16 md:py-20">
+        <div className="absolute -start-28 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-yellow-primary/10 blur-3xl" aria-hidden="true" />
+        <div className="container relative mx-auto px-4 md:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7 }}
+            className="mx-auto max-w-6xl"
+          >
+            <div className="mb-8 text-center">
+              <span className="text-xs font-extrabold tracking-[0.2em] text-[#b88000]">CESCO ENERGY FLOW</span>
+              <h2 className="mt-3 text-3xl font-extrabold text-[#123522] md:text-4xl">
+                {i18n.language === 'ar' ? 'من ضوء الشمس إلى طاقة لمشروعك' : 'From sunlight to power for your project'}
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-gray-600">
+                {i18n.language === 'ar'
+                  ? 'مسار مبسط يوضح توليد الطاقة وتخزينها ووصولها إلى منشأتك.'
+                  : 'A simple view of how energy is generated, stored, and delivered to your facility.'}
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_24px_55px_-35px_rgba(15,56,31,0.45)] md:p-6">
+              <img
+                src="/images/solar-flow-diagram.svg"
+                alt={i18n.language === 'ar' ? 'مخطط تدفق الطاقة الشمسية من الشمس إلى المشروع' : 'Solar energy flow from sunlight to the project'}
+                className="block h-auto w-full"
+                loading="lazy"
+              />
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -455,6 +492,8 @@ const Home = () => {
 }
 
 export default Home
+
+
 
 
 

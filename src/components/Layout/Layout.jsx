@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Navbar from './Navbar'
-import Footer from './Footer'
+import Footer from './CescoCinematicFooter'
 import WhatsAppButton from '../WhatsAppButton'
 import ScrollNav from '../ScrollNav'
 import Breadcrumbs from '../Breadcrumbs'
@@ -89,3 +89,5 @@ const Layout = () => {
 }
 
 export default Layout
+
+

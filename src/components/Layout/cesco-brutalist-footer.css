@@ -1,0 +1,57 @@
+.cesco-brutalist-footer { position: relative; z-index: 2; margin-top: 5rem; overflow: hidden; border-top: 1px solid #23372c; background: #07100b; color: #fff; font-family: Arial, sans-serif; }
+.cesco-footer-top { display: grid; grid-template-columns: .85fr 1.15fr 1.15fr; gap: clamp(2rem, 5vw, 5rem); padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 4vw, 4rem) 3.5rem; }
+.cesco-footer-identity { display: flex; min-height: 330px; flex-direction: column; justify-content: space-between; }
+.cesco-footer-logo { display: inline-flex; width: fit-content; height: 60px; align-items: center; border: 0; background: transparent; direction: ltr; }
+.cesco-footer-logo.is-rtl { flex-direction: row-reverse; }
+.cesco-footer-logo-sun { display: block; width: 60px; height: 60px; flex-shrink: 0; object-fit: contain; animation: cesco-footer-spin 10s linear infinite; transform-origin: center; }
+.cesco-footer-logo-name-crop { display: flex; width: 165px; height: 60px; margin-inline-start: -16px; align-items: flex-start; overflow: hidden; flex-shrink: 0; }
+.cesco-footer-logo-name { display: block; width: 170px; height: 170px; max-width: none; flex-shrink: 0; object-fit: fill; transform: translateY(-53px); }
+.cesco-footer-email { display: flex; flex-direction: column; gap: .55rem; }
+.cesco-footer-email span, .cesco-footer-action p { color: #607067; font-family: ui-monospace, monospace; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.cesco-footer-email a { width: fit-content; color: #fff; font-size: .95rem; transition: color .25s ease; }
+.cesco-footer-email a:hover { color: #f7b500; }
+.cesco-footer-eyebrow { display: flex; align-items: center; gap: .65rem; margin-bottom: 1.6rem; color: #69776f; font-family: ui-monospace, monospace; font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.cesco-footer-eyebrow i { width: .45rem; height: .45rem; background: #f7b500; }
+.cesco-footer-column nav, .cesco-footer-connect { display: flex; flex-direction: column; gap: .18rem; }
+.cesco-footer-column nav a, .cesco-footer-connect > a { display: flex; width: fit-content; align-items: baseline; gap: .55rem; color: #f0f3f1; font-size: clamp(1.35rem, 2vw, 2.2rem); font-weight: 650; line-height: 1.05; letter-spacing: -.035em; text-transform: uppercase; }
+.cesco-footer-column small { color: #59675f; font-family: ui-monospace, monospace; font-size: .62rem; font-weight: 500; letter-spacing: 0; text-transform: lowercase; }
+.cesco-footer-action { display: grid; grid-template-columns: .85fr 1.15fr 1.15fr; align-items: end; gap: clamp(2rem, 5vw, 5rem); padding: 0 clamp(1.5rem, 4vw, 4rem) 4rem; }
+.cesco-footer-action .cesco-footer-eyebrow { margin: 0; }
+.cesco-footer-action p { max-width: 36ch; line-height: 1.7; }
+.cesco-footer-action > a { position: relative; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #39473f; padding: .8rem 0; color: #fff; font-size: .85rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; transition: border-color .25s ease, color .25s ease; }
+.cesco-footer-action > a:hover { border-color: #f7b500; color: #f7b500; }
+.cesco-footer-brand-frame { position: relative; margin: 0 clamp(1.5rem, 4vw, 4rem); border: 1px solid #29362f; overflow: hidden; }
+.cesco-footer-location { display: flex; justify-content: center; gap: .8rem; padding: .9rem 1rem; border-bottom: 1px solid #202c25; color: #59665f; font-family: ui-monospace, monospace; font-size: .62rem; letter-spacing: .12em; text-align: center; text-transform: uppercase; }
+.cesco-footer-location strong { color: #fff; font-weight: 500; }
+.cesco-footer-word { display: flex; min-height: clamp(160px, 28vw, 390px); align-items: center; justify-content: center; padding: 1rem; overflow: hidden; color: rgba(255,255,255,.78); font-size: clamp(7.5rem, 26vw, 25rem); font-weight: 900; line-height: .72; letter-spacing: -.075em; direction: ltr; white-space: nowrap; }
+.corner { position: absolute; z-index: 2; width: 1.25rem; height: 1.25rem; opacity: .55; pointer-events: none; }
+.corner-tl { top: .6rem; left: .6rem; border-top: 1px solid #f7b500; border-left: 1px solid #f7b500; }.corner-tr { top: .6rem; right: .6rem; border-top: 1px solid #f7b500; border-right: 1px solid #f7b500; }.corner-bl { bottom: .6rem; left: .6rem; border-bottom: 1px solid #f7b500; border-left: 1px solid #f7b500; }.corner-br { right: .6rem; bottom: .6rem; border-right: 1px solid #f7b500; border-bottom: 1px solid #f7b500; }
+.cesco-footer-bottom { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding: 1.4rem clamp(1.5rem, 4vw, 4rem); border-top: 1px dashed #29362f; color: #647169; font-family: ui-monospace, monospace; font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; }
+@keyframes cesco-footer-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 850px) {
+  .cesco-footer-top { grid-template-columns: 1fr 1fr; }
+  .cesco-footer-identity { grid-column: 1 / -1; min-height: 170px; flex-direction: row; align-items: flex-end; }
+  .cesco-footer-action { grid-template-columns: 1fr; }
+  .cesco-footer-location { flex-wrap: wrap; }
+}
+@media (max-width: 560px) {
+  .cesco-footer-top { grid-template-columns: 1fr; }
+  .cesco-footer-identity { min-height: 200px; }
+  .cesco-footer-column nav a, .cesco-footer-connect > a { font-size: 2rem; }
+  .cesco-footer-connect small { display: none; }
+  .cesco-footer-word { font-size: 30vw; }
+  .cesco-footer-bottom { flex-direction: column; text-align: center; }
+}
+
+
+
+
+@media (max-width: 560px) {
+  .cesco-footer-logo { height: 50px; }
+  .cesco-footer-logo-sun { width: 50px; height: 50px; }
+  .cesco-footer-logo-name-crop { width: 132px; height: 50px; margin-inline-start: -13px; }
+  .cesco-footer-logo-name { width: 142px; height: 142px; transform: translateY(-44px); }
+}
+@media (prefers-reduced-motion: reduce) { .cesco-footer-logo-sun { animation: none; } }
+
