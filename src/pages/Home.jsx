@@ -23,6 +23,7 @@ import {
 import FAQ from '../components/FAQ'
 import WhyChooseCesco from '../components/WhyChooseCesco'
 import ProjectKineticGallery from '../components/ProjectKineticGallery'
+import PremiumFAQ from '../components/PremiumFAQ'
 
 const Counter = ({ end, suffix = '', className = 'text-white' }) => {
   const count = useMotionValue(0)
@@ -336,26 +337,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <motion.div
-            ref={faqRef}
-            initial={{ opacity: 0, y: 50 }}
-            animate={faqInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              {t('faq.title')}
-            </h2>
-            <p className="text-xl text-gray-600">{t('faq.subtitle')}</p>
-          </motion.div>
-          <div className="max-w-3xl mx-auto">
-            <FAQ />
-          </div>
-        </div>
-      </section>
+      <PremiumFAQ />
 
       {/* Contact Preview */}
       <section className="py-24 bg-[#eaf4ed] border-t border-green-primary/10">
