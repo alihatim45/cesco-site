@@ -4,6 +4,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { COMPANY_INFO, ROUTES } from '../utils/constants'
 import { VisionIcon, MissionIcon, ValuesIcon } from '../components/SolarIcons'
 import PageCinematicHero from '../components/PageCinematicHero'
+import SolarBenefits from '../components/SolarBenefits'
 
 const About = () => {
   const { t, i18n } = useTranslation()
@@ -111,6 +112,8 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      <SolarBenefits />
 
       {/* Our approach */}
       <section className="bg-white py-20 md:py-24">
