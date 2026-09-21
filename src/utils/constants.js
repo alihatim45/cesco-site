@@ -6,7 +6,7 @@ export const BRAND_COLORS = {
 export const COMPANY_INFO = {
   email: 'info@cesco.sa',
   phone: '0114714316',
-  address: 'PQM3+36, Ar Rawdah, Riyadh',
+  address: 'Al Khatib Al Muqaddisi, Ar Rawdah, Riyadh 13213',
   locationCode: 'PQM3+36, Ar Rawdah, Riyadh',
 }
 

@@ -13,7 +13,7 @@ const About = () => {
   const { ref: infoRef, isInView: infoInView } = useScrollAnimation()
   const { ref: mapRef, isInView: mapInView } = useScrollAnimation()
 
-  const projectImage = '/images/WhatsApp Image 2025-12-05 at 3.40.02 PM.jpeg'
+  const projectImage = '/images/cesco-solar-cinematic.png'
 
   const values = [
     {
@@ -47,26 +47,36 @@ const About = () => {
   return (
     <div className="w-full">
       <PageCinematicHero eyebrow={isArabic ? 'قصتنا وخبرتنا' : 'Our story and expertise'} title={t('about.title')} subtitle={isArabic ? 'شريك هندسي موثوق لحلول الطاقة الشمسية في القطاعات الزراعية والصناعية والتجارية.' : 'A trusted engineering partner for solar solutions across agricultural, industrial, and commercial sectors.'} primaryLabel={isArabic ? 'استكشف خدماتنا' : 'Explore our services'} primaryTo={ROUTES.services} secondaryLabel={isArabic ? 'تواصل معنا' : 'Contact us'} secondaryTo={ROUTES.contact} />
-      {/* Hero Section */}
-      <section className="page-hero py-20">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-              {t('about.title')}
-            </h1>
-          </motion.div>
+      {/* Modern identity snapshot */}
+      <section className="relative overflow-hidden bg-[#f3f7f3] py-16 md:py-20">
+        <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-green-primary/10 blur-3xl" />
+        <div className="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-yellow-primary/10 blur-3xl" />
+        <div className="container relative mx-auto px-4 md:px-6 lg:px-8">
+          <div className="grid items-end gap-8 lg:grid-cols-[1.1fr_.9fr]">
+            <div className={isArabic ? 'text-right' : 'text-left'}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-green-primary/15 bg-white/75 px-4 py-2 text-xs font-bold tracking-[0.18em] text-green-primary">
+                <span className="h-2 w-2 rounded-full bg-yellow-primary" /> CESCO SOLAR
+              </span>
+              <h2 className="mt-6 max-w-3xl text-4xl font-black leading-[1.12] tracking-tight text-[#102d1c] md:text-6xl">
+                {isArabic ? <>نبني <span className="text-green-primary">طاقة أوضح</span><br />لمستقبل أكثر استدامة.</> : <>Building <span className="text-green-primary">clearer energy</span><br />for a more sustainable future.</>}
+              </h2>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {[['50+', isArabic ? 'مشروعًا' : 'Projects'], ['70+', isArabic ? 'عميلًا' : 'Clients'], ['10+', isArabic ? 'سنوات خبرة' : 'Years']].map(([value, label]) => (
+                <div key={label} className="rounded-2xl border border-green-primary/10 bg-white/80 p-4 text-center shadow-[0_18px_38px_-30px_rgba(15,56,31,.45)] backdrop-blur-sm md:p-5">
+                  <strong className="block text-2xl font-black text-green-primary md:text-3xl">{value}</strong>
+                  <span className="mt-1 block text-xs font-semibold text-gray-600 md:text-sm">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Company Overview */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="about-story-panel grid overflow-hidden rounded-[2rem] bg-[#0e2c1d] shadow-[0_26px_60px_-32px_rgba(9,52,28,0.55)] lg:grid-cols-2">
+          <div className="about-story-panel grid overflow-hidden rounded-[2.5rem] bg-[#0e2c1d] shadow-[0_30px_70px_-34px_rgba(9,52,28,0.65)] lg:grid-cols-[.92fr_1.08fr]">
             <motion.div
               ref={storyRef}
               initial={{ opacity: 0, x: -50 }}
@@ -86,15 +96,17 @@ const About = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={storyInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative order-1 min-h-[340px] lg:min-h-full"
+              className="relative order-1 min-h-[340px] overflow-hidden lg:min-h-full"
             >
               <motion.img
                 src={projectImage}
                 alt="Solar Project"
-              className="w-full h-full min-h-[340px] object-cover"
+              className="h-full min-h-[340px] w-full object-cover transition-transform duration-700"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#071b10]/55 via-transparent to-white/5" />
+              <div className="absolute bottom-6 start-6 rounded-full border border-white/20 bg-[#0c281a]/70 px-4 py-2 text-xs font-bold tracking-[0.16em] text-white backdrop-blur-md">CESCO · SOLAR ENERGY</div>
             </motion.div>
           </div>
         </div>
@@ -267,12 +279,16 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-              {t('about.info.address')}
-            </h2>
-            <div className="map-wrapper rounded-3xl overflow-hidden shadow-xl">
+            <div className={`mb-8 flex flex-col gap-3 ${isArabic ? 'text-right' : 'text-left'} md:flex-row md:items-end md:justify-between`}>
+              <div>
+                <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.18em] text-green-primary"><span className="h-2 w-2 rounded-full bg-yellow-primary" /> {isArabic ? 'موقعنا' : 'FIND US'}</span>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#102d1c] md:text-5xl">{isArabic ? 'نحن قريبون من مشروعك' : 'Close to your next project'}</h2>
+              </div>
+              <p className="max-w-sm text-sm leading-7 text-gray-600 md:text-end">{COMPANY_INFO.address}</p>
+            </div>
+            <div className="map-wrapper overflow-hidden rounded-[2rem] border border-green-primary/10 bg-[#eaf4ed] shadow-[0_24px_60px_-34px_rgba(15,56,31,.5)]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3622.669959635035!2d46.7253173!3d24.7403836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f02174a53ce27%3A0x3c436a3d79042f2!2sPQM3%2B36%20Ar%20Rawdah%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1700000000000!5m2!1sen!2ssa"
+                src="https://www.google.com/maps?q=PQM3%2B36%20Ar%20Rawdah%2C%20Riyadh&output=embed"
                 width="100%"
                 height="350"
                 style={{ border: 0 }}

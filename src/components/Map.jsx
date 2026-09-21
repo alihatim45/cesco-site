@@ -2,7 +2,7 @@ import { COMPANY_INFO } from '../utils/constants'
 
 const Map = () => {
   // Google Maps embed URL for PQM3+36, Ar Rawdah, Riyadh
-  const mapUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.042546252315!2d46.763!3d24.760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sPQM3%2B36%20Ar%20Rawdah%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1234567890`
+  const mapUrl = 'https://www.google.com/maps?q=PQM3%2B36%20Ar%20Rawdah%2C%20Riyadh&output=embed'
 
   return (
     <div className="w-full">

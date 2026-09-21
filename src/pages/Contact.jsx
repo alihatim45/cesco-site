@@ -480,24 +480,10 @@ const Contact = () => {
                       theme="light"
                     />
                     {recaptchaError && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="form-error text-red-500 text-sm mt-2 text-center"
-                      >
-                        {recaptchaError}
-                      </motion.p>
+                      <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="form-error text-red-500 text-sm mt-2 text-center">{recaptchaError}</motion.p>
                     )}
                   </div>
-                ) : (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
-                    <p className="text-yellow-800 text-sm">
-                      {isRTL 
-                        ? '⚠️ تحذير: لم يتم إعداد reCAPTCHA. يرجى إضافة VITE_RECAPTCHA_SITE_KEY في ملف .env للحماية من الرسائل المزعجة.'
-                        : '⚠️ Warning: reCAPTCHA is not configured. Please add VITE_RECAPTCHA_SITE_KEY in .env file for spam protection.'}
-                    </p>
-                  </div>
-                )}
+                ) : null}
 
                 <button
                   type="submit"
@@ -536,12 +522,16 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-6xl mx-auto"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-              {t('contact.info.address')}
-            </h2>
-            <div className="map-wrapper rounded-3xl overflow-hidden shadow-xl">
+            <div className={`mb-8 flex flex-col gap-3 ${isRTL ? 'text-right' : 'text-left'} md:flex-row md:items-end md:justify-between`}>
+              <div>
+                <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.18em] text-green-primary"><span className="h-2 w-2 rounded-full bg-yellow-primary" /> {isRTL ? 'موقعنا' : 'FIND US'}</span>
+                <h2 className="mt-3 text-3xl font-black tracking-tight text-[#102d1c] md:text-5xl">{isRTL ? 'نحن قريبون من مشروعك' : 'Close to your next project'}</h2>
+              </div>
+              <p className="max-w-sm text-sm leading-7 text-gray-600 md:text-end">{isRTL ? COMPANY_INFO.address : COMPANY_INFO.address}</p>
+            </div>
+            <div className="map-wrapper overflow-hidden rounded-[2rem] border border-green-primary/10 bg-[#eaf4ed] shadow-[0_24px_60px_-34px_rgba(15,56,31,.5)]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3622.669959635035!2d46.7253173!3d24.7403836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f02174a53ce27%3A0x3c436a3d79042f2!2sPQM3%2B36%20Ar%20Rawdah%2C%20Riyadh!5e0!3m2!1sen!2ssa!4v1700000000000!5m2!1sen!2ssa"
+                src="https://www.google.com/maps?q=PQM3%2B36%20Ar%20Rawdah%2C%20Riyadh&output=embed"
                 width="100%"
                 height="350"
                 style={{ border: 0 }}
