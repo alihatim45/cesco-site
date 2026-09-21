@@ -436,14 +436,14 @@ const Calculator = () => {
                     <p className="text-sm text-gray-600 mt-1">{i18n.language === 'ar' ? 'أدخل القدرة والعدد وعدد ساعات التشغيل نهارًا وليلاً.' : 'Enter power, quantity, and operating hours for day and night.'}</p>
                   </div>
                   <div className="overflow-x-auto">
-                    <table className="min-w-[760px] md:min-w-0 w-full text-xs md:text-sm text-start">
-                      <thead><tr className="border-b border-green-primary/15 text-gray-600"><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'الحمل' : 'Load'}</th><th className="p-1 md:p-2">W</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'العدد' : 'Qty'}</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'ساعات النهار' : 'Day h'}</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'ساعات الليل' : 'Night h'}</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'طاقة النهار' : 'Day Wh'}</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'طاقة الليل' : 'Night Wh'}</th><th className="p-1 md:p-2">kW</th></tr></thead>
+                    <table className="min-w-0 w-full text-xs md:text-sm text-start">
+                      <thead><tr className="border-b border-green-primary/15 text-gray-600"><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'الحمل' : 'Load'}</th><th className="p-1 md:p-2">W</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'العدد' : 'Qty'}</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'ساعات النهار' : 'Day h'}</th><th className="p-1 md:p-2">{i18n.language === 'ar' ? 'ساعات الليل' : 'Night h'}</th></tr></thead>
                       <tbody>{form.loads.map((load, index) => { const power = Number(load.power) || 0; const qty = Number(load.quantity) || 0; const day = Number(load.dayHours) || 0; const night = Number(load.nightHours) || 0; return (
                         <tr key={load.id} className="border-b border-gray-100"><td className="p-1"><input type="text" value={load.name} onChange={(e) => setForm((prev) => ({ ...prev, loads: prev.loads.map((row, rowIndex) => rowIndex === index ? { ...row, name: e.target.value } : row) }))} placeholder={i18n.language === 'ar' ? `حمل ${index + 1}` : `Load ${index + 1}`} className="w-16 md:w-28 rounded-lg border border-gray-200 px-1 md:px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-green-primary" /></td>
                           {['power','quantity','dayHours','nightHours'].map((field) => <td key={field} className="p-1"><input type="number" min="0" step="any" value={load[field]} onChange={(e) => setForm((prev) => ({ ...prev, loads: prev.loads.map((row, rowIndex) => rowIndex === index ? { ...row, [field]: e.target.value } : row) }))} className="w-12 md:w-20 rounded-lg border border-gray-200 px-1 md:px-2 py-2 text-center focus:outline-none focus:ring-2 focus:ring-green-primary" /></td>)}
-                          <td className="p-1 md:p-2 text-gray-600">{power * qty * day}</td><td className="p-1 md:p-2 text-gray-600">{power * qty * night}</td><td className="p-1 md:p-2 font-semibold text-gray-800">{((power * qty) / 1000).toFixed(2)}</td></tr>
+                          </tr>
                       )})}</tbody>
-                      <tfoot><tr className="font-bold text-green-primary"><td className="p-1 md:p-2">{i18n.language === 'ar' ? 'الإجمالي' : 'Total'}</td><td colSpan="4"></td><td className="p-2">{form.loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0) * (Number(load.dayHours) || 0), 0)}</td><td className="p-2">{form.loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0) * (Number(load.nightHours) || 0), 0)}</td><td className="p-2">{(form.loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0), 0) / 1000).toFixed(2)}</td></tr></tfoot>
+                      <tfoot><tr className="font-bold text-green-primary"><td className="p-1 md:p-2">{i18n.language === 'ar' ? 'الإجمالي' : 'Total'}</td><td colSpan="4"></td></tr></tfoot>
                     </table>
                   </div>
                 </div>
@@ -535,15 +535,6 @@ const Calculator = () => {
                 <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
                   {t('calculator.results.title')}
                 </h2>
-
-                {results.isOffGridTable && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    {[{ label: i18n.language === 'ar' ? 'طاقة النهار' : 'Daytime energy', value: results.dayEnergyKwh, unit: 'kWh' }, { label: i18n.language === 'ar' ? 'طاقة الليل' : 'Nighttime energy', value: results.nightEnergyKwh, unit: 'kWh' }, { label: i18n.language === 'ar' ? 'إجمالي الأحمال' : 'Total load', value: results.totalLoadKw, unit: 'kW' }].map((item) => (
-                      <div key={item.label} className="rounded-2xl border border-green-primary/15 bg-white p-5 text-center shadow-sm"><div className="text-2xl font-bold text-green-primary">{fmt(item.value, 1)} <span className="text-sm">{item.unit}</span></div><div className="mt-2 text-sm text-gray-600">{item.label}</div></div>
-                    ))}
-                  </div>
-                )}
-
                 {results.isPump && (
                   <div className="mb-8 rounded-2xl border border-yellow-primary/30 bg-yellow-50 p-4 text-center text-gray-800">{i18n.language === 'ar' ? `حساب نظام مضخة بقدرة ${fmt(results.pumpHorsepower, 1)} حصان` : `Pump system calculation for ${fmt(results.pumpHorsepower, 1)} HP`}</div>
                 )}
@@ -721,6 +712,7 @@ const Calculator = () => {
 }
 
 export default Calculator
+
 
 
 
