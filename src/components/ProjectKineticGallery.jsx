@@ -21,8 +21,8 @@ export default function ProjectKineticGallery({ images }) {
         if (!stage) return
         const bounds = stage.getBoundingClientRect()
         const pointerX = event.clientX - bounds.left
-        const scale = bounds.width / 760
-        const centers = [-256, -128, 0, 128, 256].map((offset) => bounds.width / 2 + offset * scale)
+        const scale = bounds.width / 840
+        const centers = [-300, -150, 0, 150, 300].map((offset) => bounds.width / 2 + offset * scale)
         const nearest = centers.reduce((best, center, index) =>
           Math.abs(pointerX - center) < Math.abs(pointerX - centers[best]) ? index : best, 0)
         setActiveCard(nearest)
@@ -35,7 +35,7 @@ export default function ProjectKineticGallery({ images }) {
       <div className="cesco-project-gallery__stage">
         {cards.map((image, index) => {
           const offset = index - 2
-          const x = offset * 128
+          const x = offset * 150
           const z = -Math.abs(offset) * 18
           const rotate = offset * -10
           return (
@@ -65,6 +65,7 @@ export default function ProjectKineticGallery({ images }) {
     </div>
   )
 }
+
 
 
 
