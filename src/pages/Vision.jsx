@@ -76,36 +76,45 @@ const Vision = () => {
     <div className="w-full bg-[#f4f8f4]">
       <PageCinematicHero eyebrow={copy.badge} title={t('vision.title')} subtitle={copy.lead} primaryLabel={copy.ctaButton} primaryTo={ROUTES.contact} secondaryLabel={i18n.language === 'ar' ? 'شاهد مشاريعنا' : 'View our projects'} secondaryTo={ROUTES.projects} />
 
-      <section className="relative overflow-hidden bg-[#0d321f] py-20 md:py-28">
-        <div className="absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-green-primary/25 blur-3xl" />
-        <div className="container relative mx-auto px-4 md:px-6 lg:px-8">
-          <motion.div ref={statementRef} initial={{ opacity: 0, y: 38 }} animate={statementInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="mx-auto max-w-5xl rounded-[2rem] border border-white/10 bg-white/[0.07] p-8 backdrop-blur-sm md:p-12 lg:p-16">
-            <span className="text-sm font-bold tracking-wide text-yellow-primary">{copy.statementLabel}</span>
-            <h2 className="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.6] tracking-normal text-white md:text-[2.85rem]">{copy.statementTitle}</h2>
-            <p className="mt-7 max-w-4xl text-lg leading-9 text-green-50/80 md:text-xl">{copy.statement}</p>
+      <section className="relative overflow-hidden bg-[#0d321f] px-4 py-24 text-white md:py-32">
+        <div className="pointer-events-none absolute -left-40 bottom-0 h-[28rem] w-[28rem] rounded-full bg-green-primary/25 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 top-0 h-[28rem] w-[28rem] rounded-full bg-yellow-primary/10 blur-3xl" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[.7fr_1.3fr] lg:gap-24">
+          <motion.div ref={statementRef} initial={{ opacity: 0, x: -24 }} animate={statementInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7 }} className="relative">
+            <div className="text-[8rem] font-black leading-none tracking-[-0.08em] text-white/[0.06] md:text-[12rem]">01</div>
+            <div className="mt-[-2rem] flex items-center gap-3 md:mt-[-3rem]"><span className="h-px w-12 bg-yellow-primary" /><span className="text-xs font-bold tracking-[0.2em] text-yellow-primary">{copy.statementLabel}</span></div>
+            <p className="mt-6 max-w-xs text-sm leading-8 text-green-50/55">{i18n.language === 'ar' ? 'نصنع قرارات طاقة تمنح المنشآت وضوحاً أكبر ومساراً أكثر استدامة.' : 'We create energy decisions that give facilities greater clarity and a more sustainable path.'}</p>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: 25 }} animate={statementInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.75, delay: .12 }} className={i18n.language === 'ar' ? 'text-right' : 'text-left'}>
+            <h2 className="max-w-4xl text-4xl font-black leading-[1.45] tracking-tight md:text-6xl md:leading-[1.35]">{i18n.language === 'ar' ? <>نقود التحول إلى طاقة<br /><span className="text-yellow-primary">أكثر كفاءة وأثراً.</span></> : <>Leading the transition to<br /><span className="text-yellow-primary">more efficient energy.</span></>}</h2>
+            <p className="mt-8 max-w-3xl text-base leading-9 text-green-50/75 md:text-xl">{copy.statement}</p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-white/10 pt-6 text-xs font-bold tracking-[0.14em] text-green-50/40"><span>{i18n.language === 'ar' ? 'تصميم عملي' : 'PRACTICAL DESIGN'}</span><span>{i18n.language === 'ar' ? 'تنفيذ موثوق' : 'RELIABLE DELIVERY'}</span><span>{i18n.language === 'ar' ? 'أثر مستدام' : 'SUSTAINABLE IMPACT'}</span></div>
           </motion.div>
         </div>
-      </section>
-
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <motion.div ref={pillarRef} initial={{ opacity: 0, y: 25 }} animate={pillarInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-12 max-w-3xl">
-            <span className="text-sm font-bold text-green-primary">{copy.pillarsLabel}</span>
-            <h2 className="mt-3 text-3xl font-extrabold leading-tight text-gray-900 md:text-5xl">{copy.pillarsTitle}</h2>
+      </section>      <section className="relative overflow-hidden bg-[#f3f8f4] py-24 md:py-32">
+        <div className="pointer-events-none absolute -left-40 top-0 h-96 w-96 rounded-full bg-green-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-yellow-primary/10 blur-3xl" />
+        <div className="container relative mx-auto px-4 md:px-6 lg:px-8">
+          <motion.div ref={pillarRef} initial={{ opacity: 0, y: 25 }} animate={pillarInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mx-auto max-w-4xl text-center">
+            <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-green-primary"><span className="h-2 w-2 rounded-full bg-yellow-primary" /> {copy.pillarsLabel}</span>
+            <h2 className="mt-5 text-4xl font-black leading-[1.2] tracking-tight text-[#071b12] md:text-6xl">{i18n.language === 'ar' ? <>رؤية تتحول إلى<br /><span className="text-green-primary">أثر قابل للقياس.</span></> : <>A vision that becomes<br /><span className="text-green-primary">measurable impact.</span></>}</h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-gray-600 md:text-lg">{i18n.language === 'ar' ? 'نربط الاستراتيجية بالتنفيذ عبر ثلاث حركات واضحة: نصمم الحل، ننفذه بثقة، ثم نقيس أثره على مشروعك.' : 'We connect strategy to delivery through three clear moves: design the solution, deliver it with confidence, then measure its impact.'}</p>
           </motion.div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {copy.pillars.map((pillar, index) => { const Icon = icons[index]; return (
-              <motion.div key={pillar.title} initial={{ opacity: 0, y: 24 }} animate={pillarInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: index * 0.12 }} whileHover={{ y: -7 }} className="rounded-[1.75rem] border border-green-primary/10 bg-white p-7 shadow-[0_18px_42px_-32px_rgba(15,56,31,.4)] md:p-8">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-primary text-[#15321f]"><Icon size={32} /></div>
-                <h3 className="mt-7 text-2xl font-extrabold leading-tight text-gray-900">{pillar.title}</h3>
-                <p className="mt-4 leading-8 text-gray-600">{pillar.text}</p>
-              </motion.div>
-            )})}
+          <div className="relative mx-auto mt-16 max-w-6xl">
+            <div className="absolute start-[12%] end-[12%] top-9 hidden h-px bg-gradient-to-r from-transparent via-green-primary/45 to-transparent md:block" />
+            <div className="grid gap-5 md:grid-cols-3">
+              {copy.pillars.map((pillar, index) => { const Icon = icons[index]; return (
+                <motion.div key={pillar.title} initial={{ opacity: 0, y: 24 }} animate={pillarInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: index * 0.12 }} className="group relative rounded-[2rem] border border-green-primary/10 bg-white/90 p-7 shadow-[0_24px_55px_-35px_rgba(6,42,22,.55)] transition-all duration-300 hover:-translate-y-2 hover:border-yellow-primary/50 hover:shadow-[0_30px_65px_-36px_rgba(6,42,22,.7)] md:p-8">
+                  <div className="relative z-10 flex items-center justify-between"><div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0e2c1d] text-yellow-primary shadow-lg"><Icon size={29} /></div><span className="text-5xl font-black tracking-tight text-green-primary/10">0{index + 1}</span></div>
+                  <div className="mt-8 flex items-center gap-3"><span className="h-px w-8 bg-yellow-primary" /><span className="text-xs font-bold tracking-[0.16em] text-green-primary/60">{i18n.language === 'ar' ? ['الأثر', 'الشراكة', 'النمو'][index] : ['IMPACT', 'PARTNERSHIP', 'GROWTH'][index]}</span></div>
+                  <h3 className="mt-4 text-2xl font-black leading-tight text-[#071b12]">{pillar.title}</h3>
+                  <p className="mt-3 text-sm leading-8 text-gray-600 md:text-base">{pillar.text}</p>
+                </motion.div>
+              )})}
+            </div>
           </div>
         </div>
-      </section>
-
-      <section className="pb-20 md:pb-28">
+      </section>      <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div ref={journeyRef} initial={{ opacity: 0, y: 25 }} animate={journeyInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65 }} className="grid overflow-hidden rounded-[2rem] bg-[#153c27] shadow-[0_28px_56px_-34px_rgba(6,42,22,.6)] lg:grid-cols-[1.1fr_.9fr]">
             <div className="p-8 md:p-12">
@@ -132,6 +141,9 @@ const Vision = () => {
 }
 
 export default Vision
+
+
+
 
 
 

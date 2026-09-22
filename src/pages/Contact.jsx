@@ -237,108 +237,35 @@ const Contact = () => {
       </section>
 
       {/* Contact Information Block */}
-      <section className="py-24 bg-white">
+      <section className="bg-white py-20 md:py-28">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <motion.div
-            ref={infoRef}
-            initial={{ opacity: 0, y: 30 }}
-            animate={infoInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="contact-info-panel rounded-[2rem] bg-[#0e2c1d] p-8 md:p-12">
-              <h2 className="text-3xl font-extrabold text-white mb-8 text-center">
-                {t('contact.info.title')}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={infoInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="text-center p-6 bg-white/[0.08] rounded-2xl border border-white/10 backdrop-blur-sm"
-                >
-                  <svg
-                    className="w-12 h-12 mx-auto mb-4 text-green-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  <h3 className="font-semibold text-white mb-2">Email</h3>
-                  <a
-                    href={`mailto:${COMPANY_INFO.email}`}
-                    className="text-green-primary hover:underline"
-                  >
-                    {COMPANY_INFO.email}
-                  </a>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={infoInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-center p-6 bg-white/[0.08] rounded-2xl border border-white/10 backdrop-blur-sm"
-                >
-                  <svg
-                    className="w-12 h-12 mx-auto mb-4 text-green-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                  <h3 className="font-semibold text-white mb-2">Phone</h3>
-                  <a
-                    href={`tel:${COMPANY_INFO.phone}`}
-                    className="text-green-primary hover:underline"
-                  >
-                    {COMPANY_INFO.phone}
-                  </a>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={infoInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="text-center p-6 bg-white/[0.08] rounded-2xl border border-white/10 backdrop-blur-sm"
-                >
-                  <svg
-                    className="w-12 h-12 mx-auto mb-4 text-green-primary"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                  <h3 className="font-semibold text-white mb-2">Address</h3>
-                  <p className="text-green-50/70">{COMPANY_INFO.address}</p>
-                </motion.div>
+          <motion.div ref={infoRef} initial={{ opacity: 0, y: 30 }} animate={infoInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8 }} className="relative overflow-hidden rounded-[2.5rem] bg-[#0e2c1d] text-white shadow-[0_30px_70px_-35px_rgba(6,42,22,.7)]">
+            <div className="pointer-events-none absolute -right-28 -top-28 h-72 w-72 rounded-full bg-green-primary/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-yellow-primary/10 blur-3xl" />
+            <div className="relative grid lg:grid-cols-[1.05fr_.95fr]">
+              <div className={`p-8 md:p-12 lg:p-16 ${isRTL ? 'text-right' : 'text-left'}`}>
+                <span className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.22em] text-yellow-primary"><span className="h-2 w-2 rounded-full bg-yellow-primary" /> {isRTL ? 'لنبقَ على تواصل' : 'LET’S CONNECT'}</span>
+                <h2 className="mt-6 max-w-xl text-4xl font-black leading-[1.3] tracking-tight md:text-5xl md:leading-[1.28]">{isRTL ? <>فكرة واضحة.<br /><span className="text-yellow-primary">خطوة أقرب.</span></> : <>A clear idea.<br /><span className="text-yellow-primary">One step closer.</span></>}</h2>
+                <p className="mt-6 max-w-md text-base leading-8 text-green-50/65">{isRTL ? 'شاركنا احتياج منشأتك، وسيساعدك فريق CESCO في الوصول إلى الحل الأنسب.' : 'Tell us what your facility needs and the CESCO team will help shape the right solution.'}</p>
+                <div className="mt-12 flex items-center gap-3 text-xs font-semibold text-green-50/45"><span className="h-px w-12 bg-yellow-primary/60" /> CESCO SOLAR · RIYADH</div>
+              </div>
+              <div className="border-t border-white/10 p-8 md:p-12 lg:border-s lg:border-t-0 lg:p-16">
+                <div className="divide-y divide-white/10">
+                  <motion.a whileHover={{ x: isRTL ? -6 : 6 }} href={`mailto:${COMPANY_INFO.email}`} className="group flex items-center justify-between gap-5 py-6 first:pt-0">
+                    <div><span className="text-xs font-bold tracking-[0.18em] text-green-50/40">01 · {t('contact.info.email')}</span><strong className="mt-2 block text-lg text-white transition-colors group-hover:text-yellow-primary">{COMPANY_INFO.email}</strong></div><span className="text-2xl text-yellow-primary">↗</span>
+                  </motion.a>
+                  <motion.a whileHover={{ x: isRTL ? -6 : 6 }} href={`tel:${COMPANY_INFO.phone}`} className="group flex items-center justify-between gap-5 py-6">
+                    <div><span className="text-xs font-bold tracking-[0.18em] text-green-50/40">02 · {t('contact.info.phone')}</span><strong className="mt-2 block text-lg text-white transition-colors group-hover:text-yellow-primary">{COMPANY_INFO.phone}</strong></div><span className="text-2xl text-yellow-primary">↗</span>
+                  </motion.a>
+                  <motion.a whileHover={{ x: isRTL ? -6 : 6 }} href="https://www.google.com/maps/search/?api=1&query=PQM3%2B36%20Ar%20Rawdah%2C%20Riyadh" target="_blank" rel="noreferrer" className="group flex items-center justify-between gap-5 py-6 last:pb-0">
+                    <div><span className="text-xs font-bold tracking-[0.18em] text-green-50/40">03 · {t('contact.info.address')}</span><strong className="mt-2 block max-w-xs text-base leading-7 text-white transition-colors group-hover:text-yellow-primary">{COMPANY_INFO.address}</strong></div><span className="text-2xl text-yellow-primary">↗</span>
+                  </motion.a>
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
-
       {/* Start your project */}
       <section className="bg-white py-16 md:py-20">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -355,7 +282,7 @@ const Contact = () => {
         </div>
       </section>
       {/* Contact Form */}
-      <section className="py-24 bg-[#f3f7f3]">
+      <section className="relative overflow-hidden bg-[#eaf4ed] py-24">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <motion.div
             ref={formRef}
@@ -364,13 +291,14 @@ const Contact = () => {
             transition={{ duration: 0.8 }}
             className="max-w-2xl mx-auto"
           >
-            <div className="modern-surface bg-white rounded-[2rem] p-8 md:p-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+            <div className="contact-form-shell relative overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#0e2c1d] p-7 shadow-[0_30px_70px_-35px_rgba(6,42,22,.7)] md:p-12">
+              <h2 className="mb-3 text-center text-3xl font-black text-white md:text-4xl">
                 {t('contact.title')}
               </h2>
+              <p className="mb-8 text-center text-sm leading-7 text-green-50/60">{isRTL ? 'أرسل بياناتك وسيتواصل معك فريق CESCO بالخطوة المناسبة.' : 'Share your details and the CESCO team will guide you to the right next step.'}</p>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">
+                  <label className="form-label mb-2 block font-semibold text-green-50/85">
                     {t('contact.form.name')} <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -378,20 +306,20 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`form-input w-full px-4 py-3 rounded-lg border ${
-                      errors.name ? 'border-red-500' : 'border-gray-300'
-                    } focus:outline-none focus:ring-2 focus:ring-green-primary`}
+                    className={`form-input w-full rounded-xl border bg-white/[0.07] px-4 py-3.5 text-white placeholder:text-white/40 ${
+                      errors.name ? 'border-red-500' : 'border-white/15'
+                    } focus:outline-none focus:ring-2 focus:ring-yellow-primary/70 focus:border-yellow-primary/60`}
                     placeholder={t('contact.form.name')}
                   />
                   {errors.name && (
-                    <p className="form-error text-red-500 text-sm mt-1">
+                    <p className="form-error mt-1 text-sm text-red-300">
                       {errors.name}
                     </p>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">
+                  <label className="form-label mb-2 block font-semibold text-green-50/85">
                     {t('contact.form.email')} <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -400,19 +328,19 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     className={`form-input form-input-email w-full px-4 py-3 rounded-lg border ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
-                    } focus:outline-none focus:ring-2 focus:ring-green-primary`}
+                      errors.email ? 'border-red-500' : 'border-white/15'
+                    } focus:outline-none focus:ring-2 focus:ring-yellow-primary/70 focus:border-yellow-primary/60`}
                     placeholder={t('contact.form.email')}
                   />
                   {errors.email && (
-                    <p className="form-error text-red-500 text-sm mt-1">
+                    <p className="form-error mt-1 text-sm text-red-300">
                       {errors.email}
                     </p>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">
+                  <label className="form-label mb-2 block font-semibold text-green-50/85">
                     {t('contact.form.phone')} <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -420,20 +348,20 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className={`form-input w-full px-4 py-3 rounded-lg border ${
-                      errors.phone ? 'border-red-500' : 'border-gray-300'
-                    } focus:outline-none focus:ring-2 focus:ring-green-primary`}
+                    className={`form-input w-full rounded-xl border bg-white/[0.07] px-4 py-3.5 text-white placeholder:text-white/40 ${
+                      errors.phone ? 'border-red-500' : 'border-white/15'
+                    } focus:outline-none focus:ring-2 focus:ring-yellow-primary/70 focus:border-yellow-primary/60`}
                     placeholder={t('contact.form.phone')}
                   />
                   {errors.phone && (
-                    <p className="form-error text-red-500 text-sm mt-1">
+                    <p className="form-error mt-1 text-sm text-red-300">
                       {errors.phone}
                     </p>
                   )}
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">
+                  <label className="form-label mb-2 block font-semibold text-green-50/85">
                     {t('contact.form.establishment')} <span className="text-red-500">*</span>
                   </label>
                   <ModernSelect
@@ -447,7 +375,7 @@ const Contact = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">
+                  <label className="form-label mb-2 block font-semibold text-green-50/85">
                     {t('contact.form.message')} <span className="text-red-500">*</span>
                   </label>
                   <textarea
@@ -455,13 +383,13 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows="5"
-                    className={`form-input w-full px-4 py-3 rounded-lg border ${
-                      errors.message ? 'border-red-500' : 'border-gray-300'
-                    } focus:outline-none focus:ring-2 focus:ring-green-primary`}
+                    className={`form-input w-full rounded-xl border bg-white/[0.07] px-4 py-3.5 text-white placeholder:text-white/40 ${
+                      errors.message ? 'border-red-500' : 'border-white/15'
+                    } focus:outline-none focus:ring-2 focus:ring-yellow-primary/70 focus:border-yellow-primary/60`}
                     placeholder={t('contact.form.message')}
                   />
                   {errors.message && (
-                    <p className="form-error text-red-500 text-sm mt-1">
+                    <p className="form-error mt-1 text-sm text-red-300">
                       {errors.message}
                     </p>
                   )}
@@ -480,7 +408,7 @@ const Contact = () => {
                       theme="light"
                     />
                     {recaptchaError && (
-                      <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="form-error text-red-500 text-sm mt-2 text-center">{recaptchaError}</motion.p>
+                      <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="form-error mt-2 text-center text-sm text-red-300">{recaptchaError}</motion.p>
                     )}
                   </div>
                 ) : null}
@@ -488,7 +416,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting || !isFormValid}
-                  className={`w-full px-8 py-4 bg-green-primary text-white rounded-lg font-semibold text-lg transition-all duration-200 shadow-lg ${
+                  className={`w-full rounded-xl bg-yellow-primary px-8 py-4 text-lg font-bold text-[#15321f] shadow-lg shadow-yellow-primary/10 transition-all duration-200 ${
                     isSubmitting || !isFormValid
                       ? 'opacity-50 cursor-not-allowed'
                       : 'hover:bg-green-primary/90 hover:shadow-xl transform hover:scale-105'
@@ -547,5 +475,6 @@ const Contact = () => {
 }
 
 export default Contact
+
 
 
