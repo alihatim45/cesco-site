@@ -70,7 +70,9 @@ const PANEL_WATTAGE_W = 550
 
 // Engineer-approved preliminary price for agricultural, industrial, and commercial projects.
 // Storage and site-specific civil works are quoted separately.
-const ENGINEER_ESTIMATED_PRICE_PER_KW = 1500
+const PUMP_PRICE_PER_KW = 1500
+const OFF_GRID_PRICE_PER_KW = 4800
+const GRID_TIED_PRICE_PER_KW = 2200
 
 // Production constants
 const SYSTEM_EFFICIENCY = 0.8
@@ -78,7 +80,7 @@ const DAYS_PER_YEAR = 365
 
 // Secondary metrics. Pricing is intentionally not calculated: the approved
 // engineering workbook contains no price formula.
-const PANEL_AREA_M2 = 2.2
+const PANEL_AREA_M2 = 2.4 * 1.1164 * 1.35
 const CO2_KG_PER_KWH = 0.72
 const TREES_PER_TON_CO2 = 45
 const BATTERY_DOD = 0.8
@@ -97,7 +99,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
     const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
-    const estimatedSystemCostSAR = stationKw * ENGINEER_ESTIMATED_PRICE_PER_KW
+    const estimatedSystemCostSAR = stationKw * PUMP_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
     return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: numPanels * PANEL_AREA_M2, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
   }
@@ -113,7 +115,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
     const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
-    const estimatedSystemCostSAR = stationKw * ENGINEER_ESTIMATED_PRICE_PER_KW
+    const estimatedSystemCostSAR = stationKw * OFF_GRID_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
     return { monthlyKwh: totalWh * DAYS_PER_MONTH / 1000, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: numPanels * PANEL_AREA_M2, needsBattery: true, batteryKwh, dayEnergyKwh: dayWh / 1000, nightEnergyKwh: nightWh / 1000, totalLoadKw, isOffGridTable: true }
   }
@@ -129,7 +131,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
   const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
   const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
   const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
-  const estimatedSystemCostSAR = stationKw * ENGINEER_ESTIMATED_PRICE_PER_KW
+  const estimatedSystemCostSAR = stationKw * GRID_TIED_PRICE_PER_KW
   const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
   const treesEquiv = Math.round(co2TonYear * TREES_PER_TON_CO2)
   const areaM2 = numPanels * PANEL_AREA_M2
