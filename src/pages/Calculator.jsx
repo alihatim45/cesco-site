@@ -103,7 +103,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
     const estimatedSystemCostSAR = stationKw * PUMP_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
-    return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, dieselAnnualSavings: stationKw * PUMP_DIESEL_SAVING_FACTOR, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
+    return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, dieselAnnualSavings: horsepower * 0.746 * PUMP_DIESEL_SAVING_FACTOR, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
   }
 
   if (systemType === 'gridTied' && inputMode === 'loads' && loads.some((load) => Number(load.power) > 0 && Number(load.quantity) > 0)) {
