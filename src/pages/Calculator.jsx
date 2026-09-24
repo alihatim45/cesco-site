@@ -62,7 +62,7 @@ const CITIES = {
 // Engineering workbook assumptions (Sheet1, C33:G36 / G10:G13).
 const ENGINEERING_TARIFF_SAR_PER_KWH = 0.22
 const DAYS_PER_MONTH = 30
-const GRID_LOSS_MARGIN = 1.2
+const GRID_LOSS_MARGIN = 1.15
 const GRID_PEAK_SUN_HOURS = 6
 const OFF_GRID_LOSS_MARGIN = 1.3
 const OFF_GRID_PEAK_SUN_HOURS = 5
@@ -72,7 +72,7 @@ const PANEL_WATTAGE_W = 550
 // Storage and site-specific civil works are quoted separately.
 const PUMP_PRICE_PER_KW = 1500
 const OFF_GRID_PRICE_PER_KW = 4800
-const GRID_TIED_PRICE_PER_KW = 1800
+const GRID_TIED_PRICE_PER_KW = 2200
 
 // Production constants
 const SYSTEM_EFFICIENCY = 0.8
@@ -108,7 +108,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
   if (systemType === 'gridTied' && inputMode === 'loads' && loads.some((load) => Number(load.power) > 0 && Number(load.quantity) > 0)) {
     const totalWh = loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0) * (Number(load.dayHours) || 0), 0)
     const stationKw = ((totalWh / 1000) / GRID_PEAK_SUN_HOURS) * GRID_LOSS_MARGIN
-    const inverterKw = stationKw / 1.05
+    const inverterKw = stationKw * GRID_LOSS_MARGIN
     const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
     const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
@@ -140,7 +140,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
   const lossMargin = needsBattery ? OFF_GRID_LOSS_MARGIN : GRID_LOSS_MARGIN
   const peakSunHours = needsBattery ? OFF_GRID_PEAK_SUN_HOURS : GRID_PEAK_SUN_HOURS
   const stationKw = (dailyKwh * lossMargin) / peakSunHours
-  const inverterKw = needsBattery ? stationKw * OFF_GRID_LOSS_MARGIN : stationKw / 1.05
+  const inverterKw = needsBattery ? stationKw * OFF_GRID_LOSS_MARGIN : stationKw * GRID_LOSS_MARGIN
   const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
   const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
   const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
@@ -554,7 +554,7 @@ const Calculator = () => {
                 )}
 
                 {/* Primary metrics */}
-                <div className={`grid grid-cols-1 sm:grid-cols-2 ${results.needsBattery ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 mb-6`}>
+                <div className={`grid grid-cols-1 sm:grid-cols-2 ${results.needsBattery || results.isPump ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 mb-6`}>
                   <PrimaryCard
                     icon="bolt"
                     label={t('calculator.results.systemSize')}
@@ -573,7 +573,7 @@ const Calculator = () => {
                     locale={locale}
                     delay={0.1}
                   />
-                  {results.needsBattery && (
+                  {(results.needsBattery || results.isPump) && (
                     <PrimaryCard
                       icon="savings"
                       label={i18n.language === 'ar' ? 'التوفير السنوي المتوقع من الديزل' : 'Expected annual diesel savings'}
@@ -737,6 +737,8 @@ const Calculator = () => {
 }
 
 export default Calculator
+
+
 
 
 
