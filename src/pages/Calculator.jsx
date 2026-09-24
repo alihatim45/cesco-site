@@ -83,6 +83,7 @@ const DAYS_PER_YEAR = 365
 const PANEL_AREA_M2 = 2.4 * 1.1164 * 1.35
 const CO2_KG_PER_KWH = 0.72
 const TREES_PER_TON_CO2 = 45
+const DIESEL_SAVING_FACTOR = 0.8 * 6 * 0.35 * 1.8 * 365
 const BATTERY_DOD = 0.8
 // WhatsApp business number — same value as the floating WhatsAppButton component
 const WHATSAPP_PHONE = '966552277824'
@@ -101,7 +102,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
     const estimatedSystemCostSAR = stationKw * PUMP_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
-    return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
+    return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, dieselAnnualSavings: stationKw * DIESEL_SAVING_FACTOR, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
   }
 
   if (systemType === 'gridTied' && inputMode === 'loads' && loads.some((load) => Number(load.power) > 0 && Number(load.quantity) > 0)) {
@@ -129,7 +130,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
     const estimatedSystemCostSAR = stationKw * OFF_GRID_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
-    return { monthlyKwh: totalWh * DAYS_PER_MONTH / 1000, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, needsBattery: true, batteryKwh, dayEnergyKwh: dayWh / 1000, nightEnergyKwh: nightWh / 1000, totalLoadKw, isOffGridTable: true }
+    return { monthlyKwh: totalWh * DAYS_PER_MONTH / 1000, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, dieselAnnualSavings: stationKw * DIESEL_SAVING_FACTOR, needsBattery: true, batteryKwh, dayEnergyKwh: dayWh / 1000, nightEnergyKwh: nightWh / 1000, totalLoadKw, isOffGridTable: true }
   }
 
   // Workbook bill model: monthly bill ÷ 0.22 = monthly consumption in kWh.
@@ -351,7 +352,7 @@ const Calculator = () => {
   const toggleBase =
     'px-4 py-3 rounded-lg border-2 font-semibold transition-colors duration-200'
   const cardBase =
-    'px-4 py-4 rounded-xl border-2 font-semibold transition-all duration-200 text-center'
+    'px-4 py-4 rounded-2xl border font-semibold transition-all duration-200 text-center'
 
   return (
     <div className="w-full">
@@ -387,16 +388,14 @@ const Calculator = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={formInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
-            className={`modern-surface bg-white rounded-[2rem] p-8 md:p-10 mx-auto ${needsBattery ? 'max-w-6xl' : 'max-w-2xl'}`}
+            className={`relative mx-auto overflow-hidden rounded-[2.5rem] border border-green-primary/20 bg-[#0e2c1d] p-6 text-white shadow-[0_30px_80px_-38px_rgba(6,42,22,.8)] before:pointer-events-none before:absolute before:-right-24 before:-top-24 before:h-72 before:w-72 before:rounded-full before:bg-green-primary/15 before:blur-3xl md:p-10 ${needsBattery ? 'max-w-6xl' : 'max-w-2xl'}`}
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              {t('calculator.inputs.title')}
-            </h2>
+            <div className="relative z-10 mb-8 flex items-center justify-between border-b border-white/10 pb-5"><div><span className="text-xs font-bold tracking-[0.2em] text-yellow-primary">CESCO SOLAR</span><p className="mt-2 text-sm text-green-50/60">{i18n.language === 'ar' ? 'ابدأ من احتياج مشروعك' : 'Start with your project needs'}</p></div><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-yellow-primary text-[#0e2c1d]"><CalculatorIcon size={24} /></span></div>
 
-            <div className="space-y-6">
+            <div className="relative z-10 space-y-6">
               {/* Region */}
-              <div className="form-group">
-                <label className="form-label block text-gray-700 font-semibold mb-2">
+              <div className="form-group relative z-10">
+                <label className="form-label mb-2 block font-semibold text-green-50/75">
                   {t('calculator.inputs.city')}
                 </label>
                 <ModernSelect
@@ -408,22 +407,22 @@ const Calculator = () => {
                 />
               </div>
               {!needsBattery && !isPumpSystem && (<>
-                <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">{t('calculator.inputs.inputMode')}</label>
-                  <div className="grid grid-cols-2 gap-3">
+                <div className="form-group relative z-10">
+                  <label className="form-label mb-2 block font-semibold text-green-50/75">{t('calculator.inputs.inputMode')}</label>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     {[{ mode: 'bill', label: t('calculator.inputs.byBill') }, { mode: 'kwh', label: t('calculator.inputs.byKwh') }, ...(form.systemType === 'gridTied' ? [{ mode: 'loads', label: i18n.language === 'ar' ? 'جدول الأحمال' : 'Load table' }] : [])].map(({ mode, label }) => (
-                      <button key={mode} type="button" onClick={() => setForm((p) => ({ ...p, inputMode: mode }))} className={`${toggleBase} ${form.inputMode === mode ? 'bg-green-primary text-white border-green-primary' : 'bg-white text-gray-700 border-gray-300 hover:border-green-primary/50'}`}>{label}</button>
+                      <button key={mode} type="button" onClick={() => setForm((p) => ({ ...p, inputMode: mode }))} className={`${toggleBase} ${form.inputMode === mode ? 'bg-green-primary text-white border-green-primary' : 'bg-white text-[#123321] border-white/40 hover:border-yellow-primary'}`}>{label}</button>
                     ))}
                   </div>
                 </div>
-                <div className="form-group">
-                  <input type="number" min="0" inputMode="numeric" value={form.inputMode === 'bill' ? form.bill : form.kwh} onChange={(e) => setForm((p) => ({ ...p, [p.inputMode]: e.target.value }))} placeholder={form.inputMode === 'bill' ? t('calculator.inputs.billPlaceholder') : t('calculator.inputs.kwhPlaceholder')} className="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-primary" />
-                </div>
+                {form.inputMode !== 'loads' && <div className="form-group relative z-10">
+                  <input type="number" min="0" inputMode="numeric" value={form.inputMode === 'bill' ? form.bill : form.kwh} onChange={(e) => setForm((p) => ({ ...p, [p.inputMode]: e.target.value }))} placeholder={form.inputMode === 'bill' ? t('calculator.inputs.billPlaceholder') : t('calculator.inputs.kwhPlaceholder')} className="form-input w-full rounded-2xl border border-white/15 bg-white/95 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-primary" />
+                </div>}
               </>)}
 
               {/* System type */}
-              <div className="form-group">
-                <label className="form-label block text-gray-700 font-semibold mb-2">
+              <div className="form-group relative z-10">
+                <label className="form-label mb-2 block font-semibold text-green-50/75">
                   {t('calculator.inputs.systemType')}
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -435,7 +434,7 @@ const Calculator = () => {
                       className={`${cardBase} ${
                         form.systemType === st
                           ? 'border-green-primary bg-green-primary/5 text-green-primary'
-                          : 'border-gray-200 text-gray-700 hover:border-green-primary/40'
+                          : 'border-white/25 bg-white/[0.04] text-green-50/90 hover:border-yellow-primary/60 hover:bg-white/[0.09]'
                       }`}
                     >
                       {st === 'pumpSystem' ? (i18n.language === 'ar' ? 'نظام المضخة' : 'Pump system') : t(`calculator.inputs.${st}`)}
@@ -447,7 +446,7 @@ const Calculator = () => {
               {(needsBattery || (form.systemType === 'gridTied' && form.inputMode === 'loads')) && (
                 <div className="rounded-2xl border border-green-primary/15 bg-green-50/40 p-4 space-y-3">
                   <div>
-                    <h3 className="font-bold text-gray-900">{i18n.language === 'ar' ? 'جدول الأحمال' : 'Load table'}</h3>
+                    <h3 className="font-bold text-white">{i18n.language === 'ar' ? 'جدول الأحمال' : 'Load table'}</h3>
                     <p className="text-sm text-gray-600 mt-1">{i18n.language === 'ar' ? 'أدخل القدرة والعدد وعدد ساعات التشغيل نهارًا وليلاً.' : 'Enter power, quantity, and operating hours for day and night.'}</p>
                   </div>
                   <div className="overflow-x-auto">
@@ -465,8 +464,8 @@ const Calculator = () => {
               )}
 
               {isPumpSystem && (
-                <div className="form-group">
-                  <label className="form-label block text-gray-700 font-semibold mb-2">{i18n.language === 'ar' ? 'قدرة المضخة بالحصان' : 'Pump horsepower'}</label>
+                <div className="form-group relative z-10">
+                  <label className="form-label mb-2 block font-semibold text-green-50/75">{i18n.language === 'ar' ? 'قدرة المضخة بالحصان' : 'Pump horsepower'}</label>
                   <input type="number" min="0" step="any" value={form.pumpHorsepower} onChange={(e) => setForm((p) => ({ ...p, pumpHorsepower: e.target.value }))} placeholder={i18n.language === 'ar' ? 'مثال: 10' : 'Example: 10'} className="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-primary" />
                 </div>
               )}
@@ -480,7 +479,7 @@ const Calculator = () => {
                     exit={{ opacity: 0, height: 0 }}
                     className="form-group overflow-hidden"
                   >
-                    <label className="form-label block text-gray-700 font-semibold mb-2">
+                    <label className="form-label mb-2 block font-semibold text-green-50/75">
                       {t('calculator.inputs.backupHours')}: {form.backupHours}
                     </label>
                     <input
@@ -555,7 +554,7 @@ const Calculator = () => {
                 )}
 
                 {/* Primary metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <div className={`grid grid-cols-1 sm:grid-cols-2 ${results.needsBattery ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 mb-6`}>
                   <PrimaryCard
                     icon="bolt"
                     label={t('calculator.results.systemSize')}
@@ -574,6 +573,17 @@ const Calculator = () => {
                     locale={locale}
                     delay={0.1}
                   />
+                  {results.needsBattery && (
+                    <PrimaryCard
+                      icon="savings"
+                      label={i18n.language === 'ar' ? 'التوفير السنوي المتوقع من الديزل' : 'Expected annual diesel savings'}
+                      value={results.dieselAnnualSavings}
+                      decimals={0}
+                      unit={t('calculator.results.sar')}
+                      locale={locale}
+                      delay={0.2}
+                    />
+                  )}
                   <PrimaryCard
                     icon="savings"
                     label={t('calculator.results.annualSavings')}
@@ -727,6 +737,8 @@ const Calculator = () => {
 }
 
 export default Calculator
+
+
 
 
 
