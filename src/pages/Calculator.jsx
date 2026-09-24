@@ -62,17 +62,17 @@ const CITIES = {
 // Engineering workbook assumptions (Sheet1, C33:G36 / G10:G13).
 const ENGINEERING_TARIFF_SAR_PER_KWH = 0.22
 const DAYS_PER_MONTH = 30
-const GRID_LOSS_MARGIN = 1.15
+const GRID_LOSS_MARGIN = 1.2
 const GRID_PEAK_SUN_HOURS = 6
 const OFF_GRID_LOSS_MARGIN = 1.3
-const OFF_GRID_PEAK_SUN_HOURS = 4
+const OFF_GRID_PEAK_SUN_HOURS = 5
 const PANEL_WATTAGE_W = 550
 
 // Engineer-approved preliminary price for agricultural, industrial, and commercial projects.
 // Storage and site-specific civil works are quoted separately.
 const PUMP_PRICE_PER_KW = 1500
 const OFF_GRID_PRICE_PER_KW = 4800
-const GRID_TIED_PRICE_PER_KW = 2200
+const GRID_TIED_PRICE_PER_KW = 1800
 
 // Production constants
 const SYSTEM_EFFICIENCY = 0.8
@@ -101,9 +101,21 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
     const estimatedSystemCostSAR = stationKw * PUMP_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
-    return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: numPanels * PANEL_AREA_M2, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
+    return { monthlyKwh: annualKwh / 12, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, needsBattery: false, batteryKwh: 0, isPump: true, pumpHorsepower: horsepower }
   }
 
+  if (systemType === 'gridTied' && inputMode === 'loads' && loads.some((load) => Number(load.power) > 0 && Number(load.quantity) > 0)) {
+    const totalWh = loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0) * (Number(load.dayHours) || 0), 0)
+    const stationKw = ((totalWh / 1000) / GRID_PEAK_SUN_HOURS) * GRID_LOSS_MARGIN
+    const inverterKw = stationKw / 1.05
+    const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
+    const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
+    const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
+    const estimatedSystemCostSAR = stationKw * GRID_TIED_PRICE_PER_KW
+    const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
+    const totalLoadKw = loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0), 0) / 1000
+    return { monthlyKwh: totalWh * DAYS_PER_MONTH / 1000, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: numPanels * PANEL_AREA_M2, needsBattery: false, totalLoadKw, isGridLoadTable: true }
+  }
   if (systemType === 'offGrid' && loads.some((load) => Number(load.power) > 0 && Number(load.quantity) > 0)) {
     const dayWh = loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0) * (Number(load.dayHours) || 0), 0)
     const nightWh = loads.reduce((sum, load) => sum + (Number(load.power) || 0) * (Number(load.quantity) || 0) * (Number(load.nightHours) || 0), 0)
@@ -117,7 +129,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
     const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
     const estimatedSystemCostSAR = stationKw * OFF_GRID_PRICE_PER_KW
     const co2TonYear = (annualKwh * CO2_KG_PER_KWH) / 1000
-    return { monthlyKwh: totalWh * DAYS_PER_MONTH / 1000, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: numPanels * PANEL_AREA_M2, needsBattery: true, batteryKwh, dayEnergyKwh: dayWh / 1000, nightEnergyKwh: nightWh / 1000, totalLoadKw, isOffGridTable: true }
+    return { monthlyKwh: totalWh * DAYS_PER_MONTH / 1000, actualKw: stationKw, numPanels, inverterKw, annualKwh, annualSavings, estimatedSystemCostSAR, co2TonYear, treesEquiv: Math.round(co2TonYear * TREES_PER_TON_CO2), areaM2: stationKw * 6.625 * 1.2, needsBattery: true, batteryKwh, dayEnergyKwh: dayWh / 1000, nightEnergyKwh: nightWh / 1000, totalLoadKw, isOffGridTable: true }
   }
 
   // Workbook bill model: monthly bill ÷ 0.22 = monthly consumption in kWh.
@@ -127,7 +139,7 @@ const computeResults = ({ systemType, backupHours, inputMode, value, pumpHorsepo
   const lossMargin = needsBattery ? OFF_GRID_LOSS_MARGIN : GRID_LOSS_MARGIN
   const peakSunHours = needsBattery ? OFF_GRID_PEAK_SUN_HOURS : GRID_PEAK_SUN_HOURS
   const stationKw = (dailyKwh * lossMargin) / peakSunHours
-  const inverterKw = needsBattery ? stationKw * OFF_GRID_LOSS_MARGIN : stationKw * GRID_LOSS_MARGIN
+  const inverterKw = needsBattery ? stationKw * OFF_GRID_LOSS_MARGIN : stationKw / 1.05
   const numPanels = Math.ceil((stationKw * 1000) / PANEL_WATTAGE_W)
   const annualKwh = stationKw * SYSTEM_EFFICIENCY * GRID_PEAK_SUN_HOURS * DAYS_PER_YEAR
   const annualSavings = annualKwh * ENGINEERING_TARIFF_SAR_PER_KWH
@@ -288,11 +300,12 @@ const Calculator = () => {
   const systemTypes = ['gridTied', 'offGrid', 'pumpSystem']
 
   const handleCalculate = () => {
-    const raw = form.inputMode === 'bill' ? form.bill : form.kwh
+    const raw = form.inputMode === 'bill' ? form.bill : form.inputMode === 'kwh' ? form.kwh : '1'
     const num = parseFloat(raw)
-    const invalidStandard = !raw || Number.isNaN(num) || num <= 0
+    const invalidStandard = form.inputMode !== 'loads' && (!raw || Number.isNaN(num) || num <= 0)
     const invalidPump = isPumpSystem && (!form.pumpHorsepower || Number(form.pumpHorsepower) <= 0)
-    const invalidLoads = needsBattery && form.loads.every((load) => !(Number(load.power) > 0 && Number(load.quantity) > 0))
+    const usesLoadTable = needsBattery || (form.systemType === 'gridTied' && form.inputMode === 'loads')
+    const invalidLoads = usesLoadTable && form.loads.every((load) => !(Number(load.power) > 0 && Number(load.quantity) > 0))
     if ((!isPumpSystem && !needsBattery && invalidStandard) || invalidPump || invalidLoads) {
       setError(i18n.language === 'ar' ? 'أدخل بيانات الأحمال أو قدرة المضخة المطلوبة.' : 'Enter the required load or pump data.')
       setResults(null)
@@ -398,7 +411,7 @@ const Calculator = () => {
                 <div className="form-group">
                   <label className="form-label block text-gray-700 font-semibold mb-2">{t('calculator.inputs.inputMode')}</label>
                   <div className="grid grid-cols-2 gap-3">
-                    {[{ mode: 'bill', label: t('calculator.inputs.byBill') }, { mode: 'kwh', label: t('calculator.inputs.byKwh') }].map(({ mode, label }) => (
+                    {[{ mode: 'bill', label: t('calculator.inputs.byBill') }, { mode: 'kwh', label: t('calculator.inputs.byKwh') }, ...(form.systemType === 'gridTied' ? [{ mode: 'loads', label: i18n.language === 'ar' ? 'جدول الأحمال' : 'Load table' }] : [])].map(({ mode, label }) => (
                       <button key={mode} type="button" onClick={() => setForm((p) => ({ ...p, inputMode: mode }))} className={`${toggleBase} ${form.inputMode === mode ? 'bg-green-primary text-white border-green-primary' : 'bg-white text-gray-700 border-gray-300 hover:border-green-primary/50'}`}>{label}</button>
                     ))}
                   </div>
@@ -431,7 +444,7 @@ const Calculator = () => {
                 </div>
               </div>
 
-              {needsBattery && (
+              {(needsBattery || (form.systemType === 'gridTied' && form.inputMode === 'loads')) && (
                 <div className="rounded-2xl border border-green-primary/15 bg-green-50/40 p-4 space-y-3">
                   <div>
                     <h3 className="font-bold text-gray-900">{i18n.language === 'ar' ? 'جدول الأحمال' : 'Load table'}</h3>
@@ -714,6 +727,10 @@ const Calculator = () => {
 }
 
 export default Calculator
+
+
+
+
 
 
 
