@@ -413,17 +413,33 @@ const Contact = () => {
                   </div>
                 ) : null}
 
-                <button
+                <motion.button
                   type="submit"
                   disabled={isSubmitting || !isFormValid}
-                  className={`w-full rounded-xl bg-yellow-primary px-8 py-4 text-lg font-bold text-[#15321f] shadow-lg shadow-yellow-primary/10 transition-all duration-200 ${
+                  whileHover={!isSubmitting && isFormValid ? { scale: 1.03, y: -2 } : undefined}
+                  whileTap={!isSubmitting && isFormValid ? { scale: 0.98 } : undefined}
+                  transition={{ type: 'spring', stiffness: 420, damping: 22 }}
+                  className={`contact-submit-motion relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl bg-yellow-primary px-8 py-4 text-lg font-bold text-[#15321f] shadow-lg shadow-yellow-primary/10 transition-colors duration-300 ${
                     isSubmitting || !isFormValid
                       ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:bg-green-primary/90 hover:shadow-xl transform hover:scale-105'
+                      : 'hover:bg-green-primary/90 hover:shadow-xl'
                   }`}
                 >
-                  {isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}
-                </button>
+                  <motion.span
+                    key={isSubmitting ? 'sending' : 'idle'}
+                    initial={{ opacity: 0, y: 8, scale: 0.88 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 24 }}
+                    className="inline-flex items-center gap-3"
+                  >
+                    <span className={`contact-submit-icon ${isSubmitting ? 'is-sending' : ''}`} aria-hidden="true">
+                      <span className="contact-submit-icon__paper" />
+                      <span className="contact-submit-icon__seal" />
+                    </span>
+                    <span>{isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}</span>
+                  </motion.span>
+                  {isSubmitting && <span className="contact-submit-dots" aria-hidden="true"><i /><i /><i /></span>}
+                </motion.button>
 
                 {submitStatus === 'success' && (
                   <motion.div
@@ -475,6 +491,7 @@ const Contact = () => {
 }
 
 export default Contact
+
 
 
 

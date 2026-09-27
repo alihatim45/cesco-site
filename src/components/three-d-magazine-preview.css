@@ -1,0 +1,26 @@
+.three-d-magazine { margin: 0 0 52px; padding: 28px; border: 1px solid rgba(24,91,49,.12); border-radius: 30px; background: linear-gradient(135deg,#f7fbf8,#eaf3ed); overflow: hidden; }
+.three-d-magazine__heading, .three-d-magazine__controls { display:flex; align-items:center; justify-content:space-between; gap:18px; }
+.three-d-magazine__heading { color:#6b7e72; font-size:11px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+.three-d-magazine__heading small { color:#198f4a; font-weight:900; }
+.three-d-magazine__stage { position:relative; display:grid; place-items:center; min-height:520px; perspective:1600px; }
+.three-d-magazine__shadow { position:absolute; width:min(70%,560px); height:50px; bottom:58px; border-radius:50%; background:rgba(16,55,31,.2); filter:blur(24px); transform:rotateX(68deg); }
+.three-d-magazine__book { position:relative; width:min(78%,620px); aspect-ratio:4/3; transform:rotateX(8deg) rotateY(-8deg) rotateZ(-1deg); transform-style:preserve-3d; transition:transform .4s ease; }
+.three-d-magazine__book:hover { transform:rotateX(5deg) rotateY(-13deg) rotateZ(-1deg) translateY(-5px); }
+.three-d-magazine__spine { display:none; position:absolute; z-index:2; top:0; bottom:0; left:50%; width:12px; transform:translateX(-50%); background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(255,255,255,.45),rgba(0,0,0,.18)); box-shadow:0 0 14px rgba(0,0,0,.2); }
+.three-d-magazine__page { position:absolute; inset:0; overflow:hidden; border:10px solid #f9fbf7; border-radius:8px 18px 18px 8px; background:#163b25; box-shadow:18px 20px 30px rgba(11,50,26,.25), inset 0 0 0 1px rgba(255,255,255,.3); transform-origin:left center; transform-style:preserve-3d; cursor:pointer; }
+.three-d-magazine__page::after { content:''; position:absolute; inset:0; background:linear-gradient(120deg,rgba(255,255,255,.25),transparent 34%,transparent 72%,rgba(0,0,0,.25)); pointer-events:none; }
+.three-d-magazine__page img { display:block; width:100%; height:100%; object-fit:cover; }
+.three-d-magazine__page-meta { position:absolute; right:18px; bottom:16px; left:18px; display:flex; justify-content:space-between; color:#fff; font-size:12px; font-weight:800; text-shadow:0 2px 8px rgba(0,0,0,.7); }
+.three-d-magazine__controls { padding-top:4px; }
+.three-d-magazine__controls button { display:grid; place-items:center; width:44px; height:44px; border:1px solid rgba(25,143,74,.28); border-radius:50%; color:#123b24; font-size:22px; transition:background .2s,color .2s,transform .2s; }
+.three-d-magazine__controls button:hover { background:#198f4a; color:#fff; transform:scale(1.08); }
+.three-d-magazine__controls div { text-align:center; }
+.three-d-magazine__controls strong { display:block; color:#163b25; font-size:16px; }
+.three-d-magazine__controls span { display:block; margin-top:4px; color:#6b7e72; font-size:12px; }
+.three-d-magazine__rail { display:flex; gap:8px; overflow:auto; margin-top:22px; padding-bottom:4px; }
+.three-d-magazine__rail button { flex:0 0 72px; height:48px; padding:0; overflow:hidden; border:2px solid transparent; border-radius:8px; opacity:.55; transition:opacity .2s,border-color .2s,transform .2s; }
+.three-d-magazine__rail button:hover, .three-d-magazine__rail button.is-active { border-color:#f7b500; opacity:1; transform:translateY(-2px); }
+.three-d-magazine__rail img { width:100%; height:100%; object-fit:cover; }
+@media (max-width:640px) { .three-d-magazine { padding:18px; border-radius:22px; } .three-d-magazine__stage { min-height:320px; } .three-d-magazine__book { width:92%; } .three-d-magazine__page { border-width:6px; } .three-d-magazine__controls strong { font-size:13px; } .three-d-magazine__controls span { font-size:10px; } }
+
+
